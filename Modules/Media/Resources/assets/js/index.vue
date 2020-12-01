@@ -158,7 +158,7 @@
           </sui-table-row>
         </sui-table-header>
         <TableRow
-          v-for="list in tableList"
+          v-for="list in filteredTable ? filteredTable : tableList"
           v-bind:key="list.id"
           v-bind:list="list"
           v-bind:idTableColumn="idTableColumn"
@@ -217,7 +217,7 @@ export default {
       updatedTableColumn: false,
 
       // Data from database
-      tableList: {},
+      tableList: [],
 
       // Show Modal
       modal: false,
@@ -233,6 +233,13 @@ export default {
       // filter
       inputFilterName: "",
     };
+  },
+  computed: {
+    filteredTable: function() {
+      return this.tableList.filter((t) => {
+        return t.name.match(this.inputFilterName);
+      });
+    },
   },
   methods: {
     showIdTableColumn() {
@@ -289,13 +296,6 @@ export default {
     },
     onInputFilterName() {
       console.log(this.inputFilterName);
-      // if (this.inputFilterName !== 0) {
-      //   let newTableList = _.filter(
-      //     this.tableList,
-      //     (t) => t.name.indexOf(this.inputFilterName) > 0
-      //   );
-      //   this.tableList = newTableList;
-      // }
     },
     orderByTableListId() {
       this.sortTableListName = false;

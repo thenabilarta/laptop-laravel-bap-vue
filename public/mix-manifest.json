@@ -1,3 +1,4 @@
 {
-    "/modules/media/js/media.js": "/modules/media/js/media.js"
+    "/modules/media/js/media.js": "/modules/media/js/media.js",
+    "/modules/display/js/display.js": "/modules/display/js/display.js"
 }

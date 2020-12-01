@@ -14,3 +14,7 @@ let mix = require("laravel-mix");
 mix.disableNotifications();
 
 mix.js("modules/media/resources/assets/js/media.js", "public/modules/media/js");
+mix.js(
+  "modules/display/resources/assets/js/display.js",
+  "public/modules/display/js"
+);

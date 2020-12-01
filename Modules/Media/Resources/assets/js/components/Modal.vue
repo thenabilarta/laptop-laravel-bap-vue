@@ -45,7 +45,7 @@
           ref="file"
           multiple
         />
-        <sui-button primary @click="formSubmit">Upload All</sui-button>
+        <sui-button primary @click="uploadMultiple">Upload All</sui-button>
         <sui-button color="yellow">Cancel All</sui-button>
       </div>
     </div>
@@ -85,6 +85,7 @@ export default {
     },
     closeModal() {
       this.$emit("closeModal");
+      this.file = [];
     },
     onFileChange(e) {
       let i = 0;
@@ -149,46 +150,11 @@ export default {
           }
         });
     },
-    uploadImages() {
-      const promises = Array.from(this.file).map((f, index) => {
-        f.uploadResult = null;
-        f.status = "uploading";
-        console.log("Uploading " + f);
-        let formData = new FormData();
-        formData.append("file", f.fileAttr);
-        formData.append(
-          "fileName",
-          f.fileInputName ? f.fileInputName : f.fileName
-        );
-        const config = {
-          headers: {
-            "content-type": "multipart/form-data",
-            onUploadProgress: function(progressEvent) {
-              f.uploadPercentage = parseInt(
-                Math.round(progressEvent.loaded / progressEvent.total) * 100
-              );
-            }.bind(f),
-          },
-        };
-        axios
-          .post("http://127.0.0.1:8000/media", formData, config)
-          .then((this.uploading = true))
-          .then((response) => {
-            console.log(response.data);
-            if (response.data.status === "ok") {
-              f.uploadResult = "success";
-            } else {
-              f.uploadResult = "error";
-              f.uploadError = true;
-              f.status = "error";
-              f.uploadPercentage = 0;
-            }
-          });
+
+    async uploadMultiple() {
+      await this.file.forEach((f) => {
+        this.uploadSingle(f);
       });
-      return Promise.all(promises);
-    },
-    async formSubmit() {
-      await this.uploadImages();
     },
   },
 };

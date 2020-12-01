@@ -1,20 +1,23 @@
 <template>
   <sui-table-body>
     <sui-table-row v-if="list">
-      <sui-table-cell>{{ list.media_id }}</sui-table-cell>
+      <sui-table-cell v-if="idTableColumn">{{ list.media_id }}</sui-table-cell>
       <sui-table-cell v-if="nameTableColumn">{{ list.name }}</sui-table-cell>
-      <sui-table-cell class="td-table-image">
+      <sui-table-cell v-if="typeTableColumn">{{ list.type }}</sui-table-cell>
+      <sui-table-cell class="td-table-image" v-if="thumbnailTableColumn">
         <img
           class="table-image"
           :src="`/storage/uploads/${list.file_name}`"
           alt=""
         />
       </sui-table-cell>
-      <sui-table-cell>{{ list.duration }}</sui-table-cell>
-      <sui-table-cell>{{ list.size }}</sui-table-cell>
-      <sui-table-cell>Admin</sui-table-cell>
-      <sui-table-cell>Null</sui-table-cell>
-      <sui-table-cell>{{ list.file_name }}</sui-table-cell>
+      <sui-table-cell v-if="durationTableColumn">{{ list.duration }}</sui-table-cell>
+      <sui-table-cell v-if="sizeTableColumn">{{ list.size }}</sui-table-cell>
+      <sui-table-cell v-if="ownerTableColumn">Admin</sui-table-cell>
+      <sui-table-cell v-if="permissionTableColumn">Null</sui-table-cell>
+      <sui-table-cell v-if="fileNameTableColumn">{{ list.file_name }}</sui-table-cell>
+      <sui-table-cell v-if="createdTableColumn">{{ list.created_at }}</sui-table-cell>
+      <sui-table-cell v-if="updatedTableColumn">{{ list.updated_at }}</sui-table-cell>
       <sui-table-cell>
         <sui-dropdown floating>
           <sui-dropdown-menu>
@@ -53,7 +56,17 @@ export default {
   props: {
     list: Object,
     index: Number,
+    idTableColumn: Boolean,
     nameTableColumn: Boolean,
+    typeTableColumn: Boolean,
+    thumbnailTableColumn: Boolean,
+    durationTableColumn: Boolean,
+    sizeTableColumn: Boolean,
+    ownerTableColumn: Boolean,
+    permissionTableColumn: Boolean,
+    fileNameTableColumn: Boolean,
+    createdTableColumn: Boolean,
+    updatedTableColumn: Boolean,
   },
   data() {
     return {

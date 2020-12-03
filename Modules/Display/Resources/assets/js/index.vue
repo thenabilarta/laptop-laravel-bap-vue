@@ -117,7 +117,9 @@
               list.loggedIn === 1 ? "true" : "false"
             }}</sui-table-cell>
             <sui-table-cell>{{ list.defaultLayout }}</sui-table-cell>
-            <sui-table-cell>{{ list.lastAccessed }}</sui-table-cell>
+            <sui-table-cell>{{
+              new Date(list.lastAccessed * 1000).toLocaleDateString("id-ID")
+            }}</sui-table-cell>
             <sui-table-cell>{{ list.clientAddress }}</sui-table-cell>
             <sui-table-cell>
               <sui-dropdown floating pointing="top right">

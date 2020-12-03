@@ -1,0 +1,16 @@
+{
+    "name": "Debug",
+    "alias": "debug",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\Debug\\Providers\\DebugServiceProvider"
+    ],
+    "aliases": {},
+    "files": [
+        "start.php"
+    ],
+    "requires": []
+}

@@ -601,106 +601,6 @@ module.exports = __webpack_require__(16);
 /* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {
-
-var utils = __webpack_require__(0);
-var normalizeHeaderName = __webpack_require__(19);
-
-var DEFAULT_CONTENT_TYPE = {
-  'Content-Type': 'application/x-www-form-urlencoded'
-};
-
-function setContentTypeIfUnset(headers, value) {
-  if (!utils.isUndefined(headers) && utils.isUndefined(headers['Content-Type'])) {
-    headers['Content-Type'] = value;
-  }
-}
-
-function getDefaultAdapter() {
-  var adapter;
-  if (typeof XMLHttpRequest !== 'undefined') {
-    // For browsers use XHR adapter
-    adapter = __webpack_require__(10);
-  } else if (typeof process !== 'undefined') {
-    // For node use HTTP adapter
-    adapter = __webpack_require__(10);
-  }
-  return adapter;
-}
-
-var defaults = {
-  adapter: getDefaultAdapter(),
-
-  transformRequest: [function transformRequest(data, headers) {
-    normalizeHeaderName(headers, 'Content-Type');
-    if (utils.isFormData(data) ||
-      utils.isArrayBuffer(data) ||
-      utils.isBuffer(data) ||
-      utils.isStream(data) ||
-      utils.isFile(data) ||
-      utils.isBlob(data)
-    ) {
-      return data;
-    }
-    if (utils.isArrayBufferView(data)) {
-      return data.buffer;
-    }
-    if (utils.isURLSearchParams(data)) {
-      setContentTypeIfUnset(headers, 'application/x-www-form-urlencoded;charset=utf-8');
-      return data.toString();
-    }
-    if (utils.isObject(data)) {
-      setContentTypeIfUnset(headers, 'application/json;charset=utf-8');
-      return JSON.stringify(data);
-    }
-    return data;
-  }],
-
-  transformResponse: [function transformResponse(data) {
-    /*eslint no-param-reassign:0*/
-    if (typeof data === 'string') {
-      try {
-        data = JSON.parse(data);
-      } catch (e) { /* Ignore */ }
-    }
-    return data;
-  }],
-
-  timeout: 0,
-
-  xsrfCookieName: 'XSRF-TOKEN',
-  xsrfHeaderName: 'X-XSRF-TOKEN',
-
-  maxContentLength: -1,
-
-  validateStatus: function validateStatus(status) {
-    return status >= 200 && status < 300;
-  }
-};
-
-defaults.headers = {
-  common: {
-    'Accept': 'application/json, text/plain, */*'
-  }
-};
-
-utils.forEach(['delete', 'get', 'head'], function forEachMethodNoData(method) {
-  defaults.headers[method] = {};
-});
-
-utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
-  defaults.headers[method] = utils.merge(DEFAULT_CONTENT_TYPE);
-});
-
-module.exports = defaults;
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
 /*
 	MIT License http://www.opensource.org/licenses/mit-license.php
 	Author Tobias Koppers @sokra
@@ -1055,6 +955,106 @@ function updateLink (link, options, obj) {
 	if(oldSrc) URL.revokeObjectURL(oldSrc);
 }
 
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+
+var utils = __webpack_require__(0);
+var normalizeHeaderName = __webpack_require__(19);
+
+var DEFAULT_CONTENT_TYPE = {
+  'Content-Type': 'application/x-www-form-urlencoded'
+};
+
+function setContentTypeIfUnset(headers, value) {
+  if (!utils.isUndefined(headers) && utils.isUndefined(headers['Content-Type'])) {
+    headers['Content-Type'] = value;
+  }
+}
+
+function getDefaultAdapter() {
+  var adapter;
+  if (typeof XMLHttpRequest !== 'undefined') {
+    // For browsers use XHR adapter
+    adapter = __webpack_require__(10);
+  } else if (typeof process !== 'undefined') {
+    // For node use HTTP adapter
+    adapter = __webpack_require__(10);
+  }
+  return adapter;
+}
+
+var defaults = {
+  adapter: getDefaultAdapter(),
+
+  transformRequest: [function transformRequest(data, headers) {
+    normalizeHeaderName(headers, 'Content-Type');
+    if (utils.isFormData(data) ||
+      utils.isArrayBuffer(data) ||
+      utils.isBuffer(data) ||
+      utils.isStream(data) ||
+      utils.isFile(data) ||
+      utils.isBlob(data)
+    ) {
+      return data;
+    }
+    if (utils.isArrayBufferView(data)) {
+      return data.buffer;
+    }
+    if (utils.isURLSearchParams(data)) {
+      setContentTypeIfUnset(headers, 'application/x-www-form-urlencoded;charset=utf-8');
+      return data.toString();
+    }
+    if (utils.isObject(data)) {
+      setContentTypeIfUnset(headers, 'application/json;charset=utf-8');
+      return JSON.stringify(data);
+    }
+    return data;
+  }],
+
+  transformResponse: [function transformResponse(data) {
+    /*eslint no-param-reassign:0*/
+    if (typeof data === 'string') {
+      try {
+        data = JSON.parse(data);
+      } catch (e) { /* Ignore */ }
+    }
+    return data;
+  }],
+
+  timeout: 0,
+
+  xsrfCookieName: 'XSRF-TOKEN',
+  xsrfHeaderName: 'X-XSRF-TOKEN',
+
+  maxContentLength: -1,
+
+  validateStatus: function validateStatus(status) {
+    return status >= 200 && status < 300;
+  }
+};
+
+defaults.headers = {
+  common: {
+    'Accept': 'application/json, text/plain, */*'
+  }
+};
+
+utils.forEach(['delete', 'get', 'head'], function forEachMethodNoData(method) {
+  defaults.headers[method] = {};
+});
+
+utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
+  defaults.headers[method] = utils.merge(DEFAULT_CONTENT_TYPE);
+});
+
+module.exports = defaults;
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ }),
 /* 7 */
@@ -18764,7 +18764,7 @@ module.exports = Cancel;
 var utils = __webpack_require__(0);
 var bind = __webpack_require__(8);
 var Axios = __webpack_require__(18);
-var defaults = __webpack_require__(5);
+var defaults = __webpack_require__(6);
 
 /**
  * Create an instance of Axios
@@ -18847,7 +18847,7 @@ function isSlowBuffer (obj) {
 "use strict";
 
 
-var defaults = __webpack_require__(5);
+var defaults = __webpack_require__(6);
 var utils = __webpack_require__(0);
 var InterceptorManager = __webpack_require__(27);
 var dispatchRequest = __webpack_require__(28);
@@ -19379,7 +19379,7 @@ module.exports = InterceptorManager;
 var utils = __webpack_require__(0);
 var transformData = __webpack_require__(29);
 var isCancel = __webpack_require__(12);
-var defaults = __webpack_require__(5);
+var defaults = __webpack_require__(6);
 
 /**
  * Throws a `Cancel` if cancellation has been requested.
@@ -31939,7 +31939,7 @@ var normalizeComponent = __webpack_require__(3)
 /* script */
 var __vue_script__ = __webpack_require__(76)
 /* template */
-var __vue_template__ = __webpack_require__(84)
+var __vue_template__ = __webpack_require__(89)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -32057,10 +32057,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_lodash__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_EditDisplayModal__ = __webpack_require__(77);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_EditDisplayModal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__components_EditDisplayModal__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_PreviewProfileModal__ = __webpack_require__(85);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_PreviewProfileModal__ = __webpack_require__(82);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_PreviewProfileModal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__components_PreviewProfileModal__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__css_index_css__ = __webpack_require__(82);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__css_index_css__ = __webpack_require__(87);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__css_index_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__css_index_css__);
+//
+//
 //
 //
 //
@@ -32447,12 +32449,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 
 
@@ -32496,6 +32492,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     }
   },
   methods: {
+    closeEditDisplay: function closeEditDisplay() {
+      this.closeModalDisplayEdit();
+    },
     closeModalDisplayEdit: function closeModalDisplayEdit() {
       this.$emit("closeModalDisplayEdit");
     },
@@ -32562,7 +32561,7 @@ var transform;
 var options = {}
 options.transform = transform
 // add the styles to the DOM
-var update = __webpack_require__(6)(content, options);
+var update = __webpack_require__(5)(content, options);
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -32764,9 +32763,14 @@ var render = function() {
           "div",
           { staticClass: "edit-display-modal-actions" },
           [
-            _c("sui-button", { attrs: { color: "yellow" } }, [
-              _vm._v("Cancel")
-            ]),
+            _c(
+              "sui-button",
+              {
+                attrs: { color: "yellow" },
+                on: { click: _vm.closeEditDisplay }
+              },
+              [_vm._v("Cancel")]
+            ),
             _vm._v(" "),
             _c(
               "sui-button",
@@ -32803,482 +32807,12 @@ if (false) {
 /* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(83);
-if(typeof content === 'string') content = [[module.i, content, '']];
-// Prepare cssTransformation
-var transform;
-
-var options = {}
-options.transform = transform
-// add the styles to the DOM
-var update = __webpack_require__(6)(content, options);
-if(content.locals) module.exports = content.locals;
-// Hot Module Replacement
-if(false) {
-	// When the styles change, update the <style> tags
-	if(!content.locals) {
-		module.hot.accept("!!../../../../../node_modules/css-loader/index.js!./index.css", function() {
-			var newContent = require("!!../../../../../node_modules/css-loader/index.js!./index.css");
-			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-			update(newContent);
-		});
-	}
-	// When the module is disposed, remove the <style> tags
-	module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 83 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(1)(false);
-// imports
-exports.push([module.i, "@import url(https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&display=swap);", ""]);
-
-// module
-exports.push([module.i, "* {\n  padding: 0;\n  margin: 0;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n}\n\nhtml,\nbody {\n  font-size: 14px;\n  font-family: \"Lato\", sans-serif;\n}\n\n.header {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n\n.header .header-filter {\n  width: 80%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -ms-flex-pack: distribute;\n      justify-content: space-around;\n}\n\n.header .header-filter .ui.input > input {\n  max-width: 90px;\n}\n\n.header .header-icon {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  padding: 0 2rem;\n}\n\n.header .header-icon .ui.multiple.dropdown {\n  padding: 0 !important;\n}\n\n.header .header-icon i {\n  font-size: 2rem;\n  margin: 0 1rem;\n}\n\n.td-table-image {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\n.table-image {\n  height: 30px;\n  margin: 0;\n  padding: 0;\n}\n\n.footer {\n  min-height: 50px;\n  padding: 20px;\n}\n\n.footer button {\n  background-color: #0e6eb8;\n  padding: 0.8rem 1.6rem;\n  outline: none;\n  border-radius: 0.5rem;\n  border: none;\n  color: white;\n}\n\n.footer button:hover {\n  background-color: #2185d0;\n}\n\ni,\nth {\n  cursor: pointer !important;\n}\n\n.authorized-table-cell {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\n.my-modal {\n  top: 0;\n  bottom: 0;\n  right: 0;\n  left: 0;\n  position: fixed;\n  background-color: rgba(0, 0, 0, 0.5);\n  z-index: 1100 !important;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\n.my-modal .my-modal-content {\n  z-index: 1111;\n  height: 30%;\n  width: 50%;\n  border-radius: 10px;\n  background-color: #f5f5f5;\n}\n\n.my-modal .my-modal-content .my-modal-header {\n  height: 30%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  padding: 0 3rem;\n  border-bottom: 1px solid rgba(0, 0, 0, 0.1);\n}\n\n.my-modal .my-modal-content .my-modal-header h1 {\n  font-size: 20px;\n  font-weight: 400;\n  padding: 0 1rem;\n}\n\n.my-modal .my-modal-content .my-modal-body {\n  height: 40%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-pack: distribute;\n      justify-content: space-around;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  padding: 0 3rem;\n}\n\n.my-modal .my-modal-content .my-modal-body p {\n  -webkit-margin-before: 0 !important;\n          margin-block-start: 0 !important;\n  -webkit-margin-after: 0 !important;\n          margin-block-end: 0 !important;\n  -webkit-margin-start: 0px;\n          margin-inline-start: 0px;\n  -webkit-margin-end: 0px;\n          margin-inline-end: 0px;\n}\n\n.my-modal .my-modal-content .my-modal-actions {\n  height: 30%;\n  padding: 0 3rem;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: end;\n      -ms-flex-pack: end;\n          justify-content: flex-end;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\n/* The switch - the box around the slider */\n.switch {\n  position: relative;\n  display: inline-block;\n  width: 3.5rem;\n  height: 1.5rem;\n}\n\n/* Hide default HTML checkbox */\n.switch input {\n  opacity: 0;\n  width: 0;\n  height: 0;\n}\n\n/* The slider */\n.slider {\n  position: absolute;\n  cursor: pointer;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background-color: #ccc;\n  -webkit-transition: 0.4s;\n  transition: 0.4s;\n}\n\n.slider:before {\n  position: absolute;\n  content: \"\";\n  width: 1.5rem;\n  height: 1.5rem;\n  background-color: white;\n  -webkit-transition: 0.4s;\n  transition: 0.4s;\n  border: 0.2px solid rgba(34, 36, 38, 0.35);\n}\n\ninput:checked + .slider {\n  background-color: #2196f3;\n}\n\ninput:focus + .slider {\n  -webkit-box-shadow: 0 0 1px #2196f3;\n          box-shadow: 0 0 1px #2196f3;\n}\n\ninput:checked + .slider:before {\n  -webkit-transform: translateX(2.1rem);\n          transform: translateX(2.1rem);\n}\n\n/* Rounded sliders */\n.slider.round {\n  border-radius: 34px;\n}\n\n.slider.round:before {\n  border-radius: 50%;\n}", ""]);
-
-// exports
-
-
-/***/ }),
-/* 84 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _vm.openPreviewProfile
-        ? _c("preview-profile-modal", {
-            attrs: {
-              previewProfileModalOpenId: _vm.previewProfileModalOpenId,
-              tableList: _vm.tableList
-            },
-            on: { closeModalPreviewProfile: _vm.closeModalPreviewProfile }
-          })
-        : _vm._e(),
-      _vm._v(" "),
-      _vm.openDisplayEdit
-        ? _c("edit-display-modal", {
-            attrs: {
-              tableList: _vm.tableList,
-              editDisplayModalOpenId: _vm.editDisplayModalOpenId,
-              layoutData: _vm.layoutData
-            },
-            on: {
-              closeModalDisplayEdit: _vm.closeModalDisplayEdit,
-              fetchedData: _vm.refreshPage
-            }
-          })
-        : _vm._e(),
-      _vm._v(" "),
-      _vm.modalIsOpen
-        ? _c(
-            "div",
-            {
-              staticClass: "my-modal",
-              on: {
-                click: function($event) {
-                  if ($event.target !== $event.currentTarget) {
-                    return null
-                  }
-                  return _vm.closeModal($event)
-                }
-              }
-            },
-            [
-              _c("div", { staticClass: "my-modal-content" }, [
-                _vm._m(0),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "my-modal-body" },
-                  [
-                    _c("p", [_vm._v("Default layout")]),
-                    _vm._v(" "),
-                    _c("sui-dropdown", {
-                      attrs: {
-                        placeholder: "--",
-                        selection: "",
-                        options: _vm.listLayout
-                      },
-                      model: {
-                        value: _vm.current,
-                        callback: function($$v) {
-                          _vm.current = $$v
-                        },
-                        expression: "current"
-                      }
-                    })
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "my-modal-actions" },
-                  [
-                    _c(
-                      "sui-button",
-                      {
-                        attrs: { color: "yellow" },
-                        on: { click: _vm.closeModal }
-                      },
-                      [_vm._v("Cancel")]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "sui-button",
-                      {
-                        attrs: { color: "green" },
-                        on: { click: _vm.changeLayout }
-                      },
-                      [_vm._v("OK")]
-                    )
-                  ],
-                  1
-                )
-              ])
-            ]
-          )
-        : _vm._e(),
-      _vm._v(" "),
-      _c("div", { staticClass: "header" }, [
-        _c(
-          "div",
-          { staticClass: "header-filter" },
-          [
-            _c("sui-input", { attrs: { placeholder: "Name" } }),
-            _vm._v(" "),
-            _c(
-              "sui-dropdown",
-              { attrs: { text: "Status", floating: "" } },
-              [
-                _c(
-                  "sui-dropdown-menu",
-                  [
-                    _c("sui-dropdown-item", [_vm._v("Image")]),
-                    _vm._v(" "),
-                    _c("sui-dropdown-item", [_vm._v("PDF")]),
-                    _vm._v(" "),
-                    _c("sui-dropdown-item", [_vm._v("Video")])
-                  ],
-                  1
-                )
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "sui-dropdown",
-              { attrs: { text: "Logged in", floating: "" } },
-              [
-                _c(
-                  "sui-dropdown-menu",
-                  [
-                    _c("sui-dropdown-item", [_vm._v("Image")]),
-                    _vm._v(" "),
-                    _c("sui-dropdown-item", [_vm._v("PDF")]),
-                    _vm._v(" "),
-                    _c("sui-dropdown-item", [_vm._v("Video")])
-                  ],
-                  1
-                )
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "sui-dropdown",
-              { attrs: { text: "Authorize", floating: "" } },
-              [
-                _c(
-                  "sui-dropdown-menu",
-                  [
-                    _c("sui-dropdown-item", [_vm._v("Image")]),
-                    _vm._v(" "),
-                    _c("sui-dropdown-item", [_vm._v("PDF")]),
-                    _vm._v(" "),
-                    _c("sui-dropdown-item", [_vm._v("Video")])
-                  ],
-                  1
-                )
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "sui-dropdown",
-              { attrs: { text: "Group", floating: "" } },
-              [
-                _c(
-                  "sui-dropdown-menu",
-                  [
-                    _c("sui-dropdown-item", [_vm._v("Image")]),
-                    _vm._v(" "),
-                    _c("sui-dropdown-item", [_vm._v("PDF")]),
-                    _vm._v(" "),
-                    _c("sui-dropdown-item", [_vm._v("Video")])
-                  ],
-                  1
-                )
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "sui-dropdown",
-              { attrs: { text: "Profile", floating: "" } },
-              [
-                _c(
-                  "sui-dropdown-menu",
-                  [
-                    _c("sui-dropdown-item", [_vm._v("Image")]),
-                    _vm._v(" "),
-                    _c("sui-dropdown-item", [_vm._v("PDF")]),
-                    _vm._v(" "),
-                    _c("sui-dropdown-item", [_vm._v("Video")])
-                  ],
-                  1
-                )
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c("sui-input", { attrs: { placeholder: "Tags" } }),
-            _vm._v(" "),
-            _c(
-              "sui-dropdown",
-              { attrs: { text: "Client Type", floating: "" } },
-              [
-                _c(
-                  "sui-dropdown-menu",
-                  [
-                    _c("sui-dropdown-item", [_vm._v("Image")]),
-                    _vm._v(" "),
-                    _c("sui-dropdown-item", [_vm._v("PDF")]),
-                    _vm._v(" "),
-                    _c("sui-dropdown-item", [_vm._v("Video")])
-                  ],
-                  1
-                )
-              ],
-              1
-            )
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "header-icon" },
-          [
-            _c(
-              "sui-dropdown",
-              { attrs: { icon: "eye", floating: "", multiple: "" } },
-              [
-                _c(
-                  "sui-dropdown-menu",
-                  [
-                    _c("sui-dropdown-item", [_vm._v("True")]),
-                    _vm._v(" "),
-                    _c("sui-dropdown-item", [_vm._v("False")]),
-                    _vm._v(" "),
-                    _c("sui-dropdown-item", [_vm._v("True")])
-                  ],
-                  1
-                )
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c("i", { staticClass: "fas fa-print" })
-          ],
-          1
-        )
-      ]),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "body" },
-        [
-          _c(
-            "sui-table",
-            { attrs: { selectable: "", celled: "" } },
-            [
-              _c(
-                "sui-table-header",
-                [
-                  _c(
-                    "sui-table-row",
-                    [
-                      _c("sui-table-header-cell", [_vm._v("ID")]),
-                      _vm._v(" "),
-                      _c("sui-table-header-cell", [_vm._v("Display")]),
-                      _vm._v(" "),
-                      _c("sui-table-header-cell", [_vm._v("Authorized")]),
-                      _vm._v(" "),
-                      _c("sui-table-header-cell", [_vm._v("Logged in")]),
-                      _vm._v(" "),
-                      _c("sui-table-header-cell", [_vm._v("Default Layout")]),
-                      _vm._v(" "),
-                      _c("sui-table-header-cell", [_vm._v("Last Accessed")]),
-                      _vm._v(" "),
-                      _c("sui-table-header-cell", [_vm._v("IP Address")]),
-                      _vm._v(" "),
-                      _c("sui-table-header-cell")
-                    ],
-                    1
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "sui-table-body",
-                _vm._l(_vm.tableList, function(list) {
-                  return _c(
-                    "sui-table-row",
-                    { key: list.id },
-                    [
-                      _c("sui-table-cell", [_vm._v(_vm._s(list.displayId))]),
-                      _vm._v(" "),
-                      _c("sui-table-cell", [_vm._v(_vm._s(list.display))]),
-                      _vm._v(" "),
-                      _c("sui-table-cell", [
-                        _vm._v(_vm._s(list.licensed === 1 ? "true" : "false"))
-                      ]),
-                      _vm._v(" "),
-                      _c("sui-table-cell", [
-                        _vm._v(_vm._s(list.loggedIn === 1 ? "true" : "false"))
-                      ]),
-                      _vm._v(" "),
-                      _c("sui-table-cell", [
-                        _vm._v(_vm._s(list.defaultLayout))
-                      ]),
-                      _vm._v(" "),
-                      _c("sui-table-cell", [_vm._v(_vm._s(list.lastAccessed))]),
-                      _vm._v(" "),
-                      _c("sui-table-cell", [
-                        _vm._v(_vm._s(list.clientAddress))
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "sui-table-cell",
-                        [
-                          _c(
-                            "sui-dropdown",
-                            { attrs: { floating: "", pointing: "top right" } },
-                            [
-                              _c(
-                                "sui-dropdown-menu",
-                                [
-                                  _c(
-                                    "sui-dropdown-item",
-                                    {
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.openingDisplayEdit(
-                                            list.displayId
-                                          )
-                                        }
-                                      }
-                                    },
-                                    [_vm._v("Edit")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c("sui-dropdown-item", [_vm._v("Delete")]),
-                                  _vm._v(" "),
-                                  _c("sui-dropdown-divider"),
-                                  _vm._v(" "),
-                                  _c(
-                                    "sui-dropdown-item",
-                                    {
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.openModal(list.displayId)
-                                        }
-                                      }
-                                    },
-                                    [_vm._v("Default Layout")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c("sui-dropdown-divider"),
-                                  _vm._v(" "),
-                                  _c(
-                                    "sui-dropdown-item",
-                                    {
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.openModalPreviewProfile(
-                                            list.displayId
-                                          )
-                                        }
-                                      }
-                                    },
-                                    [_vm._v("Preview Profile")]
-                                  )
-                                ],
-                                1
-                              )
-                            ],
-                            1
-                          )
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  )
-                }),
-                1
-              )
-            ],
-            1
-          )
-        ],
-        1
-      )
-    ],
-    1
-  )
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "my-modal-header" }, [
-      _c("p", [_vm._v("Change Default Layout")])
-    ])
-  }
-]
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-1242400a", module.exports)
-  }
-}
-
-/***/ }),
-/* 85 */
-/***/ (function(module, exports, __webpack_require__) {
-
 var disposed = false
 var normalizeComponent = __webpack_require__(3)
 /* script */
-var __vue_script__ = __webpack_require__(86)
+var __vue_script__ = __webpack_require__(83)
 /* template */
-var __vue_template__ = __webpack_require__(87)
+var __vue_template__ = __webpack_require__(86)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -33317,7 +32851,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 86 */
+/* 83 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -33326,8 +32860,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_lodash__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__css_PreviewProfileModal_css__ = __webpack_require__(88);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__css_PreviewProfileModal_css__ = __webpack_require__(84);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__css_PreviewProfileModal_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__css_PreviewProfileModal_css__);
+//
+//
+//
+//
 //
 //
 //
@@ -33594,7 +33132,52 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 87 */
+/* 84 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(85);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(5)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../../../../node_modules/css-loader/index.js!./PreviewProfileModal.css", function() {
+			var newContent = require("!!../../../../../node_modules/css-loader/index.js!./PreviewProfileModal.css");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 85 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(1)(false);
+// imports
+
+
+// module
+exports.push([module.i, ".preview-profile-modal {\n  top: 0;\n  bottom: 0;\n  right: 0;\n  left: 0;\n  position: fixed;\n  background-color: rgba(0, 0, 0, 0.5);\n  z-index: 1100 !important;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\n.preview-profile-modal .preview-profile-modal-content {\n  height: 80%;\n  width: 70%;\n  border-radius: 10px;\n  background-color: #f5f5f5;\n}\n\n.preview-profile-modal .preview-profile-modal-content .preview-profile-modal-header {\n  height: 15%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\n.preview-profile-modal .preview-profile-modal-content .preview-profile-modal-header h1 {\n  font-weight: 400;\n  margin-left: 1rem;\n  font-size: 24px;\n}\n\n.preview-profile-modal .preview-profile-modal-content .preview-profile-modal-body {\n  height: 70%;\n  border-top: 1px solid rgba(0, 0, 0, 0.2);\n  border-bottom: 1px solid rgba(0, 0, 0, 0.2);\n  padding: 2rem 5rem;\n  overflow-y: scroll;\n}\n\n.preview-profile-modal .preview-profile-modal-content .preview-profile-modal-actions {\n  height: 15%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: end;\n      -ms-flex-pack: end;\n          justify-content: flex-end;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  padding: 0 5rem;\n}", ""]);
+
+// exports
+
+
+/***/ }),
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -33759,7 +33342,13 @@ var render = function() {
                         _c("sui-table-cell", [_vm._v("Last Accessed")]),
                         _vm._v(" "),
                         _c("sui-table-cell", [
-                          _vm._v(_vm._s(_vm.dataTableList.lastAccessed))
+                          _vm._v(
+                            _vm._s(
+                              new Date(
+                                _vm.dataTableList.lastAccessed * 1000
+                              ).toLocaleDateString("id-ID")
+                            )
+                          )
                         ])
                       ],
                       1
@@ -34232,13 +33821,13 @@ if (false) {
 }
 
 /***/ }),
-/* 88 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(89);
+var content = __webpack_require__(88);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -34246,14 +33835,14 @@ var transform;
 var options = {}
 options.transform = transform
 // add the styles to the DOM
-var update = __webpack_require__(6)(content, options);
+var update = __webpack_require__(5)(content, options);
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
 	// When the styles change, update the <style> tags
 	if(!content.locals) {
-		module.hot.accept("!!../../../../../node_modules/css-loader/index.js!./PreviewProfileModal.css", function() {
-			var newContent = require("!!../../../../../node_modules/css-loader/index.js!./PreviewProfileModal.css");
+		module.hot.accept("!!../../../../../node_modules/css-loader/index.js!./index.css", function() {
+			var newContent = require("!!../../../../../node_modules/css-loader/index.js!./index.css");
 			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 			update(newContent);
 		});
@@ -34263,18 +33852,451 @@ if(false) {
 }
 
 /***/ }),
-/* 89 */
+/* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(false);
 // imports
-
+exports.push([module.i, "@import url(https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&display=swap);", ""]);
 
 // module
-exports.push([module.i, ".preview-profile-modal {\n  top: 0;\n  bottom: 0;\n  right: 0;\n  left: 0;\n  position: fixed;\n  background-color: rgba(0, 0, 0, 0.5);\n  z-index: 1100 !important;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\n.preview-profile-modal .preview-profile-modal-content {\n  height: 80%;\n  width: 70%;\n  border-radius: 10px;\n  background-color: #f5f5f5;\n}\n\n.preview-profile-modal .preview-profile-modal-content .preview-profile-modal-header {\n  height: 15%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\n.preview-profile-modal .preview-profile-modal-content .preview-profile-modal-header h1 {\n  font-weight: 400;\n  margin-left: 1rem;\n  font-size: 24px;\n}\n\n.preview-profile-modal .preview-profile-modal-content .preview-profile-modal-body {\n  height: 70%;\n  border-top: 1px solid rgba(0, 0, 0, 0.2);\n  border-bottom: 1px solid rgba(0, 0, 0, 0.2);\n  padding: 2rem 5rem;\n  overflow-y: scroll;\n}\n\n.preview-profile-modal .preview-profile-modal-content .preview-profile-modal-actions {\n  height: 15%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: end;\n      -ms-flex-pack: end;\n          justify-content: flex-end;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  padding: 0 5rem;\n}", ""]);
+exports.push([module.i, "* {\n  padding: 0;\n  margin: 0;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n}\n\nhtml,\nbody {\n  font-size: 14px;\n  font-family: \"Lato\", sans-serif;\n}\n\n.header {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n\n.header .header-filter {\n  width: 80%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -ms-flex-pack: distribute;\n      justify-content: space-around;\n}\n\n.header .header-filter .ui.input > input {\n  max-width: 90px;\n}\n\n.header .header-icon {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  padding: 0 2rem;\n}\n\n.header .header-icon .ui.multiple.dropdown {\n  padding: 0 !important;\n}\n\n.header .header-icon i {\n  font-size: 2rem;\n  margin: 0 1rem;\n}\n\n.td-table-image {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\n.table-image {\n  height: 30px;\n  margin: 0;\n  padding: 0;\n}\n\n.footer {\n  min-height: 50px;\n  padding: 20px;\n}\n\n.footer button {\n  background-color: #0e6eb8;\n  padding: 0.8rem 1.6rem;\n  outline: none;\n  border-radius: 0.5rem;\n  border: none;\n  color: white;\n}\n\n.footer button:hover {\n  background-color: #2185d0;\n}\n\ni,\nth {\n  cursor: pointer !important;\n}\n\n.authorized-table-cell {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\n.my-modal {\n  top: 0;\n  bottom: 0;\n  right: 0;\n  left: 0;\n  position: fixed;\n  background-color: rgba(0, 0, 0, 0.5);\n  z-index: 1100 !important;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\n.my-modal .my-modal-content {\n  z-index: 1111;\n  height: 30%;\n  width: 50%;\n  border-radius: 10px;\n  background-color: #f5f5f5;\n}\n\n.my-modal .my-modal-content .my-modal-header {\n  height: 30%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  padding: 0 3rem;\n  border-bottom: 1px solid rgba(0, 0, 0, 0.1);\n}\n\n.my-modal .my-modal-content .my-modal-header h1 {\n  font-size: 20px;\n  font-weight: 400;\n  padding: 0 1rem;\n}\n\n.my-modal .my-modal-content .my-modal-body {\n  height: 40%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-pack: distribute;\n      justify-content: space-around;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  padding: 0 3rem;\n}\n\n.my-modal .my-modal-content .my-modal-body p {\n  -webkit-margin-before: 0 !important;\n          margin-block-start: 0 !important;\n  -webkit-margin-after: 0 !important;\n          margin-block-end: 0 !important;\n  -webkit-margin-start: 0px;\n          margin-inline-start: 0px;\n  -webkit-margin-end: 0px;\n          margin-inline-end: 0px;\n}\n\n.my-modal .my-modal-content .my-modal-actions {\n  height: 30%;\n  padding: 0 3rem;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: end;\n      -ms-flex-pack: end;\n          justify-content: flex-end;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\n[type=\"checkbox\"]:not(.filled-in) + label:after {\n  transform: none !important;\n  -webkit-transform: none !important;\n}", ""]);
 
 // exports
 
+
+/***/ }),
+/* 89 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _vm.openPreviewProfile
+        ? _c("preview-profile-modal", {
+            attrs: {
+              previewProfileModalOpenId: _vm.previewProfileModalOpenId,
+              tableList: _vm.tableList
+            },
+            on: { closeModalPreviewProfile: _vm.closeModalPreviewProfile }
+          })
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.openDisplayEdit
+        ? _c("edit-display-modal", {
+            attrs: {
+              tableList: _vm.tableList,
+              editDisplayModalOpenId: _vm.editDisplayModalOpenId,
+              layoutData: _vm.layoutData
+            },
+            on: {
+              closeModalDisplayEdit: _vm.closeModalDisplayEdit,
+              fetchedData: _vm.refreshPage
+            }
+          })
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.modalIsOpen
+        ? _c(
+            "div",
+            {
+              staticClass: "my-modal",
+              on: {
+                click: function($event) {
+                  if ($event.target !== $event.currentTarget) {
+                    return null
+                  }
+                  return _vm.closeModal($event)
+                }
+              }
+            },
+            [
+              _c("div", { staticClass: "my-modal-content" }, [
+                _vm._m(0),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "my-modal-body" },
+                  [
+                    _c("p", [_vm._v("Default layout")]),
+                    _vm._v(" "),
+                    _c("sui-dropdown", {
+                      attrs: {
+                        placeholder: "--",
+                        selection: "",
+                        options: _vm.listLayout
+                      },
+                      model: {
+                        value: _vm.current,
+                        callback: function($$v) {
+                          _vm.current = $$v
+                        },
+                        expression: "current"
+                      }
+                    })
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "my-modal-actions" },
+                  [
+                    _c(
+                      "sui-button",
+                      {
+                        attrs: { color: "yellow" },
+                        on: { click: _vm.closeModal }
+                      },
+                      [_vm._v("Cancel")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "sui-button",
+                      {
+                        attrs: { color: "green" },
+                        on: { click: _vm.changeLayout }
+                      },
+                      [_vm._v("OK")]
+                    )
+                  ],
+                  1
+                )
+              ])
+            ]
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _c("div", { staticClass: "header" }, [
+        _c(
+          "div",
+          { staticClass: "header-filter" },
+          [
+            _c("sui-input", { attrs: { placeholder: "Name" } }),
+            _vm._v(" "),
+            _c(
+              "sui-dropdown",
+              { attrs: { text: "Status", floating: "" } },
+              [
+                _c(
+                  "sui-dropdown-menu",
+                  [
+                    _c("sui-dropdown-item", [_vm._v("Image")]),
+                    _vm._v(" "),
+                    _c("sui-dropdown-item", [_vm._v("PDF")]),
+                    _vm._v(" "),
+                    _c("sui-dropdown-item", [_vm._v("Video")])
+                  ],
+                  1
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "sui-dropdown",
+              { attrs: { text: "Logged in", floating: "" } },
+              [
+                _c(
+                  "sui-dropdown-menu",
+                  [
+                    _c("sui-dropdown-item", [_vm._v("Image")]),
+                    _vm._v(" "),
+                    _c("sui-dropdown-item", [_vm._v("PDF")]),
+                    _vm._v(" "),
+                    _c("sui-dropdown-item", [_vm._v("Video")])
+                  ],
+                  1
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "sui-dropdown",
+              { attrs: { text: "Authorize", floating: "" } },
+              [
+                _c(
+                  "sui-dropdown-menu",
+                  [
+                    _c("sui-dropdown-item", [_vm._v("Image")]),
+                    _vm._v(" "),
+                    _c("sui-dropdown-item", [_vm._v("PDF")]),
+                    _vm._v(" "),
+                    _c("sui-dropdown-item", [_vm._v("Video")])
+                  ],
+                  1
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "sui-dropdown",
+              { attrs: { text: "Group", floating: "" } },
+              [
+                _c(
+                  "sui-dropdown-menu",
+                  [
+                    _c("sui-dropdown-item", [_vm._v("Image")]),
+                    _vm._v(" "),
+                    _c("sui-dropdown-item", [_vm._v("PDF")]),
+                    _vm._v(" "),
+                    _c("sui-dropdown-item", [_vm._v("Video")])
+                  ],
+                  1
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "sui-dropdown",
+              { attrs: { text: "Profile", floating: "" } },
+              [
+                _c(
+                  "sui-dropdown-menu",
+                  [
+                    _c("sui-dropdown-item", [_vm._v("Image")]),
+                    _vm._v(" "),
+                    _c("sui-dropdown-item", [_vm._v("PDF")]),
+                    _vm._v(" "),
+                    _c("sui-dropdown-item", [_vm._v("Video")])
+                  ],
+                  1
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c("sui-input", { attrs: { placeholder: "Tags" } }),
+            _vm._v(" "),
+            _c(
+              "sui-dropdown",
+              { attrs: { text: "Client Type", floating: "" } },
+              [
+                _c(
+                  "sui-dropdown-menu",
+                  [
+                    _c("sui-dropdown-item", [_vm._v("Image")]),
+                    _vm._v(" "),
+                    _c("sui-dropdown-item", [_vm._v("PDF")]),
+                    _vm._v(" "),
+                    _c("sui-dropdown-item", [_vm._v("Video")])
+                  ],
+                  1
+                )
+              ],
+              1
+            )
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "header-icon" },
+          [
+            _c(
+              "sui-dropdown",
+              { attrs: { icon: "eye", floating: "", multiple: "" } },
+              [
+                _c(
+                  "sui-dropdown-menu",
+                  [
+                    _c("sui-dropdown-item", [_vm._v("True")]),
+                    _vm._v(" "),
+                    _c("sui-dropdown-item", [_vm._v("False")]),
+                    _vm._v(" "),
+                    _c("sui-dropdown-item", [_vm._v("True")])
+                  ],
+                  1
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c("i", { staticClass: "fas fa-print" })
+          ],
+          1
+        )
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "body" },
+        [
+          _c(
+            "sui-table",
+            { attrs: { selectable: "", celled: "" } },
+            [
+              _c(
+                "sui-table-header",
+                [
+                  _c(
+                    "sui-table-row",
+                    [
+                      _c("sui-table-header-cell", [_vm._v("ID")]),
+                      _vm._v(" "),
+                      _c("sui-table-header-cell", [_vm._v("Display")]),
+                      _vm._v(" "),
+                      _c("sui-table-header-cell", [_vm._v("Authorized")]),
+                      _vm._v(" "),
+                      _c("sui-table-header-cell", [_vm._v("Logged in")]),
+                      _vm._v(" "),
+                      _c("sui-table-header-cell", [_vm._v("Default Layout")]),
+                      _vm._v(" "),
+                      _c("sui-table-header-cell", [_vm._v("Last Accessed")]),
+                      _vm._v(" "),
+                      _c("sui-table-header-cell", [_vm._v("IP Address")]),
+                      _vm._v(" "),
+                      _c("sui-table-header-cell")
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "sui-table-body",
+                _vm._l(_vm.tableList, function(list) {
+                  return _c(
+                    "sui-table-row",
+                    { key: list.id },
+                    [
+                      _c("sui-table-cell", [_vm._v(_vm._s(list.displayId))]),
+                      _vm._v(" "),
+                      _c("sui-table-cell", [_vm._v(_vm._s(list.display))]),
+                      _vm._v(" "),
+                      _c("sui-table-cell", [
+                        _vm._v(_vm._s(list.licensed === 1 ? "true" : "false"))
+                      ]),
+                      _vm._v(" "),
+                      _c("sui-table-cell", [
+                        _vm._v(_vm._s(list.loggedIn === 1 ? "true" : "false"))
+                      ]),
+                      _vm._v(" "),
+                      _c("sui-table-cell", [
+                        _vm._v(_vm._s(list.defaultLayout))
+                      ]),
+                      _vm._v(" "),
+                      _c("sui-table-cell", [
+                        _vm._v(
+                          _vm._s(
+                            new Date(
+                              list.lastAccessed * 1000
+                            ).toLocaleDateString("id-ID")
+                          )
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("sui-table-cell", [
+                        _vm._v(_vm._s(list.clientAddress))
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "sui-table-cell",
+                        [
+                          _c(
+                            "sui-dropdown",
+                            { attrs: { floating: "", pointing: "top right" } },
+                            [
+                              _c(
+                                "sui-dropdown-menu",
+                                [
+                                  _c(
+                                    "sui-dropdown-item",
+                                    {
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.openingDisplayEdit(
+                                            list.displayId
+                                          )
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("Edit")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("sui-dropdown-item", [_vm._v("Delete")]),
+                                  _vm._v(" "),
+                                  _c("sui-dropdown-divider"),
+                                  _vm._v(" "),
+                                  _c(
+                                    "sui-dropdown-item",
+                                    {
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.openModal(list.displayId)
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("Default Layout")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("sui-dropdown-divider"),
+                                  _vm._v(" "),
+                                  _c(
+                                    "sui-dropdown-item",
+                                    {
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.openModalPreviewProfile(
+                                            list.displayId
+                                          )
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("Preview Profile")]
+                                  )
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                }),
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "my-modal-header" }, [
+      _c("p", [_vm._v("Change Default Layout")])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-1242400a", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

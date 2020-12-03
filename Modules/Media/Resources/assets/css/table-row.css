@@ -17,4 +17,8 @@
 .swal-text {
   color: black;
 }
+
+tr {
+  cursor: pointer;
+}
 /*# sourceMappingURL=table-row.css.map */

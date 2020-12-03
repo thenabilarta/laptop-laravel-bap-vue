@@ -53,7 +53,11 @@
             </sui-table-row>
             <sui-table-row>
               <sui-table-cell>Last Accessed</sui-table-cell>
-              <sui-table-cell>{{ dataTableList.lastAccessed }}</sui-table-cell>
+              <sui-table-cell>{{
+                new Date(dataTableList.lastAccessed * 1000).toLocaleDateString(
+                  "id-ID"
+                )
+              }}</sui-table-cell>
             </sui-table-row>
             <sui-table-row>
               <sui-table-cell>Included Schedule</sui-table-cell>

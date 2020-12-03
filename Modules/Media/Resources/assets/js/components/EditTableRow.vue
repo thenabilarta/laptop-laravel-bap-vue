@@ -24,17 +24,23 @@
         </div>
         <div class="edit-table-modal-body-3">
           <div class="edit-table-modal-body-3-1">
-            <input type="checkbox" />
-            <p>Retired</p>
+            <sui-checkbox label="Retired" toggle v-model="value" />
+            <!-- <p>Retired</p> -->
           </div>
           <div class="edit-table-modal-body-3-2">
-            <input type="checkbox" />
-            <p>Update in all layouts where they have been assigned</p>
+            <sui-checkbox
+              label="Update in all layouts where they have been assigned"
+              toggle
+              v-model="value"
+            />
+            <!-- <p>Update in all layouts where they have been assigned</p> -->
           </div>
         </div>
       </div>
       <div class="edit-table-modal-actions">
-        <sui-button size="small" color="green" @click="formSubmit">Replace</sui-button>
+        <sui-button size="small" color="green" @click="formSubmit"
+          >Replace</sui-button
+        >
         <sui-button size="small" color="yellow">Cancel</sui-button>
         <sui-button size="small" color="teal">Help</sui-button>
       </div>

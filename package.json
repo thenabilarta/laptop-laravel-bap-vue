@@ -19,6 +19,8 @@
     "vue": "^2.6.*"
   },
   "dependencies": {
+    "portal-vue": "^2.1.7",
+    "semantic-ui-css": "^2.4.1",
     "semantic-ui-vue": "^0.11.0",
     "sweetalert": "^2.1.2"
   }

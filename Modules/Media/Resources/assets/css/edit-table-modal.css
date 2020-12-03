@@ -151,4 +151,9 @@ input {
   position: static !important;
   opacity: 1 !important;
 }
+
+[type="checkbox"]:not(.filled-in) + label:after {
+  transform: none !important;
+  -webkit-transform: none !important;
+}
 /*# sourceMappingURL=edit-table-modal.css.map */

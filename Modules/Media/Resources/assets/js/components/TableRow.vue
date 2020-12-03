@@ -1,6 +1,10 @@
 <template>
   <sui-table-body>
-    <sui-table-row v-if="list">
+    <sui-table-row
+      v-if="list"
+      :active="thisRowIsSelected && !removeSelected"
+      @click="selectRow(list.media_id)"
+    >
       <sui-table-cell v-if="idTableColumn">{{ list.media_id }}</sui-table-cell>
       <sui-table-cell v-if="nameTableColumn">{{ list.name }}</sui-table-cell>
       <sui-table-cell v-if="typeTableColumn">{{ list.type }}</sui-table-cell>
@@ -11,13 +15,21 @@
           alt=""
         />
       </sui-table-cell>
-      <sui-table-cell v-if="durationTableColumn">{{ list.duration }}</sui-table-cell>
+      <sui-table-cell v-if="durationTableColumn">{{
+        list.duration
+      }}</sui-table-cell>
       <sui-table-cell v-if="sizeTableColumn">{{ list.size }}</sui-table-cell>
       <sui-table-cell v-if="ownerTableColumn">Admin</sui-table-cell>
       <sui-table-cell v-if="permissionTableColumn">Null</sui-table-cell>
-      <sui-table-cell v-if="fileNameTableColumn">{{ list.file_name }}</sui-table-cell>
-      <sui-table-cell v-if="createdTableColumn">{{ list.created_at }}</sui-table-cell>
-      <sui-table-cell v-if="updatedTableColumn">{{ list.updated_at }}</sui-table-cell>
+      <sui-table-cell v-if="fileNameTableColumn">{{
+        list.file_name
+      }}</sui-table-cell>
+      <sui-table-cell v-if="createdTableColumn">{{
+        list.created_at
+      }}</sui-table-cell>
+      <sui-table-cell v-if="updatedTableColumn">{{
+        list.updated_at
+      }}</sui-table-cell>
       <sui-table-cell>
         <sui-dropdown floating>
           <sui-dropdown-menu>
@@ -67,13 +79,21 @@ export default {
     fileNameTableColumn: Boolean,
     createdTableColumn: Boolean,
     updatedTableColumn: Boolean,
+    //
+    removeSelected: Boolean,
   },
   data() {
     return {
       isEditing: false,
+      thisRowIsSelected: false,
     };
   },
   methods: {
+    selectRow(id) {
+      console.log(id);
+      this.$emit("removeSelectedFalse");
+      this.thisRowIsSelected = !this.thisRowIsSelected;
+    },
     toDelete() {
       console.log(this.list.media_id);
       swal("Do you want to delete this media?", {

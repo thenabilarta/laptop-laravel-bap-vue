@@ -1,8 +1,5 @@
 <template>
-  <div 
-    class="edit-display-modal" 
-    @click.self="closeModalDisplayEdit"
-    >
+  <div class="edit-display-modal" @click.self="closeModalDisplayEdit">
     <div class="edit-display-modal-content">
       <div class="edit-display-modal-header">
         <h1>Display Edit</h1>
@@ -35,10 +32,7 @@
         </div>
         <div class="edit-display-modal-body-row">
           <label>Display Profile</label>
-          <sui-dropdown
-            placeholder="--"
-            selection
-          />
+          <sui-dropdown placeholder="--" selection />
         </div>
         <div class="edit-display-modal-body-row">
           <label>Authorize</label>
@@ -51,7 +45,7 @@
         </div>
       </div>
       <div class="edit-display-modal-actions">
-        <sui-button color="yellow">Cancel</sui-button>
+        <sui-button color="yellow" @click="closeEditDisplay">Cancel</sui-button>
         <sui-button color="green" @click="saveEditDisplay">Save</sui-button>
       </div>
     </div>
@@ -103,6 +97,9 @@ export default {
     },
   },
   methods: {
+    closeEditDisplay() {
+      this.closeModalDisplayEdit();
+    },
     closeModalDisplayEdit() {
       this.$emit("closeModalDisplayEdit");
     },

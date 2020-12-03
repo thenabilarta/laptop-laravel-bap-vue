@@ -1,12 +1,16 @@
 <template>
   <div>
     <Modal v-if="modal" v-on:closeModal="onCloseModal"></Modal>
-    <div class="header">
+    <div class="header" @click.self="removingSelected">
       <div class="header-navigation">
         <sui-button primary @click="toggleModal">Add Media</sui-button>
       </div>
       <div class="header-filter">
-        <sui-input placeholder="Name" @keyup="onInputFilterName" v-model="inputFilterName" />
+        <sui-input
+          placeholder="Name"
+          @keyup="onInputFilterName"
+          v-model="inputFilterName"
+        />
         <sui-dropdown text="Type" floating>
           <sui-dropdown-menu>
             <sui-dropdown-item>Image</sui-dropdown-item>
@@ -26,11 +30,12 @@
         <sui-dropdown icon="eye" floating multiple>
           <sui-dropdown-menu>
             <sui-dropdown-item @click="showIdTableColumn"
-              >ID <i
+              >ID
+              <i
                 v-if="idTableColumn"
                 class="fa fa-check"
                 style="font-size: 14px"
-              ></i</i
+              ></i
             ></sui-dropdown-item>
             <sui-dropdown-item @click="showNameTableColumn"
               >Name
@@ -40,55 +45,73 @@
                 style="font-size: 14px"
               ></i
             ></sui-dropdown-item>
-            <sui-dropdown-item @click="showTypeTableColumn">Type <i
+            <sui-dropdown-item @click="showTypeTableColumn"
+              >Type
+              <i
                 v-if="typeTableColumn"
                 class="fa fa-check"
                 style="font-size: 14px"
               ></i
             ></sui-dropdown-item>
-            <sui-dropdown-item @click="showThumbnailTableColumn">Thumbnail <i
+            <sui-dropdown-item @click="showThumbnailTableColumn"
+              >Thumbnail
+              <i
                 v-if="thumbnailTableColumn"
                 class="fa fa-check"
                 style="font-size: 14px"
               ></i
             ></sui-dropdown-item>
-            <sui-dropdown-item @click="showDurationTableColumn">Duration <i
+            <sui-dropdown-item @click="showDurationTableColumn"
+              >Duration
+              <i
                 v-if="durationTableColumn"
                 class="fa fa-check"
                 style="font-size: 14px"
               ></i
             ></sui-dropdown-item>
-            <sui-dropdown-item @click="showSizeTableColumn">Size <i
+            <sui-dropdown-item @click="showSizeTableColumn"
+              >Size
+              <i
                 v-if="sizeTableColumn"
                 class="fa fa-check"
                 style="font-size: 14px"
               ></i
             ></sui-dropdown-item>
-            <sui-dropdown-item @click="showOwnerTableColumn">Owner <i
+            <sui-dropdown-item @click="showOwnerTableColumn"
+              >Owner
+              <i
                 v-if="ownerTableColumn"
                 class="fa fa-check"
                 style="font-size: 14px"
               ></i
             ></sui-dropdown-item>
-            <sui-dropdown-item @click="showPermissionTableColumn">Permission <i
+            <sui-dropdown-item @click="showPermissionTableColumn"
+              >Permission
+              <i
                 v-if="permissionTableColumn"
                 class="fa fa-check"
                 style="font-size: 14px"
               ></i
             ></sui-dropdown-item>
-            <sui-dropdown-item @click="showFileNameTableColumn">File Name <i
+            <sui-dropdown-item @click="showFileNameTableColumn"
+              >File Name
+              <i
                 v-if="fileNameTableColumn"
                 class="fa fa-check"
                 style="font-size: 14px"
               ></i
             ></sui-dropdown-item>
-            <sui-dropdown-item @click="showCreatedTableColumn">Created <i
+            <sui-dropdown-item @click="showCreatedTableColumn"
+              >Created
+              <i
                 v-if="createdTableColumn"
                 class="fa fa-check"
                 style="font-size: 14px"
               ></i
             ></sui-dropdown-item>
-            <sui-dropdown-item @click="showUpdatedTableColumn">Modified <i
+            <sui-dropdown-item @click="showUpdatedTableColumn"
+              >Modified
+              <i
                 v-if="updatedTableColumn"
                 class="fa fa-check"
                 style="font-size: 14px"
@@ -99,22 +122,21 @@
         <i class="fas fa-print"></i>
       </div>
     </div>
-    <div class="body">
+    <div class="body" @click.self="removingSelected">
       <sui-table selectable celled>
         <sui-table-header>
           <sui-table-row>
-            <sui-table-header-cell 
-              v-if="idTableColumn" 
+            <sui-table-header-cell
+              v-if="idTableColumn"
               @click="orderByTableListId"
-              >ID <sui-icon
+              >ID
+              <sui-icon
                 v-if="sortTableListId"
                 :name="
-                  this.tableListIdASC
-                    ? 'sort amount down'
-                    : 'sort amount up'
+                  this.tableListIdASC ? 'sort amount down' : 'sort amount up'
                 "
               />
-              </sui-table-header-cell>
+            </sui-table-header-cell>
             <sui-table-header-cell
               v-if="nameTableColumn"
               @click="orderByTableListName"
@@ -127,10 +149,10 @@
                     : 'sort alphabet down'
                 "
             /></sui-table-header-cell>
-            <sui-table-header-cell 
-              v-if="typeTableColumn" 
+            <sui-table-header-cell
+              v-if="typeTableColumn"
               @click="orderByTableListType"
-              >Type 
+              >Type
               <sui-icon
                 v-if="sortTableListType"
                 :name="
@@ -139,9 +161,15 @@
                     : 'sort alphabet down'
                 "
             /></sui-table-header-cell>
-            <sui-table-header-cell v-if="thumbnailTableColumn">Thumbnail</sui-table-header-cell>
-            <sui-table-header-cell v-if="durationTableColumn">Duration</sui-table-header-cell>
-            <sui-table-header-cell @click="orderByTableListSize" v-if="sizeTableColumn"
+            <sui-table-header-cell v-if="thumbnailTableColumn"
+              >Thumbnail</sui-table-header-cell
+            >
+            <sui-table-header-cell v-if="durationTableColumn"
+              >Duration</sui-table-header-cell
+            >
+            <sui-table-header-cell
+              @click="orderByTableListSize"
+              v-if="sizeTableColumn"
               >Size
               <sui-icon
                 v-if="sortTableListSize"
@@ -149,11 +177,21 @@
                   this.tableListSizeASC ? 'sort amount down' : 'sort amount up'
                 "
             /></sui-table-header-cell>
-            <sui-table-header-cell v-if="ownerTableColumn">Owner</sui-table-header-cell>
-            <sui-table-header-cell v-if="permissionTableColumn">Permission</sui-table-header-cell>
-            <sui-table-header-cell v-if="fileNameTableColumn">File Name</sui-table-header-cell>
-            <sui-table-header-cell v-if="createdTableColumn">Created at</sui-table-header-cell>
-            <sui-table-header-cell v-if="updatedTableColumn">Modified at</sui-table-header-cell>
+            <sui-table-header-cell v-if="ownerTableColumn"
+              >Owner</sui-table-header-cell
+            >
+            <sui-table-header-cell v-if="permissionTableColumn"
+              >Permission</sui-table-header-cell
+            >
+            <sui-table-header-cell v-if="fileNameTableColumn"
+              >File Name</sui-table-header-cell
+            >
+            <sui-table-header-cell v-if="createdTableColumn"
+              >Created at</sui-table-header-cell
+            >
+            <sui-table-header-cell v-if="updatedTableColumn"
+              >Modified at</sui-table-header-cell
+            >
             <sui-table-header-cell></sui-table-header-cell>
           </sui-table-row>
         </sui-table-header>
@@ -172,6 +210,8 @@
           v-bind:fileNameTableColumn="fileNameTableColumn"
           v-bind:createdTableColumn="createdTableColumn"
           v-bind:updatedTableColumn="updatedTableColumn"
+          v-bind:removeSelected="removeSelected"
+          v-on:removeSelectedFalse="removeSelectedFalse"
           v-on:refreshTable="onUpdate"
         ></TableRow>
       </sui-table>
@@ -232,6 +272,9 @@ export default {
 
       // filter
       inputFilterName: "",
+
+      // removeSelected
+      removeSelected: false,
     };
   },
   computed: {
@@ -380,6 +423,14 @@ export default {
         this.tableList = sortedMediaBySizeDESC;
         this.tableListSizeASC = true;
       }
+    },
+    removingSelected() {
+      console.log("Removing Selected");
+      this.removeSelected = true;
+    },
+    removeSelectedFalse() {
+      console.log("Remove selected false");
+      this.removeSelected = false;
     },
   },
 };

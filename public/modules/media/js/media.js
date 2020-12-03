@@ -601,106 +601,6 @@ module.exports = __webpack_require__(16);
 /* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {
-
-var utils = __webpack_require__(0);
-var normalizeHeaderName = __webpack_require__(19);
-
-var DEFAULT_CONTENT_TYPE = {
-  'Content-Type': 'application/x-www-form-urlencoded'
-};
-
-function setContentTypeIfUnset(headers, value) {
-  if (!utils.isUndefined(headers) && utils.isUndefined(headers['Content-Type'])) {
-    headers['Content-Type'] = value;
-  }
-}
-
-function getDefaultAdapter() {
-  var adapter;
-  if (typeof XMLHttpRequest !== 'undefined') {
-    // For browsers use XHR adapter
-    adapter = __webpack_require__(10);
-  } else if (typeof process !== 'undefined') {
-    // For node use HTTP adapter
-    adapter = __webpack_require__(10);
-  }
-  return adapter;
-}
-
-var defaults = {
-  adapter: getDefaultAdapter(),
-
-  transformRequest: [function transformRequest(data, headers) {
-    normalizeHeaderName(headers, 'Content-Type');
-    if (utils.isFormData(data) ||
-      utils.isArrayBuffer(data) ||
-      utils.isBuffer(data) ||
-      utils.isStream(data) ||
-      utils.isFile(data) ||
-      utils.isBlob(data)
-    ) {
-      return data;
-    }
-    if (utils.isArrayBufferView(data)) {
-      return data.buffer;
-    }
-    if (utils.isURLSearchParams(data)) {
-      setContentTypeIfUnset(headers, 'application/x-www-form-urlencoded;charset=utf-8');
-      return data.toString();
-    }
-    if (utils.isObject(data)) {
-      setContentTypeIfUnset(headers, 'application/json;charset=utf-8');
-      return JSON.stringify(data);
-    }
-    return data;
-  }],
-
-  transformResponse: [function transformResponse(data) {
-    /*eslint no-param-reassign:0*/
-    if (typeof data === 'string') {
-      try {
-        data = JSON.parse(data);
-      } catch (e) { /* Ignore */ }
-    }
-    return data;
-  }],
-
-  timeout: 0,
-
-  xsrfCookieName: 'XSRF-TOKEN',
-  xsrfHeaderName: 'X-XSRF-TOKEN',
-
-  maxContentLength: -1,
-
-  validateStatus: function validateStatus(status) {
-    return status >= 200 && status < 300;
-  }
-};
-
-defaults.headers = {
-  common: {
-    'Accept': 'application/json, text/plain, */*'
-  }
-};
-
-utils.forEach(['delete', 'get', 'head'], function forEachMethodNoData(method) {
-  defaults.headers[method] = {};
-});
-
-utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
-  defaults.headers[method] = utils.merge(DEFAULT_CONTENT_TYPE);
-});
-
-module.exports = defaults;
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
 /*
 	MIT License http://www.opensource.org/licenses/mit-license.php
 	Author Tobias Koppers @sokra
@@ -1055,6 +955,106 @@ function updateLink (link, options, obj) {
 	if(oldSrc) URL.revokeObjectURL(oldSrc);
 }
 
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+
+var utils = __webpack_require__(0);
+var normalizeHeaderName = __webpack_require__(19);
+
+var DEFAULT_CONTENT_TYPE = {
+  'Content-Type': 'application/x-www-form-urlencoded'
+};
+
+function setContentTypeIfUnset(headers, value) {
+  if (!utils.isUndefined(headers) && utils.isUndefined(headers['Content-Type'])) {
+    headers['Content-Type'] = value;
+  }
+}
+
+function getDefaultAdapter() {
+  var adapter;
+  if (typeof XMLHttpRequest !== 'undefined') {
+    // For browsers use XHR adapter
+    adapter = __webpack_require__(10);
+  } else if (typeof process !== 'undefined') {
+    // For node use HTTP adapter
+    adapter = __webpack_require__(10);
+  }
+  return adapter;
+}
+
+var defaults = {
+  adapter: getDefaultAdapter(),
+
+  transformRequest: [function transformRequest(data, headers) {
+    normalizeHeaderName(headers, 'Content-Type');
+    if (utils.isFormData(data) ||
+      utils.isArrayBuffer(data) ||
+      utils.isBuffer(data) ||
+      utils.isStream(data) ||
+      utils.isFile(data) ||
+      utils.isBlob(data)
+    ) {
+      return data;
+    }
+    if (utils.isArrayBufferView(data)) {
+      return data.buffer;
+    }
+    if (utils.isURLSearchParams(data)) {
+      setContentTypeIfUnset(headers, 'application/x-www-form-urlencoded;charset=utf-8');
+      return data.toString();
+    }
+    if (utils.isObject(data)) {
+      setContentTypeIfUnset(headers, 'application/json;charset=utf-8');
+      return JSON.stringify(data);
+    }
+    return data;
+  }],
+
+  transformResponse: [function transformResponse(data) {
+    /*eslint no-param-reassign:0*/
+    if (typeof data === 'string') {
+      try {
+        data = JSON.parse(data);
+      } catch (e) { /* Ignore */ }
+    }
+    return data;
+  }],
+
+  timeout: 0,
+
+  xsrfCookieName: 'XSRF-TOKEN',
+  xsrfHeaderName: 'X-XSRF-TOKEN',
+
+  maxContentLength: -1,
+
+  validateStatus: function validateStatus(status) {
+    return status >= 200 && status < 300;
+  }
+};
+
+defaults.headers = {
+  common: {
+    'Accept': 'application/json, text/plain, */*'
+  }
+};
+
+utils.forEach(['delete', 'get', 'head'], function forEachMethodNoData(method) {
+  defaults.headers[method] = {};
+});
+
+utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
+  defaults.headers[method] = utils.merge(DEFAULT_CONTENT_TYPE);
+});
+
+module.exports = defaults;
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ }),
 /* 7 */
@@ -18991,7 +18991,7 @@ function applyToTag (styleElement, obj) {
 var utils = __webpack_require__(0);
 var bind = __webpack_require__(8);
 var Axios = __webpack_require__(18);
-var defaults = __webpack_require__(5);
+var defaults = __webpack_require__(6);
 
 /**
  * Create an instance of Axios
@@ -19074,7 +19074,7 @@ function isSlowBuffer (obj) {
 "use strict";
 
 
-var defaults = __webpack_require__(5);
+var defaults = __webpack_require__(6);
 var utils = __webpack_require__(0);
 var InterceptorManager = __webpack_require__(27);
 var dispatchRequest = __webpack_require__(28);
@@ -19606,7 +19606,7 @@ module.exports = InterceptorManager;
 var utils = __webpack_require__(0);
 var transformData = __webpack_require__(29);
 var isCancel = __webpack_require__(12);
-var defaults = __webpack_require__(5);
+var defaults = __webpack_require__(6);
 
 /**
  * Throws a `Cancel` if cancellation has been requested.
@@ -32515,6 +32515,46 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -32568,7 +32608,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       tableListSizeASC: true,
 
       // filter
-      inputFilterName: ""
+      inputFilterName: "",
+
+      // removeSelected
+      removeSelected: false
     };
   },
 
@@ -32707,6 +32750,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         this.tableList = sortedMediaBySizeDESC;
         this.tableListSizeASC = true;
       }
+    },
+    removingSelected: function removingSelected() {
+      console.log("Removing Selected");
+      this.removeSelected = true;
+    },
+    removeSelectedFalse: function removeSelectedFalse() {
+      console.log("Remove selected false");
+      this.removeSelected = false;
     }
   }
 });
@@ -33786,7 +33837,7 @@ var transform;
 var options = {}
 options.transform = transform
 // add the styles to the DOM
-var update = __webpack_require__(6)(content, options);
+var update = __webpack_require__(5)(content, options);
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -34074,6 +34125,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -34104,15 +34167,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     permissionTableColumn: Boolean,
     fileNameTableColumn: Boolean,
     createdTableColumn: Boolean,
-    updatedTableColumn: Boolean
+    updatedTableColumn: Boolean,
+    //
+    removeSelected: Boolean
   },
   data: function data() {
     return {
-      isEditing: false
+      isEditing: false,
+      thisRowIsSelected: false
     };
   },
 
   methods: {
+    selectRow: function selectRow(id) {
+      console.log(id);
+      this.$emit("removeSelectedFalse");
+      this.thisRowIsSelected = !this.thisRowIsSelected;
+    },
     toDelete: function toDelete() {
       var _this = this;
 
@@ -34296,6 +34367,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -34353,7 +34430,7 @@ var transform;
 var options = {}
 options.transform = transform
 // add the styles to the DOM
-var update = __webpack_require__(6)(content, options);
+var update = __webpack_require__(5)(content, options);
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -34378,7 +34455,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, ".edit-table-modal {\n  top: 0;\n  bottom: 0;\n  right: 0;\n  left: 0;\n  position: fixed;\n  background-color: rgba(0, 0, 0, 0.5);\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  z-index: 1100 !important;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\n.edit-table-modal .edit-table-modal-content {\n  height: 50%;\n  width: 50%;\n  border-radius: 10px;\n  overflow: hidden;\n  background-color: #f5f5f5;\n}\n\n.edit-table-modal .edit-table-modal-content .edit-table-modal-header {\n  height: 15%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  padding: 0 3rem;\n  border-bottom: 1px solid rgba(0, 0, 0, 0.1);\n}\n\n.edit-table-modal .edit-table-modal-content .edit-table-modal-header h1 {\n  font-size: 20px;\n  font-weight: 400;\n  padding: 0 1rem;\n}\n\n.edit-table-modal .edit-table-modal-content .edit-table-modal-body {\n  height: 65%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  padding: 0 3rem;\n}\n\n.edit-table-modal .edit-table-modal-content .edit-table-modal-body .edit-table-modal-body-1 {\n  -webkit-box-flex: 2;\n      -ms-flex: 2;\n          flex: 2;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n\n.edit-table-modal .edit-table-modal-content .edit-table-modal-body .edit-table-modal-body-1 .edit-table-input-name {\n  width: 500px !important;\n}\n\n.edit-table-modal .edit-table-modal-content .edit-table-modal-body .edit-table-modal-body-1 .edit-table-input-number {\n  max-width: 100px !important;\n  margin-left: 2rem;\n}\n\n.edit-table-modal .edit-table-modal-content .edit-table-modal-body .edit-table-modal-body-2 {\n  -webkit-box-flex: 1;\n      -ms-flex: 1;\n          flex: 1;\n}\n\n.edit-table-modal .edit-table-modal-content .edit-table-modal-body .edit-table-modal-body-3 {\n  -webkit-box-flex: 2;\n      -ms-flex: 2;\n          flex: 2;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n}\n\n.edit-table-modal .edit-table-modal-content .edit-table-modal-body .edit-table-modal-body-3 .edit-table-modal-body-3-1 {\n  -webkit-box-flex: 1;\n      -ms-flex: 1;\n          flex: 1;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\n.edit-table-modal .edit-table-modal-content .edit-table-modal-body .edit-table-modal-body-3 .edit-table-modal-body-3-1 input {\n  margin: auto 1rem;\n  width: 15px;\n  height: 15px;\n}\n\n.edit-table-modal .edit-table-modal-content .edit-table-modal-body .edit-table-modal-body-3 .edit-table-modal-body-3-2 {\n  -webkit-box-flex: 1;\n      -ms-flex: 1;\n          flex: 1;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\n.edit-table-modal .edit-table-modal-content .edit-table-modal-body .edit-table-modal-body-3 .edit-table-modal-body-3-2 input {\n  margin: auto 1rem;\n  width: 15px;\n  height: 15px;\n}\n\n.edit-table-modal .edit-table-modal-content .edit-table-modal-actions {\n  height: 20%;\n  padding: 0 3rem;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-pack: distribute;\n      justify-content: space-around;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\ninput {\n  position: static !important;\n  opacity: 1 !important;\n}", ""]);
+exports.push([module.i, ".edit-table-modal {\n  top: 0;\n  bottom: 0;\n  right: 0;\n  left: 0;\n  position: fixed;\n  background-color: rgba(0, 0, 0, 0.5);\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  z-index: 1100 !important;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\n.edit-table-modal .edit-table-modal-content {\n  height: 50%;\n  width: 50%;\n  border-radius: 10px;\n  overflow: hidden;\n  background-color: #f5f5f5;\n}\n\n.edit-table-modal .edit-table-modal-content .edit-table-modal-header {\n  height: 15%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  padding: 0 3rem;\n  border-bottom: 1px solid rgba(0, 0, 0, 0.1);\n}\n\n.edit-table-modal .edit-table-modal-content .edit-table-modal-header h1 {\n  font-size: 20px;\n  font-weight: 400;\n  padding: 0 1rem;\n}\n\n.edit-table-modal .edit-table-modal-content .edit-table-modal-body {\n  height: 65%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  padding: 0 3rem;\n}\n\n.edit-table-modal .edit-table-modal-content .edit-table-modal-body .edit-table-modal-body-1 {\n  -webkit-box-flex: 2;\n      -ms-flex: 2;\n          flex: 2;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n\n.edit-table-modal .edit-table-modal-content .edit-table-modal-body .edit-table-modal-body-1 .edit-table-input-name {\n  width: 500px !important;\n}\n\n.edit-table-modal .edit-table-modal-content .edit-table-modal-body .edit-table-modal-body-1 .edit-table-input-number {\n  max-width: 100px !important;\n  margin-left: 2rem;\n}\n\n.edit-table-modal .edit-table-modal-content .edit-table-modal-body .edit-table-modal-body-2 {\n  -webkit-box-flex: 1;\n      -ms-flex: 1;\n          flex: 1;\n}\n\n.edit-table-modal .edit-table-modal-content .edit-table-modal-body .edit-table-modal-body-3 {\n  -webkit-box-flex: 2;\n      -ms-flex: 2;\n          flex: 2;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n}\n\n.edit-table-modal .edit-table-modal-content .edit-table-modal-body .edit-table-modal-body-3 .edit-table-modal-body-3-1 {\n  -webkit-box-flex: 1;\n      -ms-flex: 1;\n          flex: 1;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\n.edit-table-modal .edit-table-modal-content .edit-table-modal-body .edit-table-modal-body-3 .edit-table-modal-body-3-1 input {\n  margin: auto 1rem;\n  width: 15px;\n  height: 15px;\n}\n\n.edit-table-modal .edit-table-modal-content .edit-table-modal-body .edit-table-modal-body-3 .edit-table-modal-body-3-2 {\n  -webkit-box-flex: 1;\n      -ms-flex: 1;\n          flex: 1;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\n.edit-table-modal .edit-table-modal-content .edit-table-modal-body .edit-table-modal-body-3 .edit-table-modal-body-3-2 input {\n  margin: auto 1rem;\n  width: 15px;\n  height: 15px;\n}\n\n.edit-table-modal .edit-table-modal-content .edit-table-modal-actions {\n  height: 20%;\n  padding: 0 3rem;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-pack: distribute;\n      justify-content: space-around;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\ninput {\n  position: static !important;\n  opacity: 1 !important;\n}\n\n[type=\"checkbox\"]:not(.filled-in) + label:after {\n  transform: none !important;\n  -webkit-transform: none !important;\n}", ""]);
 
 // exports
 
@@ -34452,7 +34529,47 @@ var render = function() {
             1
           ),
           _vm._v(" "),
-          _vm._m(1)
+          _c("div", { staticClass: "edit-table-modal-body-3" }, [
+            _c(
+              "div",
+              { staticClass: "edit-table-modal-body-3-1" },
+              [
+                _c("sui-checkbox", {
+                  attrs: { label: "Retired", toggle: "" },
+                  model: {
+                    value: _vm.value,
+                    callback: function($$v) {
+                      _vm.value = $$v
+                    },
+                    expression: "value"
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "edit-table-modal-body-3-2" },
+              [
+                _c("sui-checkbox", {
+                  attrs: {
+                    label:
+                      "Update in all layouts where they have been assigned",
+                    toggle: ""
+                  },
+                  model: {
+                    value: _vm.value,
+                    callback: function($$v) {
+                      _vm.value = $$v
+                    },
+                    expression: "value"
+                  }
+                })
+              ],
+              1
+            )
+          ])
         ]),
         _vm._v(" "),
         _c(
@@ -34490,24 +34607,6 @@ var staticRenderFns = [
     return _c("div", { staticClass: "edit-table-modal-header" }, [
       _c("h1", [_vm._v("Edit Media")])
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "edit-table-modal-body-3" }, [
-      _c("div", { staticClass: "edit-table-modal-body-3-1" }, [
-        _c("input", { attrs: { type: "checkbox" } }),
-        _vm._v(" "),
-        _c("p", [_vm._v("Retired")])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "edit-table-modal-body-3-2" }, [
-        _c("input", { attrs: { type: "checkbox" } }),
-        _vm._v(" "),
-        _c("p", [_vm._v("Update in all layouts where they have been assigned")])
-      ])
-    ])
   }
 ]
 render._withStripped = true
@@ -34534,7 +34633,7 @@ var transform;
 var options = {}
 options.transform = transform
 // add the styles to the DOM
-var update = __webpack_require__(6)(content, options);
+var update = __webpack_require__(5)(content, options);
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -34559,7 +34658,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, ".swal-button--Delete {\n  background-color: #d9534f;\n}\n\n.swal-button--Delete:hover {\n  background-color: #d82720 !important;\n}\n\n.swal-button--Cancel {\n  background-color: #f0ad4e;\n}\n\n.swal-button--Cancel:hover {\n  background-color: #f0a53c !important;\n}\n\n.swal-text {\n  color: black;\n}", ""]);
+exports.push([module.i, ".swal-button--Delete {\n  background-color: #d9534f;\n}\n\n.swal-button--Delete:hover {\n  background-color: #d82720 !important;\n}\n\n.swal-button--Cancel {\n  background-color: #f0ad4e;\n}\n\n.swal-button--Cancel:hover {\n  background-color: #f0a53c !important;\n}\n\n.swal-text {\n  color: black;\n}\n\ntr {\n  cursor: pointer;\n}", ""]);
 
 // exports
 
@@ -34578,6 +34677,14 @@ var render = function() {
       _vm.list
         ? _c(
             "sui-table-row",
+            {
+              attrs: { active: _vm.thisRowIsSelected && !_vm.removeSelected },
+              on: {
+                click: function($event) {
+                  return _vm.selectRow(_vm.list.media_id)
+                }
+              }
+            },
             [
               _vm.idTableColumn
                 ? _c("sui-table-cell", [_vm._v(_vm._s(_vm.list.media_id))])
@@ -34704,7 +34811,7 @@ var transform;
 var options = {}
 options.transform = transform
 // add the styles to the DOM
-var update = __webpack_require__(6)(content, options);
+var update = __webpack_require__(5)(content, options);
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -34749,257 +34856,281 @@ var render = function() {
         ? _c("Modal", { on: { closeModal: _vm.onCloseModal } })
         : _vm._e(),
       _vm._v(" "),
-      _c("div", { staticClass: "header" }, [
-        _c(
-          "div",
-          { staticClass: "header-navigation" },
-          [
-            _c(
-              "sui-button",
-              { attrs: { primary: "" }, on: { click: _vm.toggleModal } },
-              [_vm._v("Add Media")]
-            )
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "header-filter" },
-          [
-            _c("sui-input", {
-              attrs: { placeholder: "Name" },
-              on: { keyup: _vm.onInputFilterName },
-              model: {
-                value: _vm.inputFilterName,
-                callback: function($$v) {
-                  _vm.inputFilterName = $$v
-                },
-                expression: "inputFilterName"
+      _c(
+        "div",
+        {
+          staticClass: "header",
+          on: {
+            click: function($event) {
+              if ($event.target !== $event.currentTarget) {
+                return null
               }
-            }),
-            _vm._v(" "),
-            _c(
-              "sui-dropdown",
-              { attrs: { text: "Type", floating: "" } },
-              [
-                _c(
-                  "sui-dropdown-menu",
-                  [
-                    _c("sui-dropdown-item", [_vm._v("Image")]),
-                    _vm._v(" "),
-                    _c("sui-dropdown-item", [_vm._v("PDF")]),
-                    _vm._v(" "),
-                    _c("sui-dropdown-item", [_vm._v("Video")])
-                  ],
-                  1
-                )
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "sui-dropdown",
-              { attrs: { text: "Retired", floating: "" } },
-              [
-                _c(
-                  "sui-dropdown-menu",
-                  [
-                    _c("sui-dropdown-item", [_vm._v("True")]),
-                    _vm._v(" "),
-                    _c("sui-dropdown-item", [_vm._v("False")])
-                  ],
-                  1
-                )
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c("sui-input", { attrs: { placeholder: "Tags" } })
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "header-icon" },
-          [
-            _c(
-              "sui-dropdown",
-              { attrs: { icon: "eye", floating: "", multiple: "" } },
-              [
-                _c(
-                  "sui-dropdown-menu",
-                  [
-                    _c(
-                      "sui-dropdown-item",
-                      { on: { click: _vm.showIdTableColumn } },
-                      [
-                        _vm._v("ID "),
-                        _vm.idTableColumn
-                          ? _c("i", {
-                              staticClass: "fa fa-check",
-                              staticStyle: { "font-size": "14px" }
-                            })
-                          : _vm._e()
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "sui-dropdown-item",
-                      { on: { click: _vm.showNameTableColumn } },
-                      [
-                        _vm._v("Name\n            "),
-                        _vm.nameTableColumn
-                          ? _c("i", {
-                              staticClass: "fa fa-check",
-                              staticStyle: { "font-size": "14px" }
-                            })
-                          : _vm._e()
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "sui-dropdown-item",
-                      { on: { click: _vm.showTypeTableColumn } },
-                      [
-                        _vm._v("Type "),
-                        _vm.typeTableColumn
-                          ? _c("i", {
-                              staticClass: "fa fa-check",
-                              staticStyle: { "font-size": "14px" }
-                            })
-                          : _vm._e()
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "sui-dropdown-item",
-                      { on: { click: _vm.showThumbnailTableColumn } },
-                      [
-                        _vm._v("Thumbnail "),
-                        _vm.thumbnailTableColumn
-                          ? _c("i", {
-                              staticClass: "fa fa-check",
-                              staticStyle: { "font-size": "14px" }
-                            })
-                          : _vm._e()
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "sui-dropdown-item",
-                      { on: { click: _vm.showDurationTableColumn } },
-                      [
-                        _vm._v("Duration "),
-                        _vm.durationTableColumn
-                          ? _c("i", {
-                              staticClass: "fa fa-check",
-                              staticStyle: { "font-size": "14px" }
-                            })
-                          : _vm._e()
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "sui-dropdown-item",
-                      { on: { click: _vm.showSizeTableColumn } },
-                      [
-                        _vm._v("Size "),
-                        _vm.sizeTableColumn
-                          ? _c("i", {
-                              staticClass: "fa fa-check",
-                              staticStyle: { "font-size": "14px" }
-                            })
-                          : _vm._e()
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "sui-dropdown-item",
-                      { on: { click: _vm.showOwnerTableColumn } },
-                      [
-                        _vm._v("Owner "),
-                        _vm.ownerTableColumn
-                          ? _c("i", {
-                              staticClass: "fa fa-check",
-                              staticStyle: { "font-size": "14px" }
-                            })
-                          : _vm._e()
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "sui-dropdown-item",
-                      { on: { click: _vm.showPermissionTableColumn } },
-                      [
-                        _vm._v("Permission "),
-                        _vm.permissionTableColumn
-                          ? _c("i", {
-                              staticClass: "fa fa-check",
-                              staticStyle: { "font-size": "14px" }
-                            })
-                          : _vm._e()
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "sui-dropdown-item",
-                      { on: { click: _vm.showFileNameTableColumn } },
-                      [
-                        _vm._v("File Name "),
-                        _vm.fileNameTableColumn
-                          ? _c("i", {
-                              staticClass: "fa fa-check",
-                              staticStyle: { "font-size": "14px" }
-                            })
-                          : _vm._e()
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "sui-dropdown-item",
-                      { on: { click: _vm.showCreatedTableColumn } },
-                      [
-                        _vm._v("Created "),
-                        _vm.createdTableColumn
-                          ? _c("i", {
-                              staticClass: "fa fa-check",
-                              staticStyle: { "font-size": "14px" }
-                            })
-                          : _vm._e()
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "sui-dropdown-item",
-                      { on: { click: _vm.showUpdatedTableColumn } },
-                      [
-                        _vm._v("Modified "),
-                        _vm.updatedTableColumn
-                          ? _c("i", {
-                              staticClass: "fa fa-check",
-                              staticStyle: { "font-size": "14px" }
-                            })
-                          : _vm._e()
-                      ]
-                    )
-                  ],
-                  1
-                )
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c("i", { staticClass: "fas fa-print" })
-          ],
-          1
-        )
-      ]),
+              return _vm.removingSelected($event)
+            }
+          }
+        },
+        [
+          _c(
+            "div",
+            { staticClass: "header-navigation" },
+            [
+              _c(
+                "sui-button",
+                { attrs: { primary: "" }, on: { click: _vm.toggleModal } },
+                [_vm._v("Add Media")]
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "header-filter" },
+            [
+              _c("sui-input", {
+                attrs: { placeholder: "Name" },
+                on: { keyup: _vm.onInputFilterName },
+                model: {
+                  value: _vm.inputFilterName,
+                  callback: function($$v) {
+                    _vm.inputFilterName = $$v
+                  },
+                  expression: "inputFilterName"
+                }
+              }),
+              _vm._v(" "),
+              _c(
+                "sui-dropdown",
+                { attrs: { text: "Type", floating: "" } },
+                [
+                  _c(
+                    "sui-dropdown-menu",
+                    [
+                      _c("sui-dropdown-item", [_vm._v("Image")]),
+                      _vm._v(" "),
+                      _c("sui-dropdown-item", [_vm._v("PDF")]),
+                      _vm._v(" "),
+                      _c("sui-dropdown-item", [_vm._v("Video")])
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "sui-dropdown",
+                { attrs: { text: "Retired", floating: "" } },
+                [
+                  _c(
+                    "sui-dropdown-menu",
+                    [
+                      _c("sui-dropdown-item", [_vm._v("True")]),
+                      _vm._v(" "),
+                      _c("sui-dropdown-item", [_vm._v("False")])
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("sui-input", { attrs: { placeholder: "Tags" } })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "header-icon" },
+            [
+              _c(
+                "sui-dropdown",
+                { attrs: { icon: "eye", floating: "", multiple: "" } },
+                [
+                  _c(
+                    "sui-dropdown-menu",
+                    [
+                      _c(
+                        "sui-dropdown-item",
+                        { on: { click: _vm.showIdTableColumn } },
+                        [
+                          _vm._v("ID\n            "),
+                          _vm.idTableColumn
+                            ? _c("i", {
+                                staticClass: "fa fa-check",
+                                staticStyle: { "font-size": "14px" }
+                              })
+                            : _vm._e()
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "sui-dropdown-item",
+                        { on: { click: _vm.showNameTableColumn } },
+                        [
+                          _vm._v("Name\n            "),
+                          _vm.nameTableColumn
+                            ? _c("i", {
+                                staticClass: "fa fa-check",
+                                staticStyle: { "font-size": "14px" }
+                              })
+                            : _vm._e()
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "sui-dropdown-item",
+                        { on: { click: _vm.showTypeTableColumn } },
+                        [
+                          _vm._v("Type\n            "),
+                          _vm.typeTableColumn
+                            ? _c("i", {
+                                staticClass: "fa fa-check",
+                                staticStyle: { "font-size": "14px" }
+                              })
+                            : _vm._e()
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "sui-dropdown-item",
+                        { on: { click: _vm.showThumbnailTableColumn } },
+                        [
+                          _vm._v("Thumbnail\n            "),
+                          _vm.thumbnailTableColumn
+                            ? _c("i", {
+                                staticClass: "fa fa-check",
+                                staticStyle: { "font-size": "14px" }
+                              })
+                            : _vm._e()
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "sui-dropdown-item",
+                        { on: { click: _vm.showDurationTableColumn } },
+                        [
+                          _vm._v("Duration\n            "),
+                          _vm.durationTableColumn
+                            ? _c("i", {
+                                staticClass: "fa fa-check",
+                                staticStyle: { "font-size": "14px" }
+                              })
+                            : _vm._e()
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "sui-dropdown-item",
+                        { on: { click: _vm.showSizeTableColumn } },
+                        [
+                          _vm._v("Size\n            "),
+                          _vm.sizeTableColumn
+                            ? _c("i", {
+                                staticClass: "fa fa-check",
+                                staticStyle: { "font-size": "14px" }
+                              })
+                            : _vm._e()
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "sui-dropdown-item",
+                        { on: { click: _vm.showOwnerTableColumn } },
+                        [
+                          _vm._v("Owner\n            "),
+                          _vm.ownerTableColumn
+                            ? _c("i", {
+                                staticClass: "fa fa-check",
+                                staticStyle: { "font-size": "14px" }
+                              })
+                            : _vm._e()
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "sui-dropdown-item",
+                        { on: { click: _vm.showPermissionTableColumn } },
+                        [
+                          _vm._v("Permission\n            "),
+                          _vm.permissionTableColumn
+                            ? _c("i", {
+                                staticClass: "fa fa-check",
+                                staticStyle: { "font-size": "14px" }
+                              })
+                            : _vm._e()
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "sui-dropdown-item",
+                        { on: { click: _vm.showFileNameTableColumn } },
+                        [
+                          _vm._v("File Name\n            "),
+                          _vm.fileNameTableColumn
+                            ? _c("i", {
+                                staticClass: "fa fa-check",
+                                staticStyle: { "font-size": "14px" }
+                              })
+                            : _vm._e()
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "sui-dropdown-item",
+                        { on: { click: _vm.showCreatedTableColumn } },
+                        [
+                          _vm._v("Created\n            "),
+                          _vm.createdTableColumn
+                            ? _c("i", {
+                                staticClass: "fa fa-check",
+                                staticStyle: { "font-size": "14px" }
+                              })
+                            : _vm._e()
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "sui-dropdown-item",
+                        { on: { click: _vm.showUpdatedTableColumn } },
+                        [
+                          _vm._v("Modified\n            "),
+                          _vm.updatedTableColumn
+                            ? _c("i", {
+                                staticClass: "fa fa-check",
+                                staticStyle: { "font-size": "14px" }
+                              })
+                            : _vm._e()
+                        ]
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("i", { staticClass: "fas fa-print" })
+            ],
+            1
+          )
+        ]
+      ),
       _vm._v(" "),
       _c(
         "div",
-        { staticClass: "body" },
+        {
+          staticClass: "body",
+          on: {
+            click: function($event) {
+              if ($event.target !== $event.currentTarget) {
+                return null
+              }
+              return _vm.removingSelected($event)
+            }
+          }
+        },
         [
           _c(
             "sui-table",
@@ -35016,7 +35147,7 @@ var render = function() {
                             "sui-table-header-cell",
                             { on: { click: _vm.orderByTableListId } },
                             [
-                              _vm._v("ID "),
+                              _vm._v("ID\n            "),
                               _vm.sortTableListId
                                 ? _c("sui-icon", {
                                     attrs: {
@@ -35056,7 +35187,7 @@ var render = function() {
                             "sui-table-header-cell",
                             { on: { click: _vm.orderByTableListType } },
                             [
-                              _vm._v("Type \n            "),
+                              _vm._v("Type\n            "),
                               _vm.sortTableListType
                                 ? _c("sui-icon", {
                                     attrs: {
@@ -35144,9 +35275,13 @@ var render = function() {
                       permissionTableColumn: _vm.permissionTableColumn,
                       fileNameTableColumn: _vm.fileNameTableColumn,
                       createdTableColumn: _vm.createdTableColumn,
-                      updatedTableColumn: _vm.updatedTableColumn
+                      updatedTableColumn: _vm.updatedTableColumn,
+                      removeSelected: _vm.removeSelected
                     },
-                    on: { refreshTable: _vm.onUpdate }
+                    on: {
+                      removeSelectedFalse: _vm.removeSelectedFalse,
+                      refreshTable: _vm.onUpdate
+                    }
                   })
                 }
               )

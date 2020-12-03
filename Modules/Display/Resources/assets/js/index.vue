@@ -1,7 +1,13 @@
 <template>
   <div>
-    <edit-display-modal 
-      v-if="openDisplayEdit" 
+    <preview-profile-modal
+      v-if="openPreviewProfile"
+      v-bind:previewProfileModalOpenId="previewProfileModalOpenId"
+      v-bind:tableList="tableList"
+      v-on:closeModalPreviewProfile="closeModalPreviewProfile"
+    ></preview-profile-modal>
+    <edit-display-modal
+      v-if="openDisplayEdit"
       v-on:closeModalDisplayEdit="closeModalDisplayEdit"
       v-on:fetchedData="refreshPage"
       v-bind:tableList="tableList"
@@ -87,8 +93,6 @@
       </div>
     </div>
     <div class="body">
-      <sui-checkbox label="rgesgresges" toggle true />
-      <sui-checkbox label="checkbox" />
       <sui-table selectable celled>
         <sui-table-header>
           <sui-table-row>
@@ -106,18 +110,31 @@
           <sui-table-row v-for="list in tableList" v-bind:key="list.id">
             <sui-table-cell>{{ list.displayId }}</sui-table-cell>
             <sui-table-cell>{{ list.display }}</sui-table-cell>
-            <sui-table-cell>{{ list.licensed === 1 ? "true" : "false" }}</sui-table-cell>
-            <sui-table-cell>{{ list.loggedIn === 1 ? "true" : "false" }}</sui-table-cell>
+            <sui-table-cell>{{
+              list.licensed === 1 ? "true" : "false"
+            }}</sui-table-cell>
+            <sui-table-cell>{{
+              list.loggedIn === 1 ? "true" : "false"
+            }}</sui-table-cell>
             <sui-table-cell>{{ list.defaultLayout }}</sui-table-cell>
             <sui-table-cell>{{ list.lastAccessed }}</sui-table-cell>
             <sui-table-cell>{{ list.clientAddress }}</sui-table-cell>
             <sui-table-cell>
               <sui-dropdown floating pointing="top right">
                 <sui-dropdown-menu>
-                  <sui-dropdown-item @click="openingDisplayEdit(list.displayId)">Edit</sui-dropdown-item>
+                  <sui-dropdown-item @click="openingDisplayEdit(list.displayId)"
+                    >Edit</sui-dropdown-item
+                  >
                   <sui-dropdown-item>Delete</sui-dropdown-item>
                   <sui-dropdown-divider />
-                  <sui-dropdown-item @click="openModal(list.displayId)">Default Layout</sui-dropdown-item>
+                  <sui-dropdown-item @click="openModal(list.displayId)"
+                    >Default Layout</sui-dropdown-item
+                  >
+                  <sui-dropdown-divider />
+                  <sui-dropdown-item
+                    @click="openModalPreviewProfile(list.displayId)"
+                    >Preview Profile</sui-dropdown-item
+                  >
                 </sui-dropdown-menu>
               </sui-dropdown>
             </sui-table-cell>
@@ -128,12 +145,20 @@
   </div>
 </template>
 
+/*
+<label class="switch">
+  <input type="checkbox" checked />
+  <span class="slider round"></span>
+</label>
+*/
+
 <script>
 import axios from "axios";
 import swal from "sweetalert";
 import _ from "lodash";
 
 import EditDisplayModal from "./components/EditDisplayModal";
+import PreviewProfileModal from "./components/PreviewProfileModal";
 import "../css/index.css";
 
 export default {
@@ -147,10 +172,13 @@ export default {
       modalId: null,
       openDisplayEdit: false,
       editDisplayModalOpenId: null,
+      openPreviewProfile: false,
+      previewProfileModalOpenId: null,
     };
   },
   components: {
     EditDisplayModal: EditDisplayModal,
+    PreviewProfileModal: PreviewProfileModal,
   },
   watch: {
     current: function() {
@@ -189,6 +217,9 @@ export default {
     closeModalDisplayEdit() {
       this.openDisplayEdit = false;
     },
+    closeModalPreviewProfile() {
+      this.openPreviewProfile = false;
+    },
     openModal(id) {
       this.modalIsOpen = true;
       this.modalId = id;
@@ -219,6 +250,11 @@ export default {
       this.editDisplayModalOpenId = id;
       this.openDisplayEdit = !this.openDisplayEdit;
       console.log(this.editDisplayModalOpenId);
+    },
+    openModalPreviewProfile(id) {
+      console.log(id);
+      this.openPreviewProfile = !this.openPreviewProfile;
+      this.previewProfileModalOpenId = id;
     },
   },
 };

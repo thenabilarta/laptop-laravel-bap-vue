@@ -1,5 +1,13 @@
 <template>
   <div>
+    <edit-display-modal 
+      v-if="openDisplayEdit" 
+      v-on:closeModalDisplayEdit="closeModalDisplayEdit"
+      v-on:fetchedData="refreshPage"
+      v-bind:tableList="tableList"
+      v-bind:editDisplayModalOpenId="editDisplayModalOpenId"
+      v-bind:layoutData="layoutData"
+    ></edit-display-modal>
     <div v-if="modalIsOpen" class="my-modal" @click.self="closeModal">
       <div class="my-modal-content">
         <div class="my-modal-header">
@@ -79,6 +87,8 @@
       </div>
     </div>
     <div class="body">
+      <sui-checkbox label="rgesgresges" toggle true />
+      <sui-checkbox label="checkbox" />
       <sui-table selectable celled>
         <sui-table-header>
           <sui-table-row>
@@ -104,7 +114,7 @@
             <sui-table-cell>
               <sui-dropdown floating pointing="top right">
                 <sui-dropdown-menu>
-                  <sui-dropdown-item>Edit</sui-dropdown-item>
+                  <sui-dropdown-item @click="openingDisplayEdit(list.displayId)">Edit</sui-dropdown-item>
                   <sui-dropdown-item>Delete</sui-dropdown-item>
                   <sui-dropdown-divider />
                   <sui-dropdown-item @click="openModal(list.displayId)">Default Layout</sui-dropdown-item>
@@ -121,7 +131,9 @@
 <script>
 import axios from "axios";
 import swal from "sweetalert";
+import _ from "lodash";
 
+import EditDisplayModal from "./components/EditDisplayModal";
 import "../css/index.css";
 
 export default {
@@ -133,7 +145,12 @@ export default {
       current: null,
       options: [],
       modalId: null,
+      openDisplayEdit: false,
+      editDisplayModalOpenId: null,
     };
+  },
+  components: {
+    EditDisplayModal: EditDisplayModal,
   },
   watch: {
     current: function() {
@@ -151,6 +168,11 @@ export default {
       });
       return this.options;
     },
+    chosedTableList() {
+      _.filter(this.tableList, (t) => {
+        return t.displayId === this.editDisplayModalOpenId;
+      });
+    },
   },
   mounted() {
     axios.get("http://127.0.0.1:8000/display/data").then((res) => {
@@ -164,6 +186,9 @@ export default {
     });
   },
   methods: {
+    closeModalDisplayEdit() {
+      this.openDisplayEdit = false;
+    },
     openModal(id) {
       this.modalIsOpen = true;
       this.modalId = id;
@@ -188,6 +213,12 @@ export default {
         console.log(res.data);
         this.tableList = res.data;
       });
+    },
+    openingDisplayEdit(id) {
+      console.log(id);
+      this.editDisplayModalOpenId = id;
+      this.openDisplayEdit = !this.openDisplayEdit;
+      console.log(this.editDisplayModalOpenId);
     },
   },
 };

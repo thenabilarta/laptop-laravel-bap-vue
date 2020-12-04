@@ -33086,15 +33086,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -33105,7 +33096,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   name: "PreviewProfileModal",
   data: function data() {
     return {
-      dataTableList: {}
+      dataTableList: {},
+      previewProfileData: null
     };
   },
 
@@ -33122,10 +33114,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     });
     this.dataTableList = data[0];
     console.log(this.previewProfileModalOpenId);
+
+    __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post("http://127.0.0.1:8000/display/previewProfileData", {
+      displayID: this.tableList.displayProfileId
+    }).then(function (res) {
+      console.log(res.data);
+      _this.previewProfileData = res.data[0];
+    });
   },
 
   methods: {
     closeModalPreviewProfile: function closeModalPreviewProfile() {
+      this.$emit("closeModalPreviewProfile");
+    },
+    closeModalButton: function closeModalButton() {
       this.$emit("closeModalPreviewProfile");
     }
   }
@@ -33171,7 +33173,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, ".preview-profile-modal {\n  top: 0;\n  bottom: 0;\n  right: 0;\n  left: 0;\n  position: fixed;\n  background-color: rgba(0, 0, 0, 0.5);\n  z-index: 1100 !important;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\n.preview-profile-modal .preview-profile-modal-content {\n  height: 80%;\n  width: 70%;\n  border-radius: 10px;\n  background-color: #f5f5f5;\n}\n\n.preview-profile-modal .preview-profile-modal-content .preview-profile-modal-header {\n  height: 15%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\n.preview-profile-modal .preview-profile-modal-content .preview-profile-modal-header h1 {\n  font-weight: 400;\n  margin-left: 1rem;\n  font-size: 24px;\n}\n\n.preview-profile-modal .preview-profile-modal-content .preview-profile-modal-body {\n  height: 70%;\n  border-top: 1px solid rgba(0, 0, 0, 0.2);\n  border-bottom: 1px solid rgba(0, 0, 0, 0.2);\n  padding: 2rem 5rem;\n  overflow-y: scroll;\n}\n\n.preview-profile-modal .preview-profile-modal-content .preview-profile-modal-actions {\n  height: 15%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: end;\n      -ms-flex-pack: end;\n          justify-content: flex-end;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  padding: 0 5rem;\n}", ""]);
+exports.push([module.i, ".preview-profile-modal {\n  top: 0;\n  bottom: 0;\n  right: 0;\n  left: 0;\n  position: fixed;\n  background-color: rgba(0, 0, 0, 0.5);\n  z-index: 1100 !important;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\n.preview-profile-modal .preview-profile-modal-content {\n  height: 80%;\n  width: 70%;\n  border-radius: 10px;\n  background-color: #f5f5f5;\n  overflow: hidden;\n  resize: both;\n}\n\n.preview-profile-modal .preview-profile-modal-content .preview-profile-modal-header {\n  height: 15%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\n.preview-profile-modal .preview-profile-modal-content .preview-profile-modal-header h1 {\n  font-weight: 400;\n  margin-left: 1rem;\n  font-size: 24px;\n}\n\n.preview-profile-modal .preview-profile-modal-content .preview-profile-modal-body {\n  height: 70%;\n  border-top: 1px solid rgba(0, 0, 0, 0.2);\n  border-bottom: 1px solid rgba(0, 0, 0, 0.2);\n  padding: 2rem 5rem;\n  overflow-y: scroll;\n}\n\n.preview-profile-modal .preview-profile-modal-content .preview-profile-modal-body .loading {\n  height: 100%;\n  width: 100%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\n.preview-profile-modal .preview-profile-modal-content .preview-profile-modal-actions {\n  height: 15%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: end;\n      -ms-flex-pack: end;\n          justify-content: flex-end;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  padding: 0 5rem;\n}", ""]);
 
 // exports
 
@@ -33205,588 +33207,581 @@ var render = function() {
           "div",
           { staticClass: "preview-profile-modal-body" },
           [
-            _c(
-              "sui-table",
-              { attrs: { selectable: "", celled: "" } },
-              [
-                _c(
-                  "sui-table-header",
-                  [
-                    _c(
-                      "sui-table-row",
-                      [
-                        _c("sui-table-header-cell", [_vm._v("Setting")]),
-                        _vm._v(" "),
-                        _c("sui-table-header-cell", [_vm._v("Value")])
-                      ],
-                      1
-                    )
-                  ],
+            _vm.previewProfileData === null
+              ? _c(
+                  "div",
+                  { staticClass: "loading" },
+                  [_c("sui-loader", { attrs: { active: "", inline: "" } })],
                   1
-                ),
-                _vm._v(" "),
-                _c(
-                  "sui-table-body",
+                )
+              : _c(
+                  "sui-table",
+                  { attrs: { selectable: "", celled: "" } },
                   [
                     _c(
-                      "sui-table-row",
+                      "sui-table-header",
                       [
-                        _c("sui-table-cell", [_vm._v("Display Id")]),
-                        _vm._v(" "),
-                        _c("sui-table-cell", [
-                          _vm._v(_vm._s(_vm.dataTableList.displayId))
-                        ])
+                        _c(
+                          "sui-table-row",
+                          [
+                            _c("sui-table-header-cell", [_vm._v("Setting")]),
+                            _vm._v(" "),
+                            _c("sui-table-header-cell", [_vm._v("Value")])
+                          ],
+                          1
+                        )
                       ],
                       1
                     ),
                     _vm._v(" "),
                     _c(
-                      "sui-table-row",
+                      "sui-table-body",
                       [
-                        _c("sui-table-cell", [_vm._v("Auditing Until")]),
+                        _c(
+                          "sui-table-row",
+                          [
+                            _c("sui-table-cell", [
+                              _vm._v("Display Profile Id")
+                            ]),
+                            _vm._v(" "),
+                            _c("sui-table-cell", [
+                              _vm._v(
+                                _vm._s(_vm.previewProfileData.displayProfileId)
+                              )
+                            ])
+                          ],
+                          1
+                        ),
                         _vm._v(" "),
-                        _c("sui-table-cell", [
-                          _vm._v(_vm._s(_vm.dataTableList.auditingUntil))
-                        ])
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "sui-table-row",
-                      [
-                        _c("sui-table-cell", [_vm._v("Display")]),
+                        _c(
+                          "sui-table-row",
+                          [
+                            _c("sui-table-cell", [
+                              _vm._v("Display Profile Name")
+                            ]),
+                            _vm._v(" "),
+                            _c("sui-table-cell", [
+                              _vm._v(_vm._s(_vm.previewProfileData.name))
+                            ])
+                          ],
+                          1
+                        ),
                         _vm._v(" "),
-                        _c("sui-table-cell", [
-                          _vm._v(_vm._s(_vm.dataTableList.display))
-                        ])
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "sui-table-row",
-                      [
-                        _c("sui-table-cell", [_vm._v("Description")]),
+                        _c(
+                          "sui-table-row",
+                          [
+                            _c("sui-table-cell", [
+                              _vm._v("Display Profile Type")
+                            ]),
+                            _vm._v(" "),
+                            _c("sui-table-cell", [
+                              _vm._v(_vm._s(_vm.previewProfileData.type))
+                            ])
+                          ],
+                          1
+                        ),
                         _vm._v(" "),
-                        _c("sui-table-cell", [
-                          _vm._v(_vm._s(_vm.dataTableList.description))
-                        ])
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "sui-table-row",
-                      [
-                        _c("sui-table-cell", [_vm._v("Default Layout ID")]),
+                        _c(
+                          "sui-table-row",
+                          [
+                            _c("sui-table-cell", [_vm._v("Collect Interval")]),
+                            _vm._v(" "),
+                            _c("sui-table-cell", [
+                              _vm._v(
+                                _vm._s(_vm.previewProfileData.config[0].value)
+                              )
+                            ])
+                          ],
+                          1
+                        ),
                         _vm._v(" "),
-                        _c("sui-table-cell", [
-                          _vm._v(_vm._s(_vm.dataTableList.defaultLayoutId))
-                        ])
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "sui-table-row",
-                      [
-                        _c("sui-table-cell", [_vm._v("License")]),
+                        _c(
+                          "sui-table-row",
+                          [
+                            _c("sui-table-cell", [
+                              _vm._v("Download Window Start Time")
+                            ]),
+                            _vm._v(" "),
+                            _c("sui-table-cell", [
+                              _vm._v(
+                                _vm._s(_vm.previewProfileData.config[1].value)
+                              )
+                            ])
+                          ],
+                          1
+                        ),
                         _vm._v(" "),
-                        _c("sui-table-cell", [
-                          _vm._v(_vm._s(_vm.dataTableList.license))
-                        ])
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "sui-table-row",
-                      [
-                        _c("sui-table-cell", [_vm._v("Licensed")]),
+                        _c(
+                          "sui-table-row",
+                          [
+                            _c("sui-table-cell", [
+                              _vm._v("Download Window End Time")
+                            ]),
+                            _vm._v(" "),
+                            _c("sui-table-cell", [
+                              _vm._v(
+                                _vm._s(_vm.previewProfileData.config[2].value)
+                              )
+                            ])
+                          ],
+                          1
+                        ),
                         _vm._v(" "),
-                        _c("sui-table-cell", [
-                          _vm._v(
-                            _vm._s(
-                              _vm.dataTableList.licensed === 1
-                                ? "true"
-                                : "false"
-                            )
-                          )
-                        ])
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "sui-table-row",
-                      [
-                        _c("sui-table-cell", [_vm._v("Logged In")]),
+                        _c(
+                          "sui-table-row",
+                          [
+                            _c("sui-table-cell", [
+                              _vm._v("Enable Power Point")
+                            ]),
+                            _vm._v(" "),
+                            _c("sui-table-cell", [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.previewProfileData.config[3].value === 1
+                                    ? "true"
+                                    : "false"
+                                )
+                              )
+                            ])
+                          ],
+                          1
+                        ),
                         _vm._v(" "),
-                        _c("sui-table-cell", [
-                          _vm._v(
-                            _vm._s(
-                              _vm.dataTableList.loggedIn === 1
-                                ? "true"
-                                : "false"
-                            )
-                          )
-                        ])
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "sui-table-row",
-                      [
-                        _c("sui-table-cell", [_vm._v("Last Accessed")]),
+                        _c(
+                          "sui-table-row",
+                          [
+                            _c("sui-table-cell", [_vm._v("Enable Stats")]),
+                            _vm._v(" "),
+                            _c("sui-table-cell", [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.previewProfileData.config[4].value === 1
+                                    ? "true"
+                                    : "false"
+                                )
+                              )
+                            ])
+                          ],
+                          1
+                        ),
                         _vm._v(" "),
-                        _c("sui-table-cell", [
-                          _vm._v(
-                            _vm._s(
-                              new Date(
-                                _vm.dataTableList.lastAccessed * 1000
-                              ).toLocaleDateString("id-ID")
-                            )
-                          )
-                        ])
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "sui-table-row",
-                      [
-                        _c("sui-table-cell", [_vm._v("Included Schedule")]),
+                        _c(
+                          "sui-table-row",
+                          [
+                            _c("sui-table-cell", [
+                              _vm._v("Xmr Network Address")
+                            ]),
+                            _vm._v(" "),
+                            _c("sui-table-cell", [
+                              _vm._v(
+                                _vm._s(_vm.previewProfileData.config[5].value)
+                              )
+                            ])
+                          ],
+                          1
+                        ),
                         _vm._v(" "),
-                        _c("sui-table-cell", [
-                          _vm._v(
-                            _vm._s(
-                              _vm.dataTableList.incSchedule === 1
-                                ? "true"
-                                : "false"
-                            )
-                          )
-                        ])
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "sui-table-row",
-                      [
-                        _c("sui-table-cell", [_vm._v("Email Alert")]),
+                        _c(
+                          "sui-table-row",
+                          [
+                            _c("sui-table-cell", [_vm._v("Size X")]),
+                            _vm._v(" "),
+                            _c("sui-table-cell", [
+                              _vm._v(
+                                _vm._s(_vm.previewProfileData.config[6].value)
+                              )
+                            ])
+                          ],
+                          1
+                        ),
                         _vm._v(" "),
-                        _c("sui-table-cell", [
-                          _vm._v(
-                            _vm._s(
-                              _vm.dataTableList.emailAlert === 1
-                                ? "true"
-                                : "false"
-                            )
-                          )
-                        ])
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "sui-table-row",
-                      [
-                        _c("sui-table-cell", [_vm._v("Alert Timeout")]),
+                        _c(
+                          "sui-table-row",
+                          [
+                            _c("sui-table-cell", [_vm._v("Size Y")]),
+                            _vm._v(" "),
+                            _c("sui-table-cell", [
+                              _vm._v(
+                                _vm._s(_vm.previewProfileData.config[7].value)
+                              )
+                            ])
+                          ],
+                          1
+                        ),
                         _vm._v(" "),
-                        _c("sui-table-cell", [
-                          _vm._v(
-                            _vm._s(
-                              _vm.dataTableList.alertTimeout === 1
-                                ? "true"
-                                : "false"
-                            )
-                          )
-                        ])
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "sui-table-row",
-                      [
-                        _c("sui-table-cell", [_vm._v("Client Address")]),
+                        _c(
+                          "sui-table-row",
+                          [
+                            _c("sui-table-cell", [_vm._v("Offset X")]),
+                            _vm._v(" "),
+                            _c("sui-table-cell", [
+                              _vm._v(
+                                _vm._s(_vm.previewProfileData.config[8].value)
+                              )
+                            ])
+                          ],
+                          1
+                        ),
                         _vm._v(" "),
-                        _c("sui-table-cell", [
-                          _vm._v(_vm._s(_vm.dataTableList.clientAddress))
-                        ])
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "sui-table-row",
-                      [
-                        _c("sui-table-cell", [
-                          _vm._v("Media Inventory Status")
-                        ]),
+                        _c(
+                          "sui-table-row",
+                          [
+                            _c("sui-table-cell", [_vm._v("Offset Y")]),
+                            _vm._v(" "),
+                            _c("sui-table-cell", [
+                              _vm._v(
+                                _vm._s(_vm.previewProfileData.config[9].value)
+                              )
+                            ])
+                          ],
+                          1
+                        ),
                         _vm._v(" "),
-                        _c("sui-table-cell", [
-                          _vm._v(_vm._s(_vm.dataTableList.mediaInventoryStatus))
-                        ])
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "sui-table-row",
-                      [
-                        _c("sui-table-cell", [_vm._v("MAC Address")]),
+                        _c(
+                          "sui-table-row",
+                          [
+                            _c("sui-table-cell", [
+                              _vm._v("Ctrl Key Show Client Info")
+                            ]),
+                            _vm._v(" "),
+                            _c("sui-table-cell", [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.previewProfileData.config[10].value === 1
+                                    ? "true"
+                                    : "false"
+                                )
+                              )
+                            ])
+                          ],
+                          1
+                        ),
                         _vm._v(" "),
-                        _c("sui-table-cell", [
-                          _vm._v(_vm._s(_vm.dataTableList.macAddress))
-                        ])
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "sui-table-row",
-                      [
-                        _c("sui-table-cell", [_vm._v("Last Changed")]),
+                        _c(
+                          "sui-table-row",
+                          [
+                            _c("sui-table-cell", [
+                              _vm._v("Client Info Key Code")
+                            ]),
+                            _vm._v(" "),
+                            _c("sui-table-cell", [
+                              _vm._v(
+                                _vm._s(_vm.previewProfileData.config[11].value)
+                              )
+                            ])
+                          ],
+                          1
+                        ),
                         _vm._v(" "),
-                        _c("sui-table-cell", [
-                          _vm._v(
-                            _vm._s(
-                              _vm.dataTableList.lastChanged
-                                ? _vm.dataTableList.lastChanged
-                                : "Never"
-                            )
-                          )
-                        ])
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "sui-table-row",
-                      [
-                        _c("sui-table-cell", [
-                          _vm._v("Number of Mac Address Changes")
-                        ]),
+                        _c(
+                          "sui-table-row",
+                          [
+                            _c("sui-table-cell", [_vm._v("Log Level")]),
+                            _vm._v(" "),
+                            _c("sui-table-cell", [
+                              _vm._v(
+                                _vm._s(_vm.previewProfileData.config[12].value)
+                              )
+                            ])
+                          ],
+                          1
+                        ),
                         _vm._v(" "),
-                        _c("sui-table-cell", [
-                          _vm._v(
-                            _vm._s(_vm.dataTableList.numberOfMacAddressChanges)
-                          )
-                        ])
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "sui-table-row",
-                      [
-                        _c("sui-table-cell", [
-                          _vm._v("Last Wake on LAN Command Set")
-                        ]),
+                        _c(
+                          "sui-table-row",
+                          [
+                            _c("sui-table-cell", [
+                              _vm._v("Log to Disk Location")
+                            ]),
+                            _vm._v(" "),
+                            _c("sui-table-cell", [
+                              _vm._v(
+                                _vm._s(_vm.previewProfileData.config[13].value)
+                              )
+                            ])
+                          ],
+                          1
+                        ),
                         _vm._v(" "),
-                        _c("sui-table-cell", [
-                          _vm._v(
-                            _vm._s(
-                              _vm.dataTableList.lastWakeOnLanCommandSent
-                                ? _vm.dataTableList.lastWakeOnLanCommandSent
-                                : "Null"
-                            )
-                          )
-                        ])
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "sui-table-row",
-                      [
-                        _c("sui-table-cell", [_vm._v("Wake on LAN Enabled")]),
+                        _c(
+                          "sui-table-row",
+                          [
+                            _c("sui-table-cell", [_vm._v("Show In Taskbar")]),
+                            _vm._v(" "),
+                            _c("sui-table-cell", [
+                              _vm._v(
+                                _vm._s(_vm.previewProfileData.config[14].value)
+                              )
+                            ])
+                          ],
+                          1
+                        ),
                         _vm._v(" "),
-                        _c("sui-table-cell", [
-                          _vm._v(_vm._s(_vm.dataTableList.wakeOnLanEnabled))
-                        ])
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "sui-table-row",
-                      [
-                        _c("sui-table-cell", [_vm._v("Wake on LAN Time")]),
+                        _c(
+                          "sui-table-row",
+                          [
+                            _c("sui-table-cell", [
+                              _vm._v("Cursor Start Position")
+                            ]),
+                            _vm._v(" "),
+                            _c("sui-table-cell", [
+                              _vm._v(
+                                _vm._s(_vm.previewProfileData.config[15].value)
+                              )
+                            ])
+                          ],
+                          1
+                        ),
                         _vm._v(" "),
-                        _c("sui-table-cell", [
-                          _vm._v(_vm._s(_vm.dataTableList.wakeOnLanTime))
-                        ])
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "sui-table-row",
-                      [
-                        _c("sui-table-cell", [_vm._v("Broadcast Address")]),
+                        _c(
+                          "sui-table-row",
+                          [
+                            _c("sui-table-cell", [_vm._v("Double Buffering")]),
+                            _vm._v(" "),
+                            _c("sui-table-cell", [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.previewProfileData.config[16].value === 1
+                                    ? "true"
+                                    : "false"
+                                )
+                              )
+                            ])
+                          ],
+                          1
+                        ),
                         _vm._v(" "),
-                        _c("sui-table-cell", [
-                          _vm._v(_vm._s(_vm.dataTableList.broadCastAddress))
-                        ])
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "sui-table-row",
-                      [
-                        _c("sui-table-cell", [_vm._v("Secure on")]),
+                        _c(
+                          "sui-table-row",
+                          [
+                            _c("sui-table-cell", [
+                              _vm._v("Empty Layout Duration")
+                            ]),
+                            _vm._v(" "),
+                            _c("sui-table-cell", [
+                              _vm._v(
+                                _vm._s(_vm.previewProfileData.config[17].value)
+                              )
+                            ])
+                          ],
+                          1
+                        ),
                         _vm._v(" "),
-                        _c("sui-table-cell", [
-                          _vm._v(
-                            _vm._s(
-                              _vm.dataTableList.secureOn ? "true" : "false"
-                            )
-                          )
-                        ])
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "sui-table-row",
-                      [
-                        _c("sui-table-cell", [_vm._v("CIDR")]),
+                        _c(
+                          "sui-table-row",
+                          [
+                            _c("sui-table-cell", [_vm._v("Enable Mouse")]),
+                            _vm._v(" "),
+                            _c("sui-table-cell", [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.previewProfileData.config[18].value === 1
+                                    ? "true"
+                                    : "false"
+                                )
+                              )
+                            ])
+                          ],
+                          1
+                        ),
                         _vm._v(" "),
-                        _c("sui-table-cell", [
-                          _vm._v(_vm._s(_vm.dataTableList.cidr))
-                        ])
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "sui-table-row",
-                      [
-                        _c("sui-table-cell", [_vm._v("Latitude")]),
+                        _c(
+                          "sui-table-row",
+                          [
+                            _c("sui-table-cell", [
+                              _vm._v("Enable Shell Command")
+                            ]),
+                            _vm._v(" "),
+                            _c("sui-table-cell", [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.previewProfileData.config[19].value === 1
+                                    ? "true"
+                                    : "false"
+                                )
+                              )
+                            ])
+                          ],
+                          1
+                        ),
                         _vm._v(" "),
-                        _c("sui-table-cell", [
-                          _vm._v(_vm._s(_vm.dataTableList.latitude))
-                        ])
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "sui-table-row",
-                      [
-                        _c("sui-table-cell", [_vm._v("Longitude")]),
+                        _c(
+                          "sui-table-row",
+                          [
+                            _c("sui-table-cell", [
+                              _vm._v("Expire Modified Layout")
+                            ]),
+                            _vm._v(" "),
+                            _c("sui-table-cell", [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.previewProfileData.config[20].value === 1
+                                    ? "true"
+                                    : "false"
+                                )
+                              )
+                            ])
+                          ],
+                          1
+                        ),
                         _vm._v(" "),
-                        _c("sui-table-cell", [
-                          _vm._v(_vm._s(_vm.dataTableList.longitude))
-                        ])
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "sui-table-row",
-                      [
-                        _c("sui-table-cell", [_vm._v("Client Type")]),
+                        _c(
+                          "sui-table-row",
+                          [
+                            _c("sui-table-cell", [
+                              _vm._v("Max Concurrent Downloads")
+                            ]),
+                            _vm._v(" "),
+                            _c("sui-table-cell", [
+                              _vm._v(
+                                _vm._s(_vm.previewProfileData.config[21].value)
+                              )
+                            ])
+                          ],
+                          1
+                        ),
                         _vm._v(" "),
-                        _c("sui-table-cell", [
-                          _vm._v(_vm._s(_vm.dataTableList.clientType))
-                        ])
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "sui-table-row",
-                      [
-                        _c("sui-table-cell", [_vm._v("Client Version")]),
+                        _c(
+                          "sui-table-row",
+                          [
+                            _c("sui-table-cell", [
+                              _vm._v("Shell Command Allow List")
+                            ]),
+                            _vm._v(" "),
+                            _c("sui-table-cell", [
+                              _vm._v(
+                                _vm._s(_vm.previewProfileData.config[22].value)
+                              )
+                            ])
+                          ],
+                          1
+                        ),
                         _vm._v(" "),
-                        _c("sui-table-cell", [
-                          _vm._v(_vm._s(_vm.dataTableList.clientVersion))
-                        ])
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "sui-table-row",
-                      [
-                        _c("sui-table-cell", [_vm._v("Client Code")]),
+                        _c(
+                          "sui-table-row",
+                          [
+                            _c("sui-table-cell", [
+                              _vm._v("Use Cef Web Browser")
+                            ]),
+                            _vm._v(" "),
+                            _c("sui-table-cell", [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.previewProfileData.config[23].value === 1
+                                    ? "true"
+                                    : "false"
+                                )
+                              )
+                            ])
+                          ],
+                          1
+                        ),
                         _vm._v(" "),
-                        _c("sui-table-cell", [
-                          _vm._v(_vm._s(_vm.dataTableList.clientCode))
-                        ])
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "sui-table-row",
-                      [
-                        _c("sui-table-cell", [_vm._v("Display Profile Id")]),
+                        _c(
+                          "sui-table-row",
+                          [
+                            _c("sui-table-cell", [
+                              _vm._v("Send Current Layout as Status Update")
+                            ]),
+                            _vm._v(" "),
+                            _c("sui-table-cell", [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.previewProfileData.config[24].value === 1
+                                    ? "true"
+                                    : "false"
+                                )
+                              )
+                            ])
+                          ],
+                          1
+                        ),
                         _vm._v(" "),
-                        _c("sui-table-cell", [
-                          _vm._v(_vm._s(_vm.dataTableList.displayProfileId))
-                        ])
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "sui-table-row",
-                      [
-                        _c("sui-table-cell", [_vm._v("Current Layout Id")]),
+                        _c(
+                          "sui-table-row",
+                          [
+                            _c("sui-table-cell", [
+                              _vm._v("Screenshot Request Interval")
+                            ]),
+                            _vm._v(" "),
+                            _c("sui-table-cell", [
+                              _vm._v(
+                                _vm._s(_vm.previewProfileData.config[25].value)
+                              )
+                            ])
+                          ],
+                          1
+                        ),
                         _vm._v(" "),
-                        _c("sui-table-cell", [
-                          _vm._v(_vm._s(_vm.dataTableList.currentLayoutId))
-                        ])
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "sui-table-row",
-                      [
-                        _c("sui-table-cell", [
-                          _vm._v("Storage Available Space")
-                        ]),
+                        _c(
+                          "sui-table-row",
+                          [
+                            _c("sui-table-cell", [_vm._v("Screenshot Size")]),
+                            _vm._v(" "),
+                            _c("sui-table-cell", [
+                              _vm._v(
+                                _vm._s(_vm.previewProfileData.config[26].value)
+                              )
+                            ])
+                          ],
+                          1
+                        ),
                         _vm._v(" "),
-                        _c("sui-table-cell", [
-                          _vm._v(
-                            _vm._s(_vm.dataTableList.storageAvailableSpace)
-                          )
-                        ])
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "sui-table-row",
-                      [
-                        _c("sui-table-cell", [_vm._v("Storage Total Space")]),
+                        _c(
+                          "sui-table-row",
+                          [
+                            _c("sui-table-cell", [
+                              _vm._v("Max Log File Uploads")
+                            ]),
+                            _vm._v(" "),
+                            _c("sui-table-cell", [
+                              _vm._v(
+                                _vm._s(_vm.previewProfileData.config[27].value)
+                              )
+                            ])
+                          ],
+                          1
+                        ),
                         _vm._v(" "),
-                        _c("sui-table-cell", [
-                          _vm._v(_vm._s(_vm.dataTableList.storageTotalSpace))
-                        ])
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "sui-table-row",
-                      [
-                        _c("sui-table-cell", [_vm._v("Display Group ID")]),
+                        _c(
+                          "sui-table-row",
+                          [
+                            _c("sui-table-cell", [
+                              _vm._v("Embedded Server Port")
+                            ]),
+                            _vm._v(" "),
+                            _c("sui-table-cell", [
+                              _vm._v(
+                                _vm._s(_vm.previewProfileData.config[28].value)
+                              )
+                            ])
+                          ],
+                          1
+                        ),
                         _vm._v(" "),
-                        _c("sui-table-cell", [
-                          _vm._v(_vm._s(_vm.dataTableList.displayGroupId))
-                        ])
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "sui-table-row",
-                      [
-                        _c("sui-table-cell", [_vm._v("Current Layout")]),
-                        _vm._v(" "),
-                        _c("sui-table-cell", [
-                          _vm._v(_vm._s(_vm.dataTableList.currentLayout))
-                        ])
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "sui-table-row",
-                      [
-                        _c("sui-table-cell", [_vm._v("Default Layout")]),
-                        _vm._v(" "),
-                        _c("sui-table-cell", [
-                          _vm._v(_vm._s(_vm.dataTableList.defaultLayout))
-                        ])
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "sui-table-row",
-                      [
-                        _c("sui-table-cell", [_vm._v("XMR Channel")]),
-                        _vm._v(" "),
-                        _c("sui-table-cell", [
-                          _vm._v(_vm._s(_vm.dataTableList.xmrChannel))
-                        ])
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "sui-table-row",
-                      [
-                        _c("sui-table-cell", [_vm._v("XMR Public Key")]),
-                        _vm._v(" "),
-                        _c("sui-table-cell")
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "sui-table-row",
-                      [
-                        _c("sui-table-cell", [_vm._v("Last Command Success")]),
-                        _vm._v(" "),
-                        _c("sui-table-cell", [
-                          _vm._v(_vm._s(_vm.dataTableList.lastCommandSuccess))
-                        ])
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "sui-table-row",
-                      [
-                        _c("sui-table-cell", [_vm._v("Device Name")]),
-                        _vm._v(" "),
-                        _c("sui-table-cell", [
-                          _vm._v(_vm._s(_vm.dataTableList.deviceName))
-                        ])
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "sui-table-row",
-                      [
-                        _c("sui-table-cell", [_vm._v("Time Zone")]),
-                        _vm._v(" "),
-                        _c("sui-table-cell", [
-                          _vm._v(_vm._s(_vm.dataTableList.timeZone))
-                        ])
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "sui-table-row",
-                      [
-                        _c("sui-table-cell", [_vm._v("tags")]),
-                        _vm._v(" "),
-                        _c("sui-table-cell", [
-                          _vm._v(_vm._s(_vm.dataTableList.tags))
-                        ])
+                        _c(
+                          "sui-table-row",
+                          [
+                            _c("sui-table-cell", [_vm._v("Prevent Sleep")]),
+                            _vm._v(" "),
+                            _c("sui-table-cell", [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.previewProfileData.config[29].value === 1
+                                    ? "true"
+                                    : "false"
+                                )
+                              )
+                            ])
+                          ],
+                          1
+                        )
                       ],
                       1
                     )
                   ],
                   1
                 )
-              ],
-              1
-            )
           ],
           1
         ),
@@ -33794,7 +33789,12 @@ var render = function() {
         _c(
           "div",
           { staticClass: "preview-profile-modal-actions" },
-          [_c("sui-button", { attrs: { positive: "", content: "Close" } })],
+          [
+            _c("sui-button", {
+              attrs: { positive: "", content: "Close" },
+              on: { click: _vm.closeModalButton }
+            })
+          ],
           1
         )
       ])

@@ -32555,6 +32555,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -32594,7 +32595,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       updatedTableColumn: false,
 
       // Data from database
-      tableList: [],
+      tableList: null,
 
       // Show Modal
       modal: false,
@@ -32608,10 +32609,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       tableListSizeASC: true,
 
       // filter
-      inputFilterName: "",
-
-      // removeSelected
-      removeSelected: false
+      inputFilterName: ""
     };
   },
 
@@ -32750,14 +32748,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         this.tableList = sortedMediaBySizeDESC;
         this.tableListSizeASC = true;
       }
-    },
-    removingSelected: function removingSelected() {
-      console.log("Removing Selected");
-      this.removeSelected = true;
-    },
-    removeSelectedFalse: function removeSelectedFalse() {
-      console.log("Remove selected false");
-      this.removeSelected = false;
     }
   }
 });
@@ -34133,10 +34123,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
 
 
 
@@ -34167,23 +34153,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     permissionTableColumn: Boolean,
     fileNameTableColumn: Boolean,
     createdTableColumn: Boolean,
-    updatedTableColumn: Boolean,
-    //
-    removeSelected: Boolean
+    updatedTableColumn: Boolean
   },
   data: function data() {
     return {
-      isEditing: false,
-      thisRowIsSelected: false
+      isEditing: false
     };
   },
 
   methods: {
-    selectRow: function selectRow(id) {
-      console.log(id);
-      this.$emit("removeSelectedFalse");
-      this.thisRowIsSelected = !this.thisRowIsSelected;
-    },
     toDelete: function toDelete() {
       var _this = this;
 
@@ -34535,14 +34513,7 @@ var render = function() {
               { staticClass: "edit-table-modal-body-3-1" },
               [
                 _c("sui-checkbox", {
-                  attrs: { label: "Retired", toggle: "" },
-                  model: {
-                    value: _vm.value,
-                    callback: function($$v) {
-                      _vm.value = $$v
-                    },
-                    expression: "value"
-                  }
+                  attrs: { label: "Retired", toggle: "", false: "" }
                 })
               ],
               1
@@ -34556,14 +34527,8 @@ var render = function() {
                   attrs: {
                     label:
                       "Update in all layouts where they have been assigned",
-                    toggle: ""
-                  },
-                  model: {
-                    value: _vm.value,
-                    callback: function($$v) {
-                      _vm.value = $$v
-                    },
-                    expression: "value"
+                    toggle: "",
+                    true: ""
                   }
                 })
               ],
@@ -34677,14 +34642,6 @@ var render = function() {
       _vm.list
         ? _c(
             "sui-table-row",
-            {
-              attrs: { active: _vm.thisRowIsSelected && !_vm.removeSelected },
-              on: {
-                click: function($event) {
-                  return _vm.selectRow(_vm.list.media_id)
-                }
-              }
-            },
             [
               _vm.idTableColumn
                 ? _c("sui-table-cell", [_vm._v(_vm._s(_vm.list.media_id))])
@@ -34836,7 +34793,7 @@ exports = module.exports = __webpack_require__(1)(false);
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&display=swap);", ""]);
 
 // module
-exports.push([module.i, "* {\n  padding: 0;\n  margin: 0;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n}\n\nhtml,\nbody {\n  font-size: 14px;\n  font-family: 'Lato', sans-serif;\n}\n\n.header {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n\n.header .header-filter {\n  width: 50%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -ms-flex-pack: distribute;\n      justify-content: space-around;\n}\n\n.header .header-filter .ui.input > input {\n  max-width: 120px;\n}\n\n.header .header-icon {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n}\n\n.header .header-icon i {\n  font-size: 2rem;\n  margin: 0 1rem;\n}\n\n.td-table-image {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\n.table-image {\n  height: 30px;\n  margin: 0;\n  padding: 0;\n}\n\n.footer {\n  min-height: 50px;\n  padding: 20px;\n}\n\n.footer button {\n  background-color: #0e6eb8;\n  padding: 0.8rem 1.6rem;\n  outline: none;\n  border-radius: 0.5rem;\n  border: none;\n  color: white;\n}\n\n.footer button:hover {\n  background-color: #2185d0;\n}\n\ni,\nth {\n  cursor: pointer !important;\n}", ""]);
+exports.push([module.i, "* {\n  padding: 0;\n  margin: 0;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n}\n\nhtml,\nbody {\n  font-size: 14px;\n  font-family: \"Lato\", sans-serif;\n}\n\n.header {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n\n.header .header-filter {\n  width: 50%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -ms-flex-pack: distribute;\n      justify-content: space-around;\n}\n\n.header .header-filter .ui.input > input {\n  max-width: 120px;\n}\n\n.header .header-icon {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n}\n\n.header .header-icon i {\n  font-size: 2rem;\n  margin: 0 1rem;\n}\n\n.td-table-image {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\n.table-image {\n  height: 30px;\n  margin: 0;\n  padding: 0;\n}\n\n.footer {\n  min-height: 50px;\n  padding: 20px;\n}\n\n.footer button {\n  background-color: #0e6eb8;\n  padding: 0.8rem 1.6rem;\n  outline: none;\n  border-radius: 0.5rem;\n  border: none;\n  color: white;\n}\n\n.footer button:hover {\n  background-color: #2185d0;\n}\n\ni,\nth {\n  cursor: pointer !important;\n}\n\n.loading {\n  height: 70vh;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}", ""]);
 
 // exports
 
@@ -34849,462 +34806,451 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _vm.modal
-        ? _c("Modal", { on: { closeModal: _vm.onCloseModal } })
-        : _vm._e(),
-      _vm._v(" "),
-      _c(
+  return _vm.tableList === null
+    ? _c(
         "div",
-        {
-          staticClass: "header",
-          on: {
-            click: function($event) {
-              if ($event.target !== $event.currentTarget) {
-                return null
-              }
-              return _vm.removingSelected($event)
-            }
-          }
-        },
+        { staticClass: "loading" },
         [
-          _c(
-            "div",
-            { staticClass: "header-navigation" },
-            [
-              _c(
-                "sui-button",
-                { attrs: { primary: "" }, on: { click: _vm.toggleModal } },
-                [_vm._v("Add Media")]
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "header-filter" },
-            [
-              _c("sui-input", {
-                attrs: { placeholder: "Name" },
-                on: { keyup: _vm.onInputFilterName },
-                model: {
-                  value: _vm.inputFilterName,
-                  callback: function($$v) {
-                    _vm.inputFilterName = $$v
-                  },
-                  expression: "inputFilterName"
-                }
-              }),
-              _vm._v(" "),
-              _c(
-                "sui-dropdown",
-                { attrs: { text: "Type", floating: "" } },
-                [
-                  _c(
-                    "sui-dropdown-menu",
-                    [
-                      _c("sui-dropdown-item", [_vm._v("Image")]),
-                      _vm._v(" "),
-                      _c("sui-dropdown-item", [_vm._v("PDF")]),
-                      _vm._v(" "),
-                      _c("sui-dropdown-item", [_vm._v("Video")])
-                    ],
-                    1
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "sui-dropdown",
-                { attrs: { text: "Retired", floating: "" } },
-                [
-                  _c(
-                    "sui-dropdown-menu",
-                    [
-                      _c("sui-dropdown-item", [_vm._v("True")]),
-                      _vm._v(" "),
-                      _c("sui-dropdown-item", [_vm._v("False")])
-                    ],
-                    1
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c("sui-input", { attrs: { placeholder: "Tags" } })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "header-icon" },
-            [
-              _c(
-                "sui-dropdown",
-                { attrs: { icon: "eye", floating: "", multiple: "" } },
-                [
-                  _c(
-                    "sui-dropdown-menu",
-                    [
-                      _c(
-                        "sui-dropdown-item",
-                        { on: { click: _vm.showIdTableColumn } },
-                        [
-                          _vm._v("ID\n            "),
-                          _vm.idTableColumn
-                            ? _c("i", {
-                                staticClass: "fa fa-check",
-                                staticStyle: { "font-size": "14px" }
-                              })
-                            : _vm._e()
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "sui-dropdown-item",
-                        { on: { click: _vm.showNameTableColumn } },
-                        [
-                          _vm._v("Name\n            "),
-                          _vm.nameTableColumn
-                            ? _c("i", {
-                                staticClass: "fa fa-check",
-                                staticStyle: { "font-size": "14px" }
-                              })
-                            : _vm._e()
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "sui-dropdown-item",
-                        { on: { click: _vm.showTypeTableColumn } },
-                        [
-                          _vm._v("Type\n            "),
-                          _vm.typeTableColumn
-                            ? _c("i", {
-                                staticClass: "fa fa-check",
-                                staticStyle: { "font-size": "14px" }
-                              })
-                            : _vm._e()
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "sui-dropdown-item",
-                        { on: { click: _vm.showThumbnailTableColumn } },
-                        [
-                          _vm._v("Thumbnail\n            "),
-                          _vm.thumbnailTableColumn
-                            ? _c("i", {
-                                staticClass: "fa fa-check",
-                                staticStyle: { "font-size": "14px" }
-                              })
-                            : _vm._e()
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "sui-dropdown-item",
-                        { on: { click: _vm.showDurationTableColumn } },
-                        [
-                          _vm._v("Duration\n            "),
-                          _vm.durationTableColumn
-                            ? _c("i", {
-                                staticClass: "fa fa-check",
-                                staticStyle: { "font-size": "14px" }
-                              })
-                            : _vm._e()
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "sui-dropdown-item",
-                        { on: { click: _vm.showSizeTableColumn } },
-                        [
-                          _vm._v("Size\n            "),
-                          _vm.sizeTableColumn
-                            ? _c("i", {
-                                staticClass: "fa fa-check",
-                                staticStyle: { "font-size": "14px" }
-                              })
-                            : _vm._e()
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "sui-dropdown-item",
-                        { on: { click: _vm.showOwnerTableColumn } },
-                        [
-                          _vm._v("Owner\n            "),
-                          _vm.ownerTableColumn
-                            ? _c("i", {
-                                staticClass: "fa fa-check",
-                                staticStyle: { "font-size": "14px" }
-                              })
-                            : _vm._e()
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "sui-dropdown-item",
-                        { on: { click: _vm.showPermissionTableColumn } },
-                        [
-                          _vm._v("Permission\n            "),
-                          _vm.permissionTableColumn
-                            ? _c("i", {
-                                staticClass: "fa fa-check",
-                                staticStyle: { "font-size": "14px" }
-                              })
-                            : _vm._e()
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "sui-dropdown-item",
-                        { on: { click: _vm.showFileNameTableColumn } },
-                        [
-                          _vm._v("File Name\n            "),
-                          _vm.fileNameTableColumn
-                            ? _c("i", {
-                                staticClass: "fa fa-check",
-                                staticStyle: { "font-size": "14px" }
-                              })
-                            : _vm._e()
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "sui-dropdown-item",
-                        { on: { click: _vm.showCreatedTableColumn } },
-                        [
-                          _vm._v("Created\n            "),
-                          _vm.createdTableColumn
-                            ? _c("i", {
-                                staticClass: "fa fa-check",
-                                staticStyle: { "font-size": "14px" }
-                              })
-                            : _vm._e()
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "sui-dropdown-item",
-                        { on: { click: _vm.showUpdatedTableColumn } },
-                        [
-                          _vm._v("Modified\n            "),
-                          _vm.updatedTableColumn
-                            ? _c("i", {
-                                staticClass: "fa fa-check",
-                                staticStyle: { "font-size": "14px" }
-                              })
-                            : _vm._e()
-                        ]
-                      )
-                    ],
-                    1
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c("i", { staticClass: "fas fa-print" })
-            ],
-            1
-          )
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass: "body",
-          on: {
-            click: function($event) {
-              if ($event.target !== $event.currentTarget) {
-                return null
-              }
-              return _vm.removingSelected($event)
-            }
-          }
-        },
-        [
-          _c(
-            "sui-table",
-            { attrs: { selectable: "", celled: "" } },
-            [
-              _c(
-                "sui-table-header",
-                [
-                  _c(
-                    "sui-table-row",
-                    [
-                      _vm.idTableColumn
-                        ? _c(
-                            "sui-table-header-cell",
-                            { on: { click: _vm.orderByTableListId } },
-                            [
-                              _vm._v("ID\n            "),
-                              _vm.sortTableListId
-                                ? _c("sui-icon", {
-                                    attrs: {
-                                      name: this.tableListIdASC
-                                        ? "sort amount down"
-                                        : "sort amount up"
-                                    }
-                                  })
-                                : _vm._e()
-                            ],
-                            1
-                          )
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _vm.nameTableColumn
-                        ? _c(
-                            "sui-table-header-cell",
-                            { on: { click: _vm.orderByTableListName } },
-                            [
-                              _vm._v("Name\n            "),
-                              _vm.sortTableListName
-                                ? _c("sui-icon", {
-                                    attrs: {
-                                      name: this.tableListNameASC
-                                        ? "sort alphabet up"
-                                        : "sort alphabet down"
-                                    }
-                                  })
-                                : _vm._e()
-                            ],
-                            1
-                          )
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _vm.typeTableColumn
-                        ? _c(
-                            "sui-table-header-cell",
-                            { on: { click: _vm.orderByTableListType } },
-                            [
-                              _vm._v("Type\n            "),
-                              _vm.sortTableListType
-                                ? _c("sui-icon", {
-                                    attrs: {
-                                      name: this.tableListTypeASC
-                                        ? "sort alphabet up"
-                                        : "sort alphabet down"
-                                    }
-                                  })
-                                : _vm._e()
-                            ],
-                            1
-                          )
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _vm.thumbnailTableColumn
-                        ? _c("sui-table-header-cell", [_vm._v("Thumbnail")])
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _vm.durationTableColumn
-                        ? _c("sui-table-header-cell", [_vm._v("Duration")])
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _vm.sizeTableColumn
-                        ? _c(
-                            "sui-table-header-cell",
-                            { on: { click: _vm.orderByTableListSize } },
-                            [
-                              _vm._v("Size\n            "),
-                              _vm.sortTableListSize
-                                ? _c("sui-icon", {
-                                    attrs: {
-                                      name: this.tableListSizeASC
-                                        ? "sort amount down"
-                                        : "sort amount up"
-                                    }
-                                  })
-                                : _vm._e()
-                            ],
-                            1
-                          )
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _vm.ownerTableColumn
-                        ? _c("sui-table-header-cell", [_vm._v("Owner")])
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _vm.permissionTableColumn
-                        ? _c("sui-table-header-cell", [_vm._v("Permission")])
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _vm.fileNameTableColumn
-                        ? _c("sui-table-header-cell", [_vm._v("File Name")])
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _vm.createdTableColumn
-                        ? _c("sui-table-header-cell", [_vm._v("Created at")])
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _vm.updatedTableColumn
-                        ? _c("sui-table-header-cell", [_vm._v("Modified at")])
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _c("sui-table-header-cell")
-                    ],
-                    1
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _vm._l(
-                _vm.filteredTable ? _vm.filteredTable : _vm.tableList,
-                function(list) {
-                  return _c("TableRow", {
-                    key: list.id,
-                    attrs: {
-                      list: list,
-                      idTableColumn: _vm.idTableColumn,
-                      nameTableColumn: _vm.nameTableColumn,
-                      typeTableColumn: _vm.typeTableColumn,
-                      thumbnailTableColumn: _vm.thumbnailTableColumn,
-                      durationTableColumn: _vm.durationTableColumn,
-                      sizeTableColumn: _vm.sizeTableColumn,
-                      ownerTableColumn: _vm.ownerTableColumn,
-                      permissionTableColumn: _vm.permissionTableColumn,
-                      fileNameTableColumn: _vm.fileNameTableColumn,
-                      createdTableColumn: _vm.createdTableColumn,
-                      updatedTableColumn: _vm.updatedTableColumn,
-                      removeSelected: _vm.removeSelected
-                    },
-                    on: {
-                      removeSelectedFalse: _vm.removeSelectedFalse,
-                      refreshTable: _vm.onUpdate
-                    }
-                  })
-                }
-              )
-            ],
-            2
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "footer" },
-        [
-          _c("sui-button", { attrs: { color: "green" } }, [
-            _vm._v("With Selected")
+          _c("sui-loader", { attrs: { active: "", inline: "" } }, [
+            _vm._v("Loading")
           ])
         ],
         1
       )
-    ],
-    1
-  )
+    : _c(
+        "div",
+        [
+          _vm.modal
+            ? _c("Modal", { on: { closeModal: _vm.onCloseModal } })
+            : _vm._e(),
+          _vm._v(" "),
+          _c("div", { staticClass: "header" }, [
+            _c(
+              "div",
+              { staticClass: "header-navigation" },
+              [
+                _c(
+                  "sui-button",
+                  { attrs: { primary: "" }, on: { click: _vm.toggleModal } },
+                  [_vm._v("Add Media")]
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "header-filter" },
+              [
+                _c("sui-input", {
+                  attrs: { placeholder: "Name" },
+                  on: { keyup: _vm.onInputFilterName },
+                  model: {
+                    value: _vm.inputFilterName,
+                    callback: function($$v) {
+                      _vm.inputFilterName = $$v
+                    },
+                    expression: "inputFilterName"
+                  }
+                }),
+                _vm._v(" "),
+                _c(
+                  "sui-dropdown",
+                  { attrs: { text: "Type", floating: "" } },
+                  [
+                    _c(
+                      "sui-dropdown-menu",
+                      [
+                        _c("sui-dropdown-item", [_vm._v("Image")]),
+                        _vm._v(" "),
+                        _c("sui-dropdown-item", [_vm._v("PDF")]),
+                        _vm._v(" "),
+                        _c("sui-dropdown-item", [_vm._v("Video")])
+                      ],
+                      1
+                    )
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "sui-dropdown",
+                  { attrs: { text: "Retired", floating: "" } },
+                  [
+                    _c(
+                      "sui-dropdown-menu",
+                      [
+                        _c("sui-dropdown-item", [_vm._v("True")]),
+                        _vm._v(" "),
+                        _c("sui-dropdown-item", [_vm._v("False")])
+                      ],
+                      1
+                    )
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c("sui-input", { attrs: { placeholder: "Tags" } })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "header-icon" },
+              [
+                _c(
+                  "sui-dropdown",
+                  { attrs: { icon: "eye", floating: "", multiple: "" } },
+                  [
+                    _c(
+                      "sui-dropdown-menu",
+                      [
+                        _c(
+                          "sui-dropdown-item",
+                          { on: { click: _vm.showIdTableColumn } },
+                          [
+                            _vm._v("ID\n            "),
+                            _vm.idTableColumn
+                              ? _c("i", {
+                                  staticClass: "fa fa-check",
+                                  staticStyle: { "font-size": "14px" }
+                                })
+                              : _vm._e()
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "sui-dropdown-item",
+                          { on: { click: _vm.showNameTableColumn } },
+                          [
+                            _vm._v("Name\n            "),
+                            _vm.nameTableColumn
+                              ? _c("i", {
+                                  staticClass: "fa fa-check",
+                                  staticStyle: { "font-size": "14px" }
+                                })
+                              : _vm._e()
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "sui-dropdown-item",
+                          { on: { click: _vm.showTypeTableColumn } },
+                          [
+                            _vm._v("Type\n            "),
+                            _vm.typeTableColumn
+                              ? _c("i", {
+                                  staticClass: "fa fa-check",
+                                  staticStyle: { "font-size": "14px" }
+                                })
+                              : _vm._e()
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "sui-dropdown-item",
+                          { on: { click: _vm.showThumbnailTableColumn } },
+                          [
+                            _vm._v("Thumbnail\n            "),
+                            _vm.thumbnailTableColumn
+                              ? _c("i", {
+                                  staticClass: "fa fa-check",
+                                  staticStyle: { "font-size": "14px" }
+                                })
+                              : _vm._e()
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "sui-dropdown-item",
+                          { on: { click: _vm.showDurationTableColumn } },
+                          [
+                            _vm._v("Duration\n            "),
+                            _vm.durationTableColumn
+                              ? _c("i", {
+                                  staticClass: "fa fa-check",
+                                  staticStyle: { "font-size": "14px" }
+                                })
+                              : _vm._e()
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "sui-dropdown-item",
+                          { on: { click: _vm.showSizeTableColumn } },
+                          [
+                            _vm._v("Size\n            "),
+                            _vm.sizeTableColumn
+                              ? _c("i", {
+                                  staticClass: "fa fa-check",
+                                  staticStyle: { "font-size": "14px" }
+                                })
+                              : _vm._e()
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "sui-dropdown-item",
+                          { on: { click: _vm.showOwnerTableColumn } },
+                          [
+                            _vm._v("Owner\n            "),
+                            _vm.ownerTableColumn
+                              ? _c("i", {
+                                  staticClass: "fa fa-check",
+                                  staticStyle: { "font-size": "14px" }
+                                })
+                              : _vm._e()
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "sui-dropdown-item",
+                          { on: { click: _vm.showPermissionTableColumn } },
+                          [
+                            _vm._v("Permission\n            "),
+                            _vm.permissionTableColumn
+                              ? _c("i", {
+                                  staticClass: "fa fa-check",
+                                  staticStyle: { "font-size": "14px" }
+                                })
+                              : _vm._e()
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "sui-dropdown-item",
+                          { on: { click: _vm.showFileNameTableColumn } },
+                          [
+                            _vm._v("File Name\n            "),
+                            _vm.fileNameTableColumn
+                              ? _c("i", {
+                                  staticClass: "fa fa-check",
+                                  staticStyle: { "font-size": "14px" }
+                                })
+                              : _vm._e()
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "sui-dropdown-item",
+                          { on: { click: _vm.showCreatedTableColumn } },
+                          [
+                            _vm._v("Created\n            "),
+                            _vm.createdTableColumn
+                              ? _c("i", {
+                                  staticClass: "fa fa-check",
+                                  staticStyle: { "font-size": "14px" }
+                                })
+                              : _vm._e()
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "sui-dropdown-item",
+                          { on: { click: _vm.showUpdatedTableColumn } },
+                          [
+                            _vm._v("Modified\n            "),
+                            _vm.updatedTableColumn
+                              ? _c("i", {
+                                  staticClass: "fa fa-check",
+                                  staticStyle: { "font-size": "14px" }
+                                })
+                              : _vm._e()
+                          ]
+                        )
+                      ],
+                      1
+                    )
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c("i", { staticClass: "fas fa-print" })
+              ],
+              1
+            )
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "body" },
+            [
+              _c(
+                "sui-table",
+                { attrs: { selectable: "", celled: "" } },
+                [
+                  _c(
+                    "sui-table-header",
+                    [
+                      _c(
+                        "sui-table-row",
+                        [
+                          _vm.idTableColumn
+                            ? _c(
+                                "sui-table-header-cell",
+                                { on: { click: _vm.orderByTableListId } },
+                                [
+                                  _vm._v("ID\n            "),
+                                  _vm.sortTableListId
+                                    ? _c("sui-icon", {
+                                        attrs: {
+                                          name: this.tableListIdASC
+                                            ? "sort amount down"
+                                            : "sort amount up"
+                                        }
+                                      })
+                                    : _vm._e()
+                                ],
+                                1
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm.nameTableColumn
+                            ? _c(
+                                "sui-table-header-cell",
+                                { on: { click: _vm.orderByTableListName } },
+                                [
+                                  _vm._v("Name\n            "),
+                                  _vm.sortTableListName
+                                    ? _c("sui-icon", {
+                                        attrs: {
+                                          name: this.tableListNameASC
+                                            ? "sort alphabet up"
+                                            : "sort alphabet down"
+                                        }
+                                      })
+                                    : _vm._e()
+                                ],
+                                1
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm.typeTableColumn
+                            ? _c(
+                                "sui-table-header-cell",
+                                { on: { click: _vm.orderByTableListType } },
+                                [
+                                  _vm._v("Type\n            "),
+                                  _vm.sortTableListType
+                                    ? _c("sui-icon", {
+                                        attrs: {
+                                          name: this.tableListTypeASC
+                                            ? "sort alphabet up"
+                                            : "sort alphabet down"
+                                        }
+                                      })
+                                    : _vm._e()
+                                ],
+                                1
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm.thumbnailTableColumn
+                            ? _c("sui-table-header-cell", [_vm._v("Thumbnail")])
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm.durationTableColumn
+                            ? _c("sui-table-header-cell", [_vm._v("Duration")])
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm.sizeTableColumn
+                            ? _c(
+                                "sui-table-header-cell",
+                                { on: { click: _vm.orderByTableListSize } },
+                                [
+                                  _vm._v("Size\n            "),
+                                  _vm.sortTableListSize
+                                    ? _c("sui-icon", {
+                                        attrs: {
+                                          name: this.tableListSizeASC
+                                            ? "sort amount down"
+                                            : "sort amount up"
+                                        }
+                                      })
+                                    : _vm._e()
+                                ],
+                                1
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm.ownerTableColumn
+                            ? _c("sui-table-header-cell", [_vm._v("Owner")])
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm.permissionTableColumn
+                            ? _c("sui-table-header-cell", [
+                                _vm._v("Permission")
+                              ])
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm.fileNameTableColumn
+                            ? _c("sui-table-header-cell", [_vm._v("File Name")])
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm.createdTableColumn
+                            ? _c("sui-table-header-cell", [
+                                _vm._v("Created at")
+                              ])
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm.updatedTableColumn
+                            ? _c("sui-table-header-cell", [
+                                _vm._v("Modified at")
+                              ])
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _c("sui-table-header-cell")
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _vm._l(
+                    _vm.filteredTable ? _vm.filteredTable : _vm.tableList,
+                    function(list) {
+                      return _c("TableRow", {
+                        key: list.id,
+                        attrs: {
+                          list: list,
+                          idTableColumn: _vm.idTableColumn,
+                          nameTableColumn: _vm.nameTableColumn,
+                          typeTableColumn: _vm.typeTableColumn,
+                          thumbnailTableColumn: _vm.thumbnailTableColumn,
+                          durationTableColumn: _vm.durationTableColumn,
+                          sizeTableColumn: _vm.sizeTableColumn,
+                          ownerTableColumn: _vm.ownerTableColumn,
+                          permissionTableColumn: _vm.permissionTableColumn,
+                          fileNameTableColumn: _vm.fileNameTableColumn,
+                          createdTableColumn: _vm.createdTableColumn,
+                          updatedTableColumn: _vm.updatedTableColumn
+                        },
+                        on: { refreshTable: _vm.onUpdate }
+                      })
+                    }
+                  )
+                ],
+                2
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "footer" },
+            [
+              _c("sui-button", { attrs: { color: "green" } }, [
+                _vm._v("With Selected")
+              ])
+            ],
+            1
+          )
+        ],
+        1
+      )
 }
 var staticRenderFns = []
 render._withStripped = true

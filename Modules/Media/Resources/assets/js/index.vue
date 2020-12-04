@@ -1,7 +1,10 @@
 <template>
-  <div>
+  <div class="loading" v-if="tableList === null">
+    <sui-loader active inline>Loading</sui-loader>
+  </div>
+  <div v-else>
     <Modal v-if="modal" v-on:closeModal="onCloseModal"></Modal>
-    <div class="header" @click.self="removingSelected">
+    <div class="header">
       <div class="header-navigation">
         <sui-button primary @click="toggleModal">Add Media</sui-button>
       </div>
@@ -122,7 +125,7 @@
         <i class="fas fa-print"></i>
       </div>
     </div>
-    <div class="body" @click.self="removingSelected">
+    <div class="body">
       <sui-table selectable celled>
         <sui-table-header>
           <sui-table-row>
@@ -210,8 +213,6 @@
           v-bind:fileNameTableColumn="fileNameTableColumn"
           v-bind:createdTableColumn="createdTableColumn"
           v-bind:updatedTableColumn="updatedTableColumn"
-          v-bind:removeSelected="removeSelected"
-          v-on:removeSelectedFalse="removeSelectedFalse"
           v-on:refreshTable="onUpdate"
         ></TableRow>
       </sui-table>
@@ -257,7 +258,7 @@ export default {
       updatedTableColumn: false,
 
       // Data from database
-      tableList: [],
+      tableList: null,
 
       // Show Modal
       modal: false,
@@ -272,9 +273,6 @@ export default {
 
       // filter
       inputFilterName: "",
-
-      // removeSelected
-      removeSelected: false,
     };
   },
   computed: {
@@ -423,14 +421,6 @@ export default {
         this.tableList = sortedMediaBySizeDESC;
         this.tableListSizeASC = true;
       }
-    },
-    removingSelected() {
-      console.log("Removing Selected");
-      this.removeSelected = true;
-    },
-    removeSelectedFalse() {
-      console.log("Remove selected false");
-      this.removeSelected = false;
     },
   },
 };

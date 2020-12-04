@@ -1,10 +1,6 @@
 <template>
   <sui-table-body>
-    <sui-table-row
-      v-if="list"
-      :active="thisRowIsSelected && !removeSelected"
-      @click="selectRow(list.media_id)"
-    >
+    <sui-table-row v-if="list">
       <sui-table-cell v-if="idTableColumn">{{ list.media_id }}</sui-table-cell>
       <sui-table-cell v-if="nameTableColumn">{{ list.name }}</sui-table-cell>
       <sui-table-cell v-if="typeTableColumn">{{ list.type }}</sui-table-cell>
@@ -79,21 +75,13 @@ export default {
     fileNameTableColumn: Boolean,
     createdTableColumn: Boolean,
     updatedTableColumn: Boolean,
-    //
-    removeSelected: Boolean,
   },
   data() {
     return {
       isEditing: false,
-      thisRowIsSelected: false,
     };
   },
   methods: {
-    selectRow(id) {
-      console.log(id);
-      this.$emit("removeSelectedFalse");
-      this.thisRowIsSelected = !this.thisRowIsSelected;
-    },
     toDelete() {
       console.log(this.list.media_id);
       swal("Do you want to delete this media?", {

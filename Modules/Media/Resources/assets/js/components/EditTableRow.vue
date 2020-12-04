@@ -24,14 +24,14 @@
         </div>
         <div class="edit-table-modal-body-3">
           <div class="edit-table-modal-body-3-1">
-            <sui-checkbox label="Retired" toggle v-model="value" />
+            <sui-checkbox label="Retired" toggle false />
             <!-- <p>Retired</p> -->
           </div>
           <div class="edit-table-modal-body-3-2">
             <sui-checkbox
               label="Update in all layouts where they have been assigned"
               toggle
-              v-model="value"
+              true
             />
             <!-- <p>Update in all layouts where they have been assigned</p> -->
           </div>

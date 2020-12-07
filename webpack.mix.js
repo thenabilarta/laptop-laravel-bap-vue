@@ -18,3 +18,7 @@ mix.js(
   "modules/display/resources/assets/js/display.js",
   "public/modules/display/js"
 );
+mix.js(
+  "modules/displayProfile/resources/assets/js/displayProfile.js",
+  "public/modules/displayProfile/js"
+);

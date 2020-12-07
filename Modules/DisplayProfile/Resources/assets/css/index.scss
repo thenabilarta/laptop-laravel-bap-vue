@@ -85,7 +85,11 @@ th {
 }
 
 .dropdown-table-cell {
-  max-width: 10px !important;
+  max-width: 1px !important;
+
+  .right {
+    float: none !important;
+  }
 }
 
 .loading {

@@ -14739,7 +14739,7 @@ var normalizeComponent = __webpack_require__(4)
 /* script */
 var __vue_script__ = __webpack_require__(93)
 /* template */
-var __vue_template__ = __webpack_require__(96)
+var __vue_template__ = __webpack_require__(97)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -14868,8 +14868,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__css_index_css__ = __webpack_require__(94);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__css_index_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__css_index_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_pdfmake__ = __webpack_require__(97);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_pdfmake__ = __webpack_require__(96);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_pdfmake___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_pdfmake__);
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 //
 //
 //
@@ -14945,6 +14947,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     });
   },
 
+  computed: {
+    csvData: function csvData() {
+      return this.tableList.map(function (item) {
+        return {
+          Name: item.name,
+          Type: item.type,
+          Default: item.isDefault === 1 ? "true" : "false"
+        };
+      });
+    }
+  },
   methods: {
     createPDF: function createPDF() {
       var docDefinition = {
@@ -14995,6 +15008,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }]);
       }
       __WEBPACK_IMPORTED_MODULE_2_pdfmake___default.a.createPdf(docDefinition).open();
+    },
+    createCSV: function createCSV(arrData) {
+      var csvContent = "data:text/csv;charset=utf-8,";
+      csvContent += [Object.keys(arrData[0]).join(";")].concat(_toConsumableArray(arrData.map(function (item) {
+        return Object.values(item).join(";");
+      }))).join("\n").replace(/(^\[)|(\]$)/gm, "");
+
+      var data = encodeURI(csvContent);
+      var link = document.createElement("a");
+      link.setAttribute("href", data);
+      link.setAttribute("download", Math.floor(Math.random() * 1000) + ".csv");
+      link.click();
     }
   }
 });
@@ -15039,167 +15064,13 @@ exports = module.exports = __webpack_require__(1)(false);
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&display=swap);", ""]);
 
 // module
-exports.push([module.i, "* {\n  padding: 0;\n  margin: 0;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n}\n\nhtml,\nbody {\n  font-size: 14px;\n  font-family: \"Lato\", sans-serif;\n}\n\n.header {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: end;\n      -ms-flex-pack: end;\n          justify-content: flex-end;\n}\n\n.header .header-icon {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  padding: 0 2rem;\n}\n\n.header .header-icon .ui.multiple.dropdown {\n  padding: 0 !important;\n}\n\n.header .header-icon i {\n  font-size: 2rem;\n  margin: 0 1rem;\n}\n\n.td-table-image {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\n.table-image {\n  height: 30px;\n  margin: 0;\n  padding: 0;\n}\n\n.footer {\n  min-height: 50px;\n  padding: 20px;\n}\n\n.footer button {\n  background-color: #0e6eb8;\n  padding: 0.8rem 1.6rem;\n  outline: none;\n  border-radius: 0.5rem;\n  border: none;\n  color: white;\n}\n\n.footer button:hover {\n  background-color: #2185d0;\n}\n\ni,\nth {\n  cursor: pointer !important;\n}\n\n.dropdown-table-cell {\n  max-width: 10px !important;\n}\n\n.loading {\n  height: 50vh;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\n.authorized-table-cell {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\n[type=\"checkbox\"]:not(.filled-in) + label:after {\n  transform: none !important;\n  -webkit-transform: none !important;\n}", ""]);
+exports.push([module.i, "* {\n  padding: 0;\n  margin: 0;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n}\n\nhtml,\nbody {\n  font-size: 14px;\n  font-family: \"Lato\", sans-serif;\n}\n\n.header {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: end;\n      -ms-flex-pack: end;\n          justify-content: flex-end;\n}\n\n.header .header-icon {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  padding: 0 2rem;\n}\n\n.header .header-icon .ui.multiple.dropdown {\n  padding: 0 !important;\n}\n\n.header .header-icon i {\n  font-size: 2rem;\n  margin: 0 1rem;\n}\n\n.td-table-image {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\n.table-image {\n  height: 30px;\n  margin: 0;\n  padding: 0;\n}\n\n.footer {\n  min-height: 50px;\n  padding: 20px;\n}\n\n.footer button {\n  background-color: #0e6eb8;\n  padding: 0.8rem 1.6rem;\n  outline: none;\n  border-radius: 0.5rem;\n  border: none;\n  color: white;\n}\n\n.footer button:hover {\n  background-color: #2185d0;\n}\n\ni,\nth {\n  cursor: pointer !important;\n}\n\n.dropdown-table-cell {\n  max-width: 1px !important;\n}\n\n.dropdown-table-cell .right {\n  float: none !important;\n}\n\n.loading {\n  height: 50vh;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\n.authorized-table-cell {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\n[type=\"checkbox\"]:not(.filled-in) + label:after {\n  transform: none !important;\n  -webkit-transform: none !important;\n}", ""]);
 
 // exports
 
 
 /***/ }),
 /* 96 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("div", { staticClass: "header" }, [
-      _c(
-        "div",
-        { staticClass: "header-icon" },
-        [
-          _c(
-            "sui-dropdown",
-            { attrs: { icon: "eye", floating: "", multiple: "" } },
-            [
-              _c(
-                "sui-dropdown-menu",
-                [
-                  _c("sui-dropdown-item", [_vm._v("True")]),
-                  _vm._v(" "),
-                  _c("sui-dropdown-item", [_vm._v("False")]),
-                  _vm._v(" "),
-                  _c("sui-dropdown-item", [_vm._v("True")])
-                ],
-                1
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c("i", { staticClass: "fas fa-print", on: { click: _vm.createPDF } })
-        ],
-        1
-      )
-    ]),
-    _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "body" },
-      [
-        _vm.tableList === null
-          ? _c(
-              "div",
-              { staticClass: "loading" },
-              [_c("sui-loader", { attrs: { active: "", inline: "" } })],
-              1
-            )
-          : _c(
-              "sui-table",
-              { attrs: { selectable: "", celled: "" } },
-              [
-                _c(
-                  "sui-table-header",
-                  [
-                    _c(
-                      "sui-table-row",
-                      [
-                        _c("sui-table-header-cell", [_vm._v("Name")]),
-                        _vm._v(" "),
-                        _c("sui-table-header-cell", [_vm._v("Type")]),
-                        _vm._v(" "),
-                        _c("sui-table-header-cell", [_vm._v("Default")]),
-                        _vm._v(" "),
-                        _c("sui-table-header-cell", {
-                          staticClass: "dropdown-table-cell"
-                        })
-                      ],
-                      1
-                    )
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "sui-table-body",
-                  _vm._l(_vm.tableList, function(list) {
-                    return _c(
-                      "sui-table-row",
-                      { key: list.displayProfileId },
-                      [
-                        _c("sui-table-cell", [_vm._v(_vm._s(list.name))]),
-                        _vm._v(" "),
-                        _c("sui-table-cell", [_vm._v(_vm._s(list.type))]),
-                        _vm._v(" "),
-                        _c("sui-table-cell", [
-                          _vm._v(
-                            _vm._s(list.isDefault === 1 ? "true" : "false")
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c(
-                          "sui-table-cell",
-                          { staticClass: "dropdown-table-cell" },
-                          [
-                            _c(
-                              "sui-dropdown",
-                              {
-                                attrs: { floating: "", pointing: "top right" }
-                              },
-                              [
-                                _c(
-                                  "sui-dropdown-menu",
-                                  [
-                                    _c("sui-dropdown-item", [_vm._v("Edit")]),
-                                    _vm._v(" "),
-                                    _c("sui-dropdown-item", [_vm._v("Delete")]),
-                                    _vm._v(" "),
-                                    _c("sui-dropdown-divider"),
-                                    _vm._v(" "),
-                                    _c("sui-dropdown-item", [
-                                      _vm._v("Default Layout")
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("sui-dropdown-divider"),
-                                    _vm._v(" "),
-                                    _c("sui-dropdown-item", [
-                                      _vm._v("Preview Profile")
-                                    ])
-                                  ],
-                                  1
-                                )
-                              ],
-                              1
-                            )
-                          ],
-                          1
-                        )
-                      ],
-                      1
-                    )
-                  }),
-                  1
-                )
-              ],
-              1
-            )
-      ],
-      1
-    )
-  ])
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-46dfee3c", module.exports)
-  }
-}
-
-/***/ }),
-/* 97 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(setImmediate) {/*! pdfmake v0.1.68, @license MIT, @link http://pdfmake.org */
@@ -91287,6 +91158,168 @@ module.exports = function () {
 });
 //# sourceMappingURL=pdfmake.js.map
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7).setImmediate))
+
+/***/ }),
+/* 97 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("div", { staticClass: "header" }, [
+      _c(
+        "div",
+        { staticClass: "header-icon" },
+        [
+          _c(
+            "sui-dropdown",
+            { attrs: { icon: "print", floating: "", multiple: "" } },
+            [
+              _c(
+                "sui-dropdown-menu",
+                [
+                  _c("sui-dropdown-item", { on: { click: _vm.createPDF } }, [
+                    _vm._v("PDF")
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "sui-dropdown-item",
+                    {
+                      on: {
+                        click: function($event) {
+                          return _vm.createCSV(_vm.csvData)
+                        }
+                      }
+                    },
+                    [_vm._v("CSV")]
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "body" },
+      [
+        _vm.tableList === null
+          ? _c(
+              "div",
+              { staticClass: "loading" },
+              [_c("sui-loader", { attrs: { active: "", inline: "" } })],
+              1
+            )
+          : _c(
+              "sui-table",
+              { attrs: { selectable: "", celled: "" } },
+              [
+                _c(
+                  "sui-table-header",
+                  [
+                    _c(
+                      "sui-table-row",
+                      [
+                        _c("sui-table-header-cell", [_vm._v("Name")]),
+                        _vm._v(" "),
+                        _c("sui-table-header-cell", [_vm._v("Type")]),
+                        _vm._v(" "),
+                        _c("sui-table-header-cell", [_vm._v("Default")]),
+                        _vm._v(" "),
+                        _c("sui-table-header-cell", {
+                          staticClass: "dropdown-table-cell"
+                        })
+                      ],
+                      1
+                    )
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "sui-table-body",
+                  _vm._l(_vm.tableList, function(list) {
+                    return _c(
+                      "sui-table-row",
+                      { key: list.displayProfileId },
+                      [
+                        _c("sui-table-cell", [_vm._v(_vm._s(list.name))]),
+                        _vm._v(" "),
+                        _c("sui-table-cell", [_vm._v(_vm._s(list.type))]),
+                        _vm._v(" "),
+                        _c("sui-table-cell", [
+                          _vm._v(
+                            _vm._s(list.isDefault === 1 ? "true" : "false")
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "sui-table-cell",
+                          { staticClass: "dropdown-table-cell" },
+                          [
+                            _c(
+                              "sui-dropdown",
+                              {
+                                attrs: { floating: "", pointing: "top right" }
+                              },
+                              [
+                                _c(
+                                  "sui-dropdown-menu",
+                                  [
+                                    _c("sui-dropdown-item", [_vm._v("Edit")]),
+                                    _vm._v(" "),
+                                    _c("sui-dropdown-item", [_vm._v("Delete")]),
+                                    _vm._v(" "),
+                                    _c("sui-dropdown-divider"),
+                                    _vm._v(" "),
+                                    _c("sui-dropdown-item", [
+                                      _vm._v("Default Layout")
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("sui-dropdown-divider"),
+                                    _vm._v(" "),
+                                    _c("sui-dropdown-item", [
+                                      _vm._v("Preview Profile")
+                                    ])
+                                  ],
+                                  1
+                                )
+                              ],
+                              1
+                            )
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    )
+                  }),
+                  1
+                )
+              ],
+              1
+            )
+      ],
+      1
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-46dfee3c", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

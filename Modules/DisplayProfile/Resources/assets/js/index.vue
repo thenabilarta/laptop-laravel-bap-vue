@@ -2,14 +2,14 @@
   <div>
     <div class="header">
       <div class="header-icon">
-        <sui-dropdown icon="eye" floating multiple>
+        <sui-dropdown icon="print" floating multiple>
           <sui-dropdown-menu>
-            <sui-dropdown-item>True</sui-dropdown-item>
-            <sui-dropdown-item>False</sui-dropdown-item>
-            <sui-dropdown-item>True</sui-dropdown-item>
+            <sui-dropdown-item @click="createPDF">PDF</sui-dropdown-item>
+            <sui-dropdown-item @click="createCSV(csvData)"
+              >CSV</sui-dropdown-item
+            >
           </sui-dropdown-menu>
         </sui-dropdown>
-        <i class="fas fa-print" @click="createPDF"></i>
       </div>
     </div>
     <div class="body">
@@ -69,6 +69,15 @@ export default {
       console.log(res.data);
       this.tableList = res.data;
     });
+  },
+  computed: {
+    csvData() {
+      return this.tableList.map((item) => ({
+        Name: item.name,
+        Type: item.type,
+        Default: item.isDefault === 1 ? "true" : "false",
+      }));
+    },
   },
   methods: {
     createPDF() {
@@ -138,6 +147,21 @@ export default {
         );
       }
       pdfMake.createPdf(docDefinition).open();
+    },
+    createCSV(arrData) {
+      let csvContent = "data:text/csv;charset=utf-8,";
+      csvContent += [
+        Object.keys(arrData[0]).join(";"),
+        ...arrData.map((item) => Object.values(item).join(";")),
+      ]
+        .join("\n")
+        .replace(/(^\[)|(\]$)/gm, "");
+
+      const data = encodeURI(csvContent);
+      const link = document.createElement("a");
+      link.setAttribute("href", data);
+      link.setAttribute("download", Math.floor(Math.random() * 1000) + ".csv");
+      link.click();
     },
   },
 };

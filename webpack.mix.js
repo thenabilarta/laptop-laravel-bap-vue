@@ -22,3 +22,11 @@ mix.js(
   "modules/displayProfile/resources/assets/js/displayProfile.js",
   "public/modules/displayProfile/js"
 );
+mix.js(
+  "modules/layout/resources/assets/js/layout.js",
+  "public/modules/layout/js"
+);
+mix.js(
+  "modules/schedule/resources/assets/js/schedule.js",
+  "public/modules/schedule/js"
+);

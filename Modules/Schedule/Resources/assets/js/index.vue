@@ -9,26 +9,6 @@
         :options="displayList"
         v-model="current"
       />
-
-      <!-- <sui-dropdown
-        placeholder="Gender"
-        selection
-        :options="date"
-        v-model="INITIAL_DATE.value"
-      />
-      <sui-dropdown
-        placeholder="Gender"
-        selection
-        :options="month"
-        v-model="INITIAL_MONTH.value"
-        @change="changeMonth()"
-      />
-      <sui-dropdown
-        placeholder="Gender"
-        selection
-        :options="year"
-        v-model="INITIAL_YEAR.value"
-      /> -->
     </div>
     <div class="date-input">
       <sui-input
@@ -302,11 +282,11 @@ export default {
   name: "App",
   data() {
     return {
-      dateToday: new Date().toISOString().slice(0, 10),
-      showTable: "month",
-      INITIAL_DATE: { text: "11", value: 11 },
+      INITIAL_DATE: { text: "11", value: 18 },
       INITIAL_MONTH: { text: "December", value: 12 },
       INITIAL_YEAR: { text: "2020", value: 2020 },
+      dateToday: null,
+      showTable: "month",
       weekdays: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
       current: null,
       displayList: [
@@ -659,6 +639,11 @@ export default {
     },
     onClickPrev() {
       this.INITIAL_MONTH.value--;
+      console.log(this.dateToday);
+      let newDateToday = this.dateToday.split("-");
+      let newMonth = newDateToday[1] - 1;
+      let newData = [newDateToday[0], newMonth, newDateToday[2]];
+      this.dateToday = newData.join("-");
     },
     onClickNext() {
       console.log("Next");
@@ -704,6 +689,17 @@ export default {
     selectedYear() {
       return this.INITIAL_YEAR.value;
     },
+    defaultDateForToday() {
+      return new Date().toISOString().slice(0, 10);
+    },
+  },
+  mounted() {
+    this.dateToday =
+      this.INITIAL_YEAR.value.toString() +
+      "-" +
+      this.INITIAL_MONTH.value.toString() +
+      "-" +
+      this.INITIAL_DATE.value.toString();
   },
 };
 </script>

@@ -112,7 +112,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_semantic_ui_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_semantic_ui_vue__);
 
 
-window.Vue = __webpack_require__(14);
+window.Vue = __webpack_require__(16);
 
 
 
@@ -414,26 +414,6 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -448,11 +428,11 @@ __WEBPACK_IMPORTED_MODULE_0_dayjs___default.a.extend(__WEBPACK_IMPORTED_MODULE_2
   name: "App",
   data: function data() {
     return {
-      dateToday: new Date().toISOString().slice(0, 10),
-      showTable: "month",
-      INITIAL_DATE: { text: "11", value: 11 },
+      INITIAL_DATE: { text: "11", value: 18 },
       INITIAL_MONTH: { text: "December", value: 12 },
       INITIAL_YEAR: { text: "2020", value: 2020 },
+      dateToday: null,
+      showTable: "month",
       weekdays: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
       current: null,
       displayList: [{
@@ -718,6 +698,11 @@ __WEBPACK_IMPORTED_MODULE_0_dayjs___default.a.extend(__WEBPACK_IMPORTED_MODULE_2
     },
     onClickPrev: function onClickPrev() {
       this.INITIAL_MONTH.value--;
+      console.log(this.dateToday);
+      var newDateToday = this.dateToday.split("-");
+      var newMonth = newDateToday[1] - 1;
+      var newData = [newDateToday[0], newMonth, newDateToday[2]];
+      this.dateToday = newData.join("-");
     },
     onClickNext: function onClickNext() {
       console.log("Next");
@@ -736,7 +721,13 @@ __WEBPACK_IMPORTED_MODULE_0_dayjs___default.a.extend(__WEBPACK_IMPORTED_MODULE_2
     },
     selectedYear: function selectedYear() {
       return this.INITIAL_YEAR.value;
+    },
+    defaultDateForToday: function defaultDateForToday() {
+      return new Date().toISOString().slice(0, 10);
     }
+  },
+  mounted: function mounted() {
+    this.dateToday = this.INITIAL_YEAR.value.toString() + "-" + this.INITIAL_MONTH.value.toString() + "-" + this.INITIAL_DATE.value.toString();
   }
 });
 
@@ -806,7 +797,7 @@ exports = module.exports = __webpack_require__(2)(false);
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&display=swap);", ""]);
 
 // module
-exports.push([module.i, "* {\n  padding: 0;\n  margin: 0;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n}\n\nhtml,\nbody {\n  font-size: 14px;\n  font-family: \"Lato\", sans-serif;\n  --grey-100: #e4e9f0;\n  --grey-200: #cfd7e3;\n  --grey-300: #b5c0cd;\n  --grey-800: #3e4e63;\n  --grid-gap: 1px;\n  --day-label-size: 20px;\n}\n\n.time {\n  width: 10% !important;\n  text-align: center !important;\n}\n\n.events {\n  text-align: center !important;\n}\n\n.navigation {\n  padding: 2rem;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\n.navigation > * {\n  margin-left: 2rem !important;\n}\n\n.navigation h2 {\n  margin: 0px !important;\n  font-weight: 400 !important;\n}\n\n.date-input {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  padding: 0 2rem 1rem 2rem;\n}\n\n.date-input h2.ui.header {\n  padding: 0 2rem !important;\n}\n\n.date-input h2 {\n  margin: 0 !important;\n}\n\n.date-input .card .header {\n  padding: 0 !important;\n  border-bottom: 0px !important;\n}\n\n.card .header {\n  padding: 0 !important;\n  border-bottom: 0px !important;\n}\n\n.ui.selection.dropdown {\n  width: 150px !important;\n}\n\nmain {\n  padding: 0 2rem 2rem 2rem;\n}\n\nol,\nli {\n  padding: 0;\n  margin: 0;\n  list-style: none;\n}\n\n.day-of-week,\n.days-grid {\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-columns: (1fr)[7];\n      grid-template-columns: repeat(7, 1fr);\n}\n\n.day-of-week {\n  color: var(--grey-800);\n  font-size: 18px;\n  background-color: #fff;\n  padding-bottom: 5px;\n  padding-top: 10px;\n}\n\n.day-list {\n  text-align: center;\n}\n\n.not-current {\n  background-color: #eeeeee !important;\n}\n\n.not-current span {\n  opacity: 0.5;\n}\n\n#calendar-days {\n  border: 1px solid rgba(0, 0, 0, 0.1);\n}\n\n.calendar-day {\n  position: relative;\n  min-height: 100px;\n  font-size: 16px;\n  background-color: #fff;\n  color: var(--grey-800);\n  padding: 5px;\n}\n\n.dayNumber {\n  position: absolute;\n  top: 10px;\n  right: 10px;\n  cursor: pointer;\n}\n\n.days-grid {\n  height: 100%;\n  position: relative;\n  grid-column-gap: 1px;\n  grid-row-gap: 1px;\n  border-top: solid 1px black;\n  background-color: #e2e2e2;\n}\n\n.ui.selection.dropdown {\n  min-width: 5em;\n}", ""]);
+exports.push([module.i, "* {\n  padding: 0;\n  margin: 0;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n}\n\nhtml,\nbody {\n  font-size: 14px;\n  font-family: \"Lato\", sans-serif;\n  --grey-100: #e4e9f0;\n  --grey-200: #cfd7e3;\n  --grey-300: #b5c0cd;\n  --grey-800: #3e4e63;\n  --grid-gap: 1px;\n  --day-label-size: 20px;\n}\n\n.time {\n  width: 10% !important;\n  text-align: center !important;\n}\n\n.events {\n  text-align: center !important;\n}\n\n.navigation {\n  padding: 2rem;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\n.navigation > * {\n  margin-left: 2rem !important;\n}\n\n.navigation h2 {\n  margin: 0px !important;\n  font-weight: 400 !important;\n}\n\n.date-input {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  padding: 0 2rem 1rem 2rem;\n}\n\n.date-input > * {\n  margin-left: 2rem !important;\n}\n\n.date-input .ui.input {\n  margin-left: 0 !important;\n}\n\n.date-input h2.ui.header {\n  padding: 0 2rem !important;\n}\n\n.date-input h2 {\n  margin: 0 !important;\n}\n\n.date-input .card .header {\n  padding: 0 !important;\n  border-bottom: 0px !important;\n}\n\n.card .header {\n  padding: 0 !important;\n  border-bottom: 0px !important;\n}\n\n.ui.selection.dropdown {\n  width: 150px !important;\n}\n\nmain {\n  padding: 0 2rem 2rem 2rem;\n}\n\nol,\nli {\n  padding: 0;\n  margin: 0;\n  list-style: none;\n}\n\n.day-of-week,\n.days-grid {\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-columns: (1fr)[7];\n      grid-template-columns: repeat(7, 1fr);\n}\n\n.day-of-week {\n  color: var(--grey-800);\n  font-size: 18px;\n  background-color: #fff;\n  padding-bottom: 5px;\n  padding-top: 10px;\n}\n\n.day-list {\n  text-align: center;\n}\n\n.not-current {\n  background-color: #eeeeee !important;\n}\n\n.not-current span {\n  opacity: 0.5;\n}\n\n#calendar-days {\n  border: 1px solid rgba(0, 0, 0, 0.1);\n}\n\n.calendar-day {\n  position: relative;\n  min-height: 100px;\n  font-size: 16px;\n  background-color: #fff;\n  color: var(--grey-800);\n  padding: 5px;\n}\n\n.dayNumber {\n  position: absolute;\n  top: 10px;\n  right: 10px;\n  cursor: pointer;\n}\n\n.days-grid {\n  height: 100%;\n  position: relative;\n  grid-column-gap: 1px;\n  grid-row-gap: 1px;\n  border-top: solid 1px black;\n  background-color: #e2e2e2;\n}\n\n.ui.selection.dropdown {\n  min-width: 5em;\n}", ""]);
 
 // exports
 
@@ -1600,18 +1591,6 @@ if (false) {
 /***/ }),
 
 /***/ 14:
-/***/ (function(module, exports, __webpack_require__) {
-
-if (false) {
-  module.exports = require('./vue.common.prod.js')
-} else {
-  module.exports = __webpack_require__(17)
-}
-
-
-/***/ }),
-
-/***/ 15:
 /***/ (function(module, exports) {
 
 
@@ -1707,7 +1686,7 @@ module.exports = function (css) {
 
 /***/ }),
 
-/***/ 16:
+/***/ 15:
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
@@ -1898,6 +1877,18 @@ module.exports = function (css) {
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(7)))
+
+/***/ }),
+
+/***/ 16:
+/***/ (function(module, exports, __webpack_require__) {
+
+if (false) {
+  module.exports = require('./vue.common.prod.js')
+} else {
+  module.exports = __webpack_require__(17)
+}
+
 
 /***/ }),
 
@@ -14163,7 +14154,7 @@ var singleton = null;
 var	singletonCounter = 0;
 var	stylesInsertedAtTop = [];
 
-var	fixUrls = __webpack_require__(15);
+var	fixUrls = __webpack_require__(14);
 
 module.exports = function(list, options) {
 	if (typeof DEBUG !== "undefined" && DEBUG) {
@@ -14533,7 +14524,7 @@ exports._unrefActive = exports.active = function(item) {
 };
 
 // setimmediate attaches itself to the global object
-__webpack_require__(16);
+__webpack_require__(15);
 // On some exotic environments, it's not clear which object `setimmediate` was
 // able to install onto.  Search each possibility in the same order as the
 // `setimmediate` library.

@@ -1708,9 +1708,29 @@
   array (
     'name' => 'Dashboard',
   ),
+  'debug' => 
+  array (
+    'name' => 'Debug',
+  ),
+  'display' => 
+  array (
+    'name' => 'Display',
+  ),
+  'displayprofile' => 
+  array (
+    'name' => 'DisplayProfile',
+  ),
+  'layout' => 
+  array (
+    'name' => 'Layout',
+  ),
   'media' => 
   array (
     'name' => 'Media',
+  ),
+  'schedule' => 
+  array (
+    'name' => 'Schedule',
   ),
   'account' => 
   array (

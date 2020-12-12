@@ -14,31 +14,40 @@
       <sui-input
         placeholder="Search..."
         type="date"
-        v-model="dateToday"
+        v-model="currentDate"
         @change="changeDate"
       />
       <sui-button-group>
-        <sui-button
-          icon="left chevron"
-          label-position="left"
-          content="Prev"
-          @click="onClickPrev"
-        />
+        <sui-button content="Prev" @click="onClickPrev" />
         <sui-button content="Today" @click="onClickToday" />
-        <sui-button
-          icon="right chevron"
-          label-position="right"
-          content="Next"
-          @click="onClickNext"
-        />
+        <sui-button content="Next" @click="onClickNext" />
       </sui-button-group>
       <sui-button-group>
-        <sui-button>Year</sui-button>
-        <sui-button @click="changeToMonth">Month</sui-button>
-        <sui-button @click="changeToDay">Day</sui-button>
+        <sui-button
+          :class="buttonFilterActive === 'year' && 'button-active'"
+          @click="changeToYear"
+          >Year</sui-button
+        >
+        <sui-button
+          :class="buttonFilterActive === 'month' && 'button-active'"
+          @click="changeToMonth"
+          >Month</sui-button
+        >
+        <sui-button
+          :class="buttonFilterActive === 'day' && 'button-active'"
+          @click="changeToDay"
+          >Day</sui-button
+        >
       </sui-button-group>
     </div>
     <main>
+      <div v-if="showTable === 'year'" class="year">
+        <ol class="month-of-year">
+          <li class="month-list" v-for="(m, index) in monthsList" :key="index">
+            <span @click="onClickMonthOfYear(index)">{{ m }}</span>
+          </li>
+        </ol>
+      </div>
       <div v-if="showTable === 'month'">
         <ol class="day-of-week" id="days-of-week">
           <li class="day-list" v-for="(w, index) in weekdays" :key="index">
@@ -52,7 +61,7 @@
             v-for="(c, index) in calendarList"
             :key="index"
           >
-            <span @click="toDateNumberOf(c.dayOfMonth)" class="dayNumber">{{
+            <span @click="onClickDateNumber(c.date)" class="dayNumber">{{
               c.dayOfMonth
             }}</span>
           </li>
@@ -272,7 +281,6 @@
 import dayjs from "dayjs";
 import weekday from "dayjs/plugin/weekday";
 import weekOfYear from "dayjs/plugin/weekOfYear";
-
 import "../css/index.css";
 
 dayjs.extend(weekday);
@@ -282,13 +290,12 @@ export default {
   name: "App",
   data() {
     return {
-      INITIAL_DATE: dayjs().date(),
-      INITIAL_MONTH: dayjs().month() + 1,
-      INITIAL_YEAR: dayjs().year(),
+      currentDate: dayjs().format("YYYY-MM-DD"),
       dateToday: null,
       showTable: "month",
       weekdays: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
       current: null,
+      buttonFilterActive: "month",
       displayList: [
         {
           text: "Polytron",
@@ -306,6 +313,20 @@ export default {
           text: "Samsung",
           value: 4,
         },
+      ],
+      monthsList: [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
       ],
     };
   },
@@ -330,22 +351,17 @@ export default {
         month,
         dayjs(`${year}-${month}-01`).daysInMonth()
       );
-
       const firstDayOfTheMonthWeekday = this.getWeekday(
         currentMonthDays[0].date
       );
-
       const previousMonth = dayjs(`${year}-${month}-01`).subtract(1, "month");
-
       // Cover first day of the month being sunday (firstDayOfTheMonthWeekday === 0)
       const visibleNumberOfDaysFromPreviousMonth = firstDayOfTheMonthWeekday
         ? firstDayOfTheMonthWeekday - 1
         : 6;
-
       const previousMonthLastMondayDayOfMonth = dayjs(currentMonthDays[0].date)
         .subtract(visibleNumberOfDaysFromPreviousMonth, "day")
         .date();
-
       return [...Array(visibleNumberOfDaysFromPreviousMonth)].map(
         (day, index) => {
           return {
@@ -365,17 +381,13 @@ export default {
         month,
         dayjs(`${year}-${month}-01`).daysInMonth()
       );
-
       const lastDayOfTheMonthWeekday = this.getWeekday(
         `${year}-${month}-${currentMonthDays.length}`
       );
-
       const nextMonth = dayjs(`${year}-${month}-01`).add(1, "month");
-
       const visibleNumberOfDaysFromNextMonth = lastDayOfTheMonthWeekday
         ? 7 - lastDayOfTheMonthWeekday
         : lastDayOfTheMonthWeekday;
-
       return [...Array(visibleNumberOfDaysFromNextMonth)].map((day, index) => {
         return {
           date: dayjs(
@@ -389,49 +401,98 @@ export default {
     getNumberOfDaysInMonth(year, month) {
       return dayjs(`${year}-${month}-01`).daysInMonth();
     },
+    changeToYear() {
+      this.showTable = "year";
+      this.buttonFilterActive = "year";
+    },
     changeToMonth() {
       this.showTable = "month";
+      this.buttonFilterActive = "month";
     },
     changeToDay() {
       this.showTable = "day";
+      this.buttonFilterActive = "day";
     },
-    // changeMonth() {
-    //   console.log(this.INITIAL_MONTH.value);
-    // },
-    toDateNumberOf(date) {
-      console.log(date + " " + this.selectedMonth);
+    onClickDateNumber(date) {
+      console.log(date);
+      this.currentDate = dayjs(date).format("YYYY-MM-DD");
+      this.buttonFilterActive = "day";
       this.showTable = "day";
-      this.INITIAL_DATE = date;
-      this.INITIAL_DATE.text = date;
     },
     changeDate(e) {
-      this.dateToday = e.target.value;
       console.log(e.target.value);
-      let splitDateToday = this.dateToday.split("-");
-      this.INITIAL_DATE = splitDateToday[2];
-      this.INITIAL_MONTH = splitDateToday[1];
-      this.INITIAL_YEAR = splitDateToday[0];
+      this.showTable = "day";
+      this.buttonFilterActive = "day";
     },
     onClickToday() {
-      this.INITIAL_DATE = 11;
+      this.currentDate = dayjs().format("YYYY-MM-DD");
+    },
+    onClickMonthOfYear(i) {
+      console.log(i);
+      let splittedGetYear = this.currentDate.split("-");
+      this.currentDate = dayjs()
+        .month(i)
+        .year(splittedGetYear[0])
+        .format("YYYY-MM-DD");
+      this.showTable = "month";
+      this.buttonFilterActive = "month";
     },
     onClickPrev() {
-      this.INITIAL_MONTH--;
-      console.log(this.INITIAL_MONTH);
-      this.INITIAL_MONTH = this.INITIAL_MONTH.toString();
-      if (this.INITIAL_MONTH.length === 1) {
-        this.INITIAL_MONTH = "0" + this.INITIAL_MONTH;
+      switch (this.buttonFilterActive) {
+        case "year":
+          this.currentDate = dayjs(this.currentDate)
+            .subtract(1, "year")
+            .format("YYYY-MM-DD");
+          break;
+        case "month":
+          this.currentDate = dayjs(this.currentDate)
+            .subtract(1, "month")
+            .format("YYYY-MM-DD");
+          break;
+        case "day":
+          this.currentDate = dayjs(this.currentDate)
+            .subtract(1, "day")
+            .format("YYYY-MM-DD");
+          break;
+        default:
+          console.log("Mantap gan");
       }
-      console.log(this.INITIAL_MONTH);
-      this.dateToday =
-        this.INITIAL_YEAR + "-" + this.INITIAL_MONTH + "-" + this.INITIAL_DATE;
-      this.INITIAL_MONTH = parseInt(this.INITIAL_MONTH);
     },
     onClickNext() {
-      console.log("Next");
+      switch (this.buttonFilterActive) {
+        case "year":
+          this.currentDate = dayjs(this.currentDate)
+            .add(1, "year")
+            .format("YYYY-MM-DD");
+          break;
+        case "month":
+          this.currentDate = dayjs(this.currentDate)
+            .add(1, "month")
+            .format("YYYY-MM-DD");
+          break;
+        case "day":
+          this.currentDate = dayjs(this.currentDate)
+            .add(1, "day")
+            .format("YYYY-MM-DD");
+          break;
+        default:
+          console.log("Mantap gan");
+      }
     },
   },
   computed: {
+    INITIAL_DATE() {
+      let splitted = this.currentDate.split("-");
+      return splitted[2];
+    },
+    INITIAL_MONTH() {
+      let splitted = this.currentDate.split("-");
+      return splitted[1];
+    },
+    INITIAL_YEAR() {
+      let splitted = this.currentDate.split("-");
+      return splitted[0];
+    },
     calendarList() {
       return [
         ...this.createDaysForPreviousMonth(
@@ -449,33 +510,11 @@ export default {
       return this.INITIAL_DATE;
     },
     selectedMonth() {
-      const monthsList = [
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December",
-      ];
-      return monthsList[this.INITIAL_MONTH - 1];
+      return this.monthsList[this.INITIAL_MONTH - 1];
     },
     selectedYear() {
       return this.INITIAL_YEAR;
     },
-    defaultDateForToday() {
-      return new Date().toISOString().slice(0, 10);
-    },
-  },
-  mounted() {
-    console.log(this.INITIAL_MONTH);
-    this.dateToday =
-      this.INITIAL_YEAR + "-" + this.INITIAL_MONTH + "-" + this.INITIAL_DATE;
   },
 };
 </script>

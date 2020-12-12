@@ -3534,3 +3534,32 @@ widart\\laravel-modules\\src\\Commands\\MigrationMakeCommand.php(161): Illuminat
 #15 C:\\Users\\thena\\Desktop\\laravel_bap\\artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
 #16 {main}
 "} 
+[2020-12-12 06:22:37] laravel.EMERGENCY: Unable to create configured logger. Using emergency logger. {"exception":"[object] (InvalidArgumentException(code: 0): Log [] is not defined. at C:\\Users\\thena\\Desktop\\laravel_bap\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php:181)
+[stacktrace]
+#0 C:\\Users\\thena\\Desktop\\laravel_bap\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(115): Illuminate\\Log\\LogManager->resolve(NULL)
+#1 C:\\Users\\thena\\Desktop\\laravel_bap\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(103): Illuminate\\Log\\LogManager->get(NULL)
+#2 C:\\Users\\thena\\Desktop\\laravel_bap\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(526): Illuminate\\Log\\LogManager->driver()
+#3 C:\\Users\\thena\\Desktop\\laravel_bap\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Exceptions\\Handler.php(113): Illuminate\\Log\\LogManager->error('Command \"config...', Array)
+#4 C:\\Users\\thena\\Desktop\\laravel_bap\\app\\Exceptions\\Handler.php(40): Illuminate\\Foundation\\Exceptions\\Handler->report(Object(Symfony\\Component\\Console\\Exception\\CommandNotFoundException))
+#5 C:\\Users\\thena\\Desktop\\laravel_bap\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(353): App\\Exceptions\\Handler->report(Object(Symfony\\Component\\Console\\Exception\\CommandNotFoundException))
+#6 C:\\Users\\thena\\Desktop\\laravel_bap\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(124): Illuminate\\Foundation\\Console\\Kernel->reportException(Object(Symfony\\Component\\Console\\Exception\\CommandNotFoundException))
+#7 C:\\Users\\thena\\Desktop\\laravel_bap\\artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#8 {main}
+"} 
+[2020-12-12 06:22:37] laravel.ERROR: Command "config:cahce" is not defined.
+
+Did you mean one of these?
+    config:cache
+    config:clear {"exception":"[object] (Symfony\\Component\\Console\\Exception\\CommandNotFoundException(code: 0): Command \"config:cahce\" is not defined.
+
+Did you mean one of these?
+    config:cache
+    config:clear at C:\\Users\\thena\\Desktop\\laravel_bap\\vendor\\symfony\\console\\Application.php:632)
+[stacktrace]
+#0 C:\\Users\\thena\\Desktop\\laravel_bap\\vendor\\symfony\\console\\Application.php(226): Symfony\\Component\\Console\\Application->find('config:cahce')
+#1 C:\\Users\\thena\\Desktop\\laravel_bap\\vendor\\symfony\\console\\Application.php(145): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#2 C:\\Users\\thena\\Desktop\\laravel_bap\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Application.php(89): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#3 C:\\Users\\thena\\Desktop\\laravel_bap\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(122): Illuminate\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#4 C:\\Users\\thena\\Desktop\\laravel_bap\\artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#5 {main}
+"} 

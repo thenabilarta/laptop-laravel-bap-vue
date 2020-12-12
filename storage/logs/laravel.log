@@ -3563,3 +3563,19 @@ Did you mean one of these?
 #4 C:\\Users\\thena\\Desktop\\laravel_bap\\artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
 #5 {main}
 "} 
+[2020-12-12 08:20:07] laravel.EMERGENCY: Unable to create configured logger. Using emergency logger. {"exception":"[object] (InvalidArgumentException(code: 0): Log [] is not defined. at C:\\Users\\thena\\Desktop\\laravel_bap\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php:181)
+[stacktrace]
+#0 C:\\Users\\thena\\Desktop\\laravel_bap\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(115): Illuminate\\Log\\LogManager->resolve(NULL)
+#1 C:\\Users\\thena\\Desktop\\laravel_bap\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(103): Illuminate\\Log\\LogManager->get(NULL)
+#2 C:\\Users\\thena\\Desktop\\laravel_bap\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(526): Illuminate\\Log\\LogManager->driver()
+#3 C:\\Users\\thena\\Desktop\\laravel_bap\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Exceptions\\Handler.php(113): Illuminate\\Log\\LogManager->error('Maximum executi...', Array)
+#4 C:\\Users\\thena\\Desktop\\laravel_bap\\app\\Exceptions\\Handler.php(40): Illuminate\\Foundation\\Exceptions\\Handler->report(Object(Symfony\\Component\\Debug\\Exception\\FatalErrorException))
+#5 C:\\Users\\thena\\Desktop\\laravel_bap\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\HandleExceptions.php(81): App\\Exceptions\\Handler->report(Object(Symfony\\Component\\Debug\\Exception\\FatalErrorException))
+#6 C:\\Users\\thena\\Desktop\\laravel_bap\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\HandleExceptions.php(123): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleException(Object(Symfony\\Component\\Debug\\Exception\\FatalErrorException))
+#7 [internal function]: Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleShutdown()
+#8 {main}
+"} 
+[2020-12-12 08:20:07] laravel.ERROR: Maximum execution time of 60 seconds exceeded {"userId":1,"email":"admin@laravel-bap.com","exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Maximum execution time of 60 seconds exceeded at C:\\Users\\thena\\Desktop\\laravel_bap\\Modules\\Layout\\Http\\Controllers\\LayoutController.php:62)
+[stacktrace]
+#0 {main}
+"} 

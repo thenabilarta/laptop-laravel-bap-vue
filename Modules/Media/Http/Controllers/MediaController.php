@@ -18,15 +18,15 @@ class MediaController extends AppBaseController
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-        CURLOPT_URL => 'http://192.168.44.127/xibo-cms/web/api/authorize/access_token',
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_ENCODING => '',
-        CURLOPT_MAXREDIRS => 10,
-        CURLOPT_TIMEOUT => 0,
-        CURLOPT_FOLLOWLOCATION => true,
-        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        CURLOPT_CUSTOMREQUEST => 'POST',
-        CURLOPT_POSTFIELDS => array('client_id' => 'ZLR24lN2Ztf1HfaPQwKmNy4zVMw8J1F7oc8xRyz6','client_secret' => '3opgkjtvFQKaXmDfGbWKC7WWV0778SFgdGf82n6gUbJEdfSbRgyknwF35iDIWDkOgmKNr9y7KrP6UOkoMMGB24zU9MfTTji8ka3dDAorfHYAHfg7eb0mBrbtopcmeK5oRJNjYGKJHbFPw5diPiru8gOFUdkhMjFMbCB6rYBWPIOO41rkvR29uM31i8782O3eVKjQXPfiVA67zEhW7noAvE0KQO3Qr0wwpSg34IHBtlM9FpTZF1C9NQ3phwCz7f','grant_type' => 'client_credentials')
+            CURLOPT_URL => 'http://192.168.1.6/xibo-cms/web/api/authorize/access_token',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => array('client_id' => '3IemY3zoHL2rnNKVop4ccYveukhhlIaXa4ULDF4E', 'client_secret' => 'xGxdY0swNzQlGDPSI2Xv5YXcC2BmeqMTNYUfHeTLzGAMRQ2V3s3WyQ5zl6zWNYjJljbq26dh29EbNnAaKIGfDZ9cVzIvD3SvJOQ07TJq2FWcLl6D4GKcH9ekpP31xZNHxV1CyUEnwTeN2roycfG0B6TmLbPeHbRhnnhz93PJBNJ5EHwRNjuaJqKmeUWpwEywOsnCX1s8a9hYygiL0onuJ3eICd4cfcL1lduleM3gGrhk1XaDZRGp0RCHhI55Rl', 'grant_type' => 'client_credentials')
         ));
 
         $response = curl_exec($curl);
@@ -70,11 +70,11 @@ class MediaController extends AppBaseController
 
         $curl_file =  new CURLFile($file_path, $file_ext, $file_name);
         $post_data = array(
-            'files'=> $curl_file,
+            'files' => $curl_file,
             'name' => $fileName
         );
 
-        $target_url = "http://192.168.44.127/xibo-cms/web/api/library";
+        $target_url = "http://192.168.1.6/xibo-cms/web/api/library";
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $target_url);
@@ -106,14 +106,14 @@ class MediaController extends AppBaseController
             'duration' => '',
         );
 
-        if ( !isset($content["files"][0]["error"])) {
+        if (!isset($content["files"][0]["error"])) {
             $media = Media::create($form_data);
 
             $medias = $media->getAttributes();
 
             $mediaId = Media::find($medias["id"]);
 
-            if($mediaId) {
+            if ($mediaId) {
                 $mediaId->media_id = $content["files"][0]["mediaId"];
                 $mediaId->retired = $content["files"][0]["retired"];
                 $mediaId->stored_as = $content["files"][0]["storedas"];
@@ -153,19 +153,19 @@ class MediaController extends AppBaseController
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-        CURLOPT_URL => 'http://192.168.44.127/xibo-cms/web/api/library/' . $media_id,
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_ENCODING => '',
-        CURLOPT_MAXREDIRS => 10,
-        CURLOPT_TIMEOUT => 0,
-        CURLOPT_FOLLOWLOCATION => true,
-        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        CURLOPT_CUSTOMREQUEST => 'PUT',
-        CURLOPT_POSTFIELDS => $post,
-        CURLOPT_HTTPHEADER => array(
-            'Authorization: Bearer ' . $_SESSION["token"],
-            'Content-Type: application/x-www-form-urlencoded',
-        ),
+            CURLOPT_URL => 'http://192.168.1.6/xibo-cms/web/api/library/' . $media_id,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'PUT',
+            CURLOPT_POSTFIELDS => $post,
+            CURLOPT_HTTPHEADER => array(
+                'Authorization: Bearer ' . $_SESSION["token"],
+                'Content-Type: application/x-www-form-urlencoded',
+            ),
         ));
 
         $response = curl_exec($curl);
@@ -177,12 +177,12 @@ class MediaController extends AppBaseController
 
         // $status = $content->getStatusCode();
 
-        
+
 
         if ($content["name"] === $newfilename) {
             $mediaNewName = Media::where('media_id', $media_id)->firstOrFail();
 
-            if($mediaNewName) {    
+            if ($mediaNewName) {
                 $mediaNewName->name = $newfilename;
                 $mediaNewName->duration = $duration;
                 $mediaNewName->save();
@@ -199,17 +199,17 @@ class MediaController extends AppBaseController
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-        CURLOPT_URL => 'http://192.168.44.127/xibo-cms/web/api/library/' . $id,
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_ENCODING => '',
-        CURLOPT_MAXREDIRS => 10,
-        CURLOPT_TIMEOUT => 0,
-        CURLOPT_FOLLOWLOCATION => true,
-        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        CURLOPT_CUSTOMREQUEST => 'DELETE',
-        CURLOPT_HTTPHEADER => array(
-            'Authorization: Bearer ' . $_SESSION["token"],
-        ),
+            CURLOPT_URL => 'http://192.168.1.6/xibo-cms/web/api/library/' . $id,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'DELETE',
+            CURLOPT_HTTPHEADER => array(
+                'Authorization: Bearer ' . $_SESSION["token"],
+            ),
         ));
 
         $response = curl_exec($curl);

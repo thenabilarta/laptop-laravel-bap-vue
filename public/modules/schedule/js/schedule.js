@@ -14887,8 +14887,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_dayjs_plugin_weekday___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_dayjs_plugin_weekday__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_dayjs_plugin_weekOfYear__ = __webpack_require__(111);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_dayjs_plugin_weekOfYear___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_dayjs_plugin_weekOfYear__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__css_index_css__ = __webpack_require__(112);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__css_index_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__css_index_css__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_AddEventModal__ = __webpack_require__(115);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_AddEventModal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__components_AddEventModal__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__css_index_css__ = __webpack_require__(112);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__css_index_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__css_index_css__);
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 //
@@ -15013,6 +15015,11 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 //
 //
 //
+//
+//
+//
+//
+
 
 
 
@@ -15026,6 +15033,9 @@ __WEBPACK_IMPORTED_MODULE_1_dayjs___default.a.extend(__WEBPACK_IMPORTED_MODULE_3
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "App",
+  components: {
+    AddEventModal: __WEBPACK_IMPORTED_MODULE_4__components_AddEventModal___default.a
+  },
   data: function data() {
     return {
       currentDate: __WEBPACK_IMPORTED_MODULE_1_dayjs___default()().format("YYYY-MM-DD"),
@@ -15036,6 +15046,7 @@ __WEBPACK_IMPORTED_MODULE_1_dayjs___default.a.extend(__WEBPACK_IMPORTED_MODULE_3
       buttonFilterActive: "month",
       displaySchedule: [],
       showPopUpNumber: null,
+      addEventModalIsOpen: false,
       monthsList: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
       displayList: [{
         text: "All Display",
@@ -15352,6 +15363,12 @@ __WEBPACK_IMPORTED_MODULE_1_dayjs___default.a.extend(__WEBPACK_IMPORTED_MODULE_3
     },
     offShowPopUp: function offShowPopUp() {
       this.showPopUpNumber = null;
+    },
+    closeAddEventModal: function closeAddEventModal() {
+      this.addEventModalIsOpen = false;
+    },
+    openAddEventModal: function openAddEventModal() {
+      this.addEventModalIsOpen = true;
     }
   },
   computed: {
@@ -15518,7 +15535,7 @@ exports = module.exports = __webpack_require__(3)(false);
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&display=swap);", ""]);
 
 // module
-exports.push([module.i, "* {\n  padding: 0;\n  margin: 0;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n}\n\nhtml,\nbody {\n  font-size: 14px;\n  font-family: \"Lato\", sans-serif;\n  --grey-100: #e4e9f0;\n  --grey-200: #cfd7e3;\n  --grey-300: #b5c0cd;\n  --grey-800: #3e4e63;\n  --grid-gap: 1px;\n  --day-label-size: 20px;\n}\n\n.time {\n  width: 10% !important;\n  text-align: center !important;\n}\n\n.events {\n  text-align: center !important;\n}\n\n.navigation {\n  padding: 2rem;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\n.navigation > * {\n  margin-left: 2rem !important;\n}\n\n.navigation h2 {\n  margin: 0px !important;\n  font-weight: 400 !important;\n}\n\n.date-input {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  padding: 0 2rem 1rem 2rem;\n}\n\n.date-input > * {\n  margin-left: 2rem !important;\n}\n\n.date-input .ui.input {\n  margin-left: 0 !important;\n}\n\n.date-input h2.ui.header {\n  padding: 0 2rem !important;\n}\n\n.date-input h2 {\n  margin: 0 !important;\n}\n\n.date-input .card .header {\n  padding: 0 !important;\n  border-bottom: 0px !important;\n}\n\n.card .header {\n  padding: 0 !important;\n  border-bottom: 0px !important;\n}\n\n.ui.selection.dropdown {\n  width: 150px !important;\n}\n\nmain {\n  padding: 0 2rem 2rem 2rem;\n}\n\nol,\nli {\n  padding: 0;\n  margin: 0;\n  list-style: none;\n}\n\n.month-of-year {\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-columns: (1fr)[3];\n      grid-template-columns: repeat(3, 1fr);\n  grid-column-gap: 1px;\n  grid-row-gap: 1px;\n  border: solid 1px rgba(0, 0, 0, 0.1);\n  background-color: #e2e2e2;\n}\n\n.month-list {\n  min-height: 100px;\n  font-size: 16px;\n  background-color: #fff;\n  color: var(--grey-800);\n  padding: 5px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  position: relative;\n}\n\n.month-list span {\n  cursor: pointer;\n}\n\n.month-list i {\n  position: absolute;\n  top: 10px;\n  right: 10px;\n}\n\n.day-of-week,\n.days-grid {\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-columns: (1fr)[7];\n      grid-template-columns: repeat(7, 1fr);\n}\n\n.day-of-week {\n  color: var(--grey-800);\n  font-size: 18px;\n  background-color: #fff;\n  padding-bottom: 5px;\n  padding-top: 10px;\n}\n\n.day-list {\n  text-align: center;\n}\n\n.not-current {\n  background-color: #eeeeee !important;\n}\n\n.not-current span {\n  opacity: 0.5;\n}\n\n#calendar-days {\n  border: 1px solid rgba(0, 0, 0, 0.1);\n}\n\n.calendar-day {\n  position: relative;\n  min-height: 100px;\n  font-size: 16px;\n  background-color: #fff;\n  color: var(--grey-800);\n  padding: 5px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n  -webkit-box-align: end;\n      -ms-flex-align: end;\n          align-items: flex-end;\n}\n\n.calendar-day .display-icon .icon-and-popup {\n  position: relative;\n  cursor: pointer;\n}\n\n.calendar-day .display-icon .icon-and-popup .popup {\n  position: absolute;\n  bottom: 100%;\n  right: -200%;\n  font-size: 10px;\n  padding: 0.3rem;\n  border-radius: 3px;\n  z-index: 1300;\n  min-width: 100px;\n  background-color: black;\n  color: white;\n  text-align: center;\n}\n\n.dayNumber {\n  position: absolute;\n  top: 10px;\n  right: 10px;\n  cursor: pointer;\n}\n\n.days-grid {\n  height: 100%;\n  position: relative;\n  grid-column-gap: 1px;\n  grid-row-gap: 1px;\n  border-top: solid 1px black;\n  background-color: #e2e2e2;\n}\n\n.ui.selection.dropdown {\n  min-width: 5em;\n}\n\n.button-active {\n  background-color: #babbbc !important;\n}\n\n.day,\n.year {\n  margin-top: 2rem;\n}", ""]);
+exports.push([module.i, "* {\n  padding: 0;\n  margin: 0;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n}\n\nhtml,\nbody {\n  font-size: 14px;\n  font-family: \"Lato\", sans-serif;\n  --grey-100: #e4e9f0;\n  --grey-200: #cfd7e3;\n  --grey-300: #b5c0cd;\n  --grey-800: #3e4e63;\n  --grid-gap: 1px;\n  --day-label-size: 20px;\n}\n\n.navigation {\n  padding: 2rem;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\n.navigation > * {\n  margin-left: 2rem !important;\n}\n\n.navigation h2 {\n  margin: 0px !important;\n  font-weight: 400 !important;\n}\n\n.date-input {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  padding: 0 2rem 1rem 2rem;\n}\n\n.date-input > * {\n  margin-left: 2rem !important;\n}\n\n.date-input .ui.input {\n  margin-left: 0 !important;\n}\n\nmain {\n  padding: 0 2rem 2rem 2rem;\n}\n\nmain .year {\n  margin-top: 2rem;\n}\n\nmain .year .month-of-year {\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-columns: (1fr)[3];\n      grid-template-columns: repeat(3, 1fr);\n  grid-column-gap: 1px;\n  grid-row-gap: 1px;\n  border: solid 1px rgba(0, 0, 0, 0.1);\n  background-color: #e2e2e2;\n}\n\nmain .year .month-list {\n  min-height: 100px;\n  font-size: 16px;\n  background-color: #fff;\n  color: var(--grey-800);\n  padding: 5px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  position: relative;\n}\n\nmain .year .month-list span {\n  cursor: pointer;\n}\n\nmain .year .month-list i {\n  position: absolute;\n  top: 10px;\n  right: 10px;\n}\n\nmain #calendar-days {\n  border: 1px solid rgba(0, 0, 0, 0.1);\n}\n\nmain .days-grid {\n  height: 100%;\n  position: relative;\n  grid-column-gap: 1px;\n  grid-row-gap: 1px;\n  border-top: solid 1px black;\n  background-color: #e2e2e2;\n}\n\nmain .day-of-week,\nmain .days-grid {\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-columns: (1fr)[7];\n      grid-template-columns: repeat(7, 1fr);\n}\n\nmain .day-of-week .calendar-day,\nmain .days-grid .calendar-day {\n  position: relative;\n  min-height: 100px;\n  font-size: 16px;\n  background-color: #fff;\n  color: var(--grey-800);\n  padding: 5px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n  -webkit-box-align: end;\n      -ms-flex-align: end;\n          align-items: flex-end;\n}\n\nmain .day-of-week .calendar-day .not-current span,\nmain .days-grid .calendar-day .not-current span {\n  opacity: 0.5;\n}\n\nmain .day-of-week .calendar-day .dayNumber,\nmain .days-grid .calendar-day .dayNumber {\n  position: absolute;\n  top: 10px;\n  right: 10px;\n  cursor: pointer;\n}\n\nmain .day-of-week .calendar-day .display-icon .icon-and-popup,\nmain .days-grid .calendar-day .display-icon .icon-and-popup {\n  position: relative;\n  cursor: pointer;\n}\n\nmain .day-of-week .calendar-day .display-icon .icon-and-popup .popup,\nmain .days-grid .calendar-day .display-icon .icon-and-popup .popup {\n  position: absolute;\n  bottom: 100%;\n  right: -200%;\n  font-size: 10px;\n  padding: 0.3rem;\n  border-radius: 3px;\n  z-index: 1300;\n  min-width: 100px;\n  background-color: black;\n  color: white;\n  text-align: center;\n}\n\nmain .day-of-week .not-current,\nmain .days-grid .not-current {\n  background-color: #eeeeee !important;\n}\n\nmain .day-of-week {\n  color: var(--grey-800);\n  font-size: 18px;\n  background-color: #fff;\n  padding-bottom: 5px;\n  padding-top: 10px;\n}\n\nmain .day-of-week .day-list {\n  text-align: center;\n}\n\nmain .day {\n  margin-top: 2rem;\n}\n\nmain .day .time {\n  width: 10% !important;\n  text-align: center !important;\n}\n\nmain .day .events {\n  text-align: center !important;\n}\n\nmain ol,\nmain li {\n  padding: 0;\n  margin: 0;\n  list-style: none;\n}\n\n.ui.selection.dropdown {\n  min-width: 5em;\n}\n\n.button-active {\n  background-color: #babbbc !important;\n}\n\n.ui.selection.dropdown {\n  width: 150px !important;\n}", ""]);
 
 // exports
 
@@ -15531,288 +15548,303 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { attrs: { id: "app" } }, [
-    _c(
-      "div",
-      { staticClass: "navigation" },
-      [
-        _c("h2", [
-          _vm._v(
-            _vm._s(_vm.selectedDate) +
-              " " +
-              _vm._s(_vm.selectedMonth) +
-              " " +
-              _vm._s(_vm.selectedYear)
-          )
-        ]),
-        _vm._v(" "),
-        _c("sui-button", [_vm._v("Add Event")]),
-        _vm._v(" "),
-        _c("sui-dropdown", {
-          attrs: {
-            placeholder: "Select Display",
-            selection: "",
-            options: _vm.displayList
-          },
-          model: {
-            value: _vm.current,
-            callback: function($$v) {
-              _vm.current = $$v
-            },
-            expression: "current"
-          }
-        })
-      ],
-      1
-    ),
-    _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "date-input" },
-      [
-        _c("sui-input", {
-          attrs: { placeholder: "Search...", type: "date" },
-          on: { change: _vm.changeDate },
-          model: {
-            value: _vm.currentDate,
-            callback: function($$v) {
-              _vm.currentDate = $$v
-            },
-            expression: "currentDate"
-          }
-        }),
-        _vm._v(" "),
-        _c(
-          "sui-button-group",
-          [
-            _c("sui-button", {
-              attrs: { content: "Prev" },
-              on: { click: _vm.onClickPrev }
-            }),
-            _vm._v(" "),
-            _c("sui-button", {
-              attrs: { content: "Today" },
-              on: { click: _vm.onClickToday }
-            }),
-            _vm._v(" "),
-            _c("sui-button", {
-              attrs: { content: "Next" },
-              on: { click: _vm.onClickNext }
-            })
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "sui-button-group",
-          [
-            _c(
-              "sui-button",
-              {
-                class: _vm.buttonFilterActive === "year" && "button-active",
-                on: { click: _vm.changeToYear }
-              },
-              [_vm._v("Year")]
-            ),
-            _vm._v(" "),
-            _c(
-              "sui-button",
-              {
-                class: _vm.buttonFilterActive === "month" && "button-active",
-                on: { click: _vm.changeToMonth }
-              },
-              [_vm._v("Month")]
-            ),
-            _vm._v(" "),
-            _c(
-              "sui-button",
-              {
-                class: _vm.buttonFilterActive === "day" && "button-active",
-                on: { click: _vm.changeToDay }
-              },
-              [_vm._v("Day")]
-            )
-          ],
-          1
-        )
-      ],
-      1
-    ),
-    _vm._v(" "),
-    _c("main", [
-      _vm.showTable === "year"
-        ? _c("div", { staticClass: "year" }, [
-            _c(
-              "ol",
-              { staticClass: "month-of-year" },
-              _vm._l(_vm.monthsListComputed, function(m, index) {
-                return _c("li", { key: index, staticClass: "month-list" }, [
-                  _c(
-                    "span",
-                    {
-                      on: {
-                        click: function($event) {
-                          return _vm.onClickMonthOfYear(index)
-                        }
-                      }
-                    },
-                    [_vm._v(_vm._s(m.month))]
-                  ),
-                  _vm._v(" "),
-                  m.display
-                    ? _c("i", { staticClass: "fas fa-desktop" })
-                    : _vm._e()
-                ])
-              }),
-              0
-            )
-          ])
+  return _c(
+    "div",
+    { attrs: { id: "app" } },
+    [
+      _vm.addEventModalIsOpen
+        ? _c("add-event-modal", {
+            on: { closeAddEventModal: _vm.closeAddEventModal }
+          })
         : _vm._e(),
       _vm._v(" "),
-      _vm.showTable === "month"
-        ? _c("div", [
-            _c(
-              "ol",
-              { staticClass: "day-of-week", attrs: { id: "days-of-week" } },
-              _vm._l(_vm.weekdays, function(w, index) {
-                return _c("li", { key: index, staticClass: "day-list" }, [
-                  _vm._v("\n          " + _vm._s(w) + "\n        ")
-                ])
-              }),
-              0
-            ),
-            _vm._v(" "),
-            _c(
-              "ol",
-              { staticClass: "days-grid", attrs: { id: "calendar-days" } },
-              _vm._l(_vm.calendarList, function(cal, index) {
-                return _c(
-                  "li",
-                  {
-                    key: index,
-                    staticClass: "calendar-day",
-                    class: cal.isCurrentMonth ? "" : "not-current"
-                  },
-                  [
-                    _vm._l(cal.displayProperty, function(d, index) {
-                      return _c(
-                        "div",
-                        { key: index, staticClass: "display-icon" },
-                        [
-                          _c("div", { staticClass: "icon-and-popup" }, [
-                            _c("i", {
-                              staticClass: "fas fa-desktop",
-                              on: {
-                                mouseover: function($event) {
-                                  return _vm.onShowPopUp(cal.date, index)
-                                },
-                                mouseleave: _vm.offShowPopUp
-                              }
-                            }),
-                            _vm._v(" "),
-                            (_vm.showPopUpNumber === cal.date + "-" + index
-                            ? true
-                            : false)
-                              ? _c("span", { staticClass: "popup" }, [
-                                  _vm._v(
-                                    "\n                " +
-                                      _vm._s(d.title) +
-                                      "\n              "
-                                  )
-                                ])
-                              : _vm._e()
-                          ])
-                        ]
-                      )
-                    }),
-                    _vm._v(" "),
-                    _c(
-                      "span",
-                      {
-                        staticClass: "dayNumber",
-                        on: {
-                          click: function($event) {
-                            return _vm.onClickDateNumber(cal.date)
-                          }
-                        }
-                      },
-                      [_vm._v(_vm._s(cal.dayOfMonth) + "\n          ")]
-                    )
-                  ],
-                  2
-                )
-              }),
-              0
+      _c(
+        "div",
+        { staticClass: "navigation" },
+        [
+          _c("h2", [
+            _vm._v(
+              _vm._s(_vm.selectedDate) +
+                " " +
+                _vm._s(_vm.selectedMonth) +
+                " " +
+                _vm._s(_vm.selectedYear)
             )
-          ])
-        : _vm._e(),
+          ]),
+          _vm._v(" "),
+          _c("sui-button", { on: { click: _vm.openAddEventModal } }, [
+            _vm._v("Add Event")
+          ]),
+          _vm._v(" "),
+          _c("sui-dropdown", {
+            attrs: {
+              placeholder: "Select Display",
+              selection: "",
+              options: _vm.displayList
+            },
+            model: {
+              value: _vm.current,
+              callback: function($$v) {
+                _vm.current = $$v
+              },
+              expression: "current"
+            }
+          })
+        ],
+        1
+      ),
       _vm._v(" "),
-      _vm.showTable === "day"
-        ? _c(
-            "div",
-            { staticClass: "day" },
+      _c(
+        "div",
+        { staticClass: "date-input" },
+        [
+          _c("sui-input", {
+            attrs: { placeholder: "Search...", type: "date" },
+            on: { change: _vm.changeDate },
+            model: {
+              value: _vm.currentDate,
+              callback: function($$v) {
+                _vm.currentDate = $$v
+              },
+              expression: "currentDate"
+            }
+          }),
+          _vm._v(" "),
+          _c(
+            "sui-button-group",
+            [
+              _c("sui-button", {
+                attrs: { content: "Prev" },
+                on: { click: _vm.onClickPrev }
+              }),
+              _vm._v(" "),
+              _c("sui-button", {
+                attrs: { content: "Today" },
+                on: { click: _vm.onClickToday }
+              }),
+              _vm._v(" "),
+              _c("sui-button", {
+                attrs: { content: "Next" },
+                on: { click: _vm.onClickNext }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "sui-button-group",
             [
               _c(
-                "sui-table",
-                { attrs: { striped: "" } },
-                [
-                  _c(
-                    "sui-table-header",
-                    [
-                      _c(
-                        "sui-table-row",
-                        [
-                          _c("sui-table-header-cell", { staticClass: "time" }, [
-                            _vm._v("Time")
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "sui-table-header-cell",
-                            { staticClass: "events" },
-                            [_vm._v("Events")]
-                          )
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "sui-table-body",
-                    _vm._l(_vm.hourAndEventOfTheDay, function(h, index) {
-                      return _c(
-                        "sui-table-row",
-                        { key: index },
-                        [
-                          _c("sui-table-cell", { staticClass: "time" }, [
-                            _vm._v(_vm._s(h.time))
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "sui-table-cell",
-                            _vm._l(h.event, function(e, index) {
-                              return _c("p", { key: index }, [
-                                _vm._v(_vm._s(e))
-                              ])
-                            }),
-                            0
-                          )
-                        ],
-                        1
-                      )
-                    }),
-                    1
-                  )
-                ],
-                1
+                "sui-button",
+                {
+                  class: _vm.buttonFilterActive === "year" && "button-active",
+                  on: { click: _vm.changeToYear }
+                },
+                [_vm._v("Year")]
+              ),
+              _vm._v(" "),
+              _c(
+                "sui-button",
+                {
+                  class: _vm.buttonFilterActive === "month" && "button-active",
+                  on: { click: _vm.changeToMonth }
+                },
+                [_vm._v("Month")]
+              ),
+              _vm._v(" "),
+              _c(
+                "sui-button",
+                {
+                  class: _vm.buttonFilterActive === "day" && "button-active",
+                  on: { click: _vm.changeToDay }
+                },
+                [_vm._v("Day")]
               )
             ],
             1
           )
-        : _vm._e()
-    ])
-  ])
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("main", [
+        _vm.showTable === "year"
+          ? _c("div", { staticClass: "year" }, [
+              _c(
+                "ol",
+                { staticClass: "month-of-year" },
+                _vm._l(_vm.monthsListComputed, function(m, index) {
+                  return _c("li", { key: index, staticClass: "month-list" }, [
+                    _c(
+                      "span",
+                      {
+                        on: {
+                          click: function($event) {
+                            return _vm.onClickMonthOfYear(index)
+                          }
+                        }
+                      },
+                      [_vm._v(_vm._s(m.month))]
+                    ),
+                    _vm._v(" "),
+                    m.display
+                      ? _c("i", { staticClass: "fas fa-desktop" })
+                      : _vm._e()
+                  ])
+                }),
+                0
+              )
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.showTable === "month"
+          ? _c("div", [
+              _c(
+                "ol",
+                { staticClass: "day-of-week", attrs: { id: "days-of-week" } },
+                _vm._l(_vm.weekdays, function(w, index) {
+                  return _c("li", { key: index, staticClass: "day-list" }, [
+                    _vm._v("\n          " + _vm._s(w) + "\n        ")
+                  ])
+                }),
+                0
+              ),
+              _vm._v(" "),
+              _c(
+                "ol",
+                { staticClass: "days-grid", attrs: { id: "calendar-days" } },
+                _vm._l(_vm.calendarList, function(cal, index) {
+                  return _c(
+                    "li",
+                    {
+                      key: index,
+                      staticClass: "calendar-day",
+                      class: cal.isCurrentMonth ? "" : "not-current"
+                    },
+                    [
+                      _vm._l(cal.displayProperty, function(d, index) {
+                        return _c(
+                          "div",
+                          { key: index, staticClass: "display-icon" },
+                          [
+                            _c("div", { staticClass: "icon-and-popup" }, [
+                              _c("i", {
+                                staticClass: "fas fa-desktop",
+                                on: {
+                                  mouseover: function($event) {
+                                    return _vm.onShowPopUp(cal.date, index)
+                                  },
+                                  mouseleave: _vm.offShowPopUp
+                                }
+                              }),
+                              _vm._v(" "),
+                              (_vm.showPopUpNumber === cal.date + "-" + index
+                              ? true
+                              : false)
+                                ? _c("span", { staticClass: "popup" }, [
+                                    _vm._v(
+                                      "\n                " +
+                                        _vm._s(d.title) +
+                                        "\n              "
+                                    )
+                                  ])
+                                : _vm._e()
+                            ])
+                          ]
+                        )
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "span",
+                        {
+                          staticClass: "dayNumber",
+                          on: {
+                            click: function($event) {
+                              return _vm.onClickDateNumber(cal.date)
+                            }
+                          }
+                        },
+                        [_vm._v(_vm._s(cal.dayOfMonth) + "\n          ")]
+                      )
+                    ],
+                    2
+                  )
+                }),
+                0
+              )
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.showTable === "day"
+          ? _c(
+              "div",
+              { staticClass: "day" },
+              [
+                _c(
+                  "sui-table",
+                  { attrs: { striped: "" } },
+                  [
+                    _c(
+                      "sui-table-header",
+                      [
+                        _c(
+                          "sui-table-row",
+                          [
+                            _c(
+                              "sui-table-header-cell",
+                              { staticClass: "time" },
+                              [_vm._v("Time")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "sui-table-header-cell",
+                              { staticClass: "events" },
+                              [_vm._v("Events")]
+                            )
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "sui-table-body",
+                      _vm._l(_vm.hourAndEventOfTheDay, function(h, index) {
+                        return _c(
+                          "sui-table-row",
+                          { key: index },
+                          [
+                            _c("sui-table-cell", { staticClass: "time" }, [
+                              _vm._v(_vm._s(h.time))
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "sui-table-cell",
+                              _vm._l(h.event, function(e, index) {
+                                return _c("p", { key: index }, [
+                                  _vm._v(_vm._s(e))
+                                ])
+                              }),
+                              0
+                            )
+                          ],
+                          1
+                        )
+                      }),
+                      1
+                    )
+                  ],
+                  1
+                )
+              ],
+              1
+            )
+          : _vm._e()
+      ])
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -15821,6 +15853,323 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-1d3f30cc", module.exports)
+  }
+}
+
+/***/ }),
+/* 115 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(4)
+/* script */
+var __vue_script__ = __webpack_require__(116)
+/* template */
+var __vue_template__ = __webpack_require__(119)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "modules/schedule/resources/assets/js/components/AddEventModal.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-6b17cfd1", Component.options)
+  } else {
+    hotAPI.reload("data-v-6b17cfd1", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 116 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__css_AddEventModal_css__ = __webpack_require__(117);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__css_AddEventModal_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__css_AddEventModal_css__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "AddEventModal",
+  data: function data() {
+    return {
+      eventType: 1,
+      eventTypeOption: [{
+        text: "Campaign/Layout",
+        value: 1
+      }, {
+        text: "Command",
+        value: 2
+      }, {
+        text: "Overlay Layout",
+        value: 3
+      }]
+    };
+  },
+
+  methods: {
+    closeAddEventModal: function closeAddEventModal() {
+      this.$emit("closeAddEventModal");
+    }
+  }
+});
+
+/***/ }),
+/* 117 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(118);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(12)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../../../../node_modules/css-loader/index.js!./AddEventModal.css", function() {
+			var newContent = require("!!../../../../../node_modules/css-loader/index.js!./AddEventModal.css");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 118 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)(false);
+// imports
+
+
+// module
+exports.push([module.i, ".edit-display-modal {\n  top: 0;\n  bottom: 0;\n  right: 0;\n  left: 0;\n  position: fixed;\n  background-color: rgba(0, 0, 0, 0.5);\n  z-index: 1100 !important;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\n.edit-display-modal .edit-display-modal-content {\n  height: 80%;\n  width: 70%;\n  border-radius: 10px;\n  background-color: #f5f5f5;\n}\n\n.edit-display-modal .edit-display-modal-content .edit-display-modal-header {\n  height: 15%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\n.edit-display-modal .edit-display-modal-content .edit-display-modal-header h1 {\n  font-weight: 400;\n  margin-left: 1rem;\n  font-size: 24px;\n}\n\n.edit-display-modal .edit-display-modal-content .edit-display-modal-body {\n  height: 70%;\n  border-top: 1px solid rgba(0, 0, 0, 0.2);\n  border-bottom: 1px solid rgba(0, 0, 0, 0.2);\n  padding: 2rem 5rem;\n}\n\n.edit-display-modal .edit-display-modal-content .edit-display-modal-body .edit-display-modal-body-row {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  margin: 0.4rem 0;\n}\n\n.edit-display-modal .edit-display-modal-content .edit-display-modal-body .edit-display-modal-body-row input {\n  min-width: 400px;\n}\n\n.edit-display-modal .edit-display-modal-content .edit-display-modal-body .edit-display-modal-body-row label {\n  margin-bottom: 0 !important;\n}\n\n.edit-display-modal .edit-display-modal-content .edit-display-modal-body .edit-display-modal-body-row .ui.selection.dropdown {\n  min-width: 400px !important;\n}\n\n.edit-display-modal .edit-display-modal-content .edit-display-modal-body .time input {\n  width: calc(200px - 0.1rem) !important;\n  min-width: calc(200px - 0.1rem) !important;\n}\n\n.edit-display-modal .edit-display-modal-content .edit-display-modal-actions {\n  height: 15%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: end;\n      -ms-flex-pack: end;\n          justify-content: flex-end;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  padding: 0 5rem;\n}", ""]);
+
+// exports
+
+
+/***/ }),
+/* 119 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      staticClass: "edit-display-modal",
+      on: {
+        click: function($event) {
+          if ($event.target !== $event.currentTarget) {
+            return null
+          }
+          return _vm.closeAddEventModal($event)
+        }
+      }
+    },
+    [
+      _c("div", { staticClass: "edit-display-modal-content" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c("div", { staticClass: "edit-display-modal-body" }, [
+          _c(
+            "div",
+            { staticClass: "edit-display-modal-body-row" },
+            [
+              _c("label", [_vm._v("Display")]),
+              _vm._v(" "),
+              _c("sui-input", { attrs: { fluid: "" } })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "edit-display-modal-body-row" },
+            [
+              _c("label", [_vm._v("Event Type")]),
+              _vm._v(" "),
+              _c("sui-dropdown", {
+                attrs: {
+                  placeholder: "--",
+                  selection: "",
+                  options: _vm.eventTypeOption
+                },
+                model: {
+                  value: _vm.eventType,
+                  callback: function($$v) {
+                    _vm.eventType = $$v
+                  },
+                  expression: "eventType"
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "edit-display-modal-body-row" },
+            [
+              _c("label", [_vm._v("Layout / Campaign")]),
+              _vm._v(" "),
+              _c("sui-input", { attrs: { fluid: "" } })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "edit-display-modal-body-row time" }, [
+            _c("label", [_vm._v("From")]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "time-input" },
+              [
+                _c("sui-input", { attrs: { type: "date" } }),
+                _vm._v(" "),
+                _c("sui-input", { attrs: { type: "time" } })
+              ],
+              1
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "edit-display-modal-body-row time" }, [
+            _c("label", [_vm._v("To")]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "time-input" },
+              [
+                _c("sui-input", { attrs: { type: "date" } }),
+                _vm._v(" "),
+                _c("sui-input", { attrs: { type: "time" } })
+              ],
+              1
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "edit-display-modal-actions" },
+          [
+            _c("sui-button", { attrs: { color: "yellow" } }, [
+              _vm._v("Cancel")
+            ]),
+            _vm._v(" "),
+            _c("sui-button", { attrs: { color: "green" } }, [_vm._v("Save")])
+          ],
+          1
+        )
+      ])
+    ]
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "edit-display-modal-header" }, [
+      _c("h1", [_vm._v("Add Event")])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-6b17cfd1", module.exports)
   }
 }
 

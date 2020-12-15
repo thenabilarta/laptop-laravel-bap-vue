@@ -1,8 +1,12 @@
 <template>
   <div id="app">
+    <add-event-modal
+      v-if="addEventModalIsOpen"
+      v-on:closeAddEventModal="closeAddEventModal"
+    ></add-event-modal>
     <div class="navigation">
       <h2>{{ selectedDate }} {{ selectedMonth }} {{ selectedYear }}</h2>
-      <sui-button>Add Event</sui-button>
+      <sui-button @click="openAddEventModal">Add Event</sui-button>
       <sui-dropdown
         placeholder="Select Display"
         selection
@@ -126,6 +130,7 @@ import dayjs from "dayjs";
 import weekday from "dayjs/plugin/weekday";
 import weekOfYear from "dayjs/plugin/weekOfYear";
 
+import AddEventModal from "./components/AddEventModal";
 import "../css/index.css";
 
 dayjs.extend(weekday);
@@ -133,6 +138,9 @@ dayjs.extend(weekOfYear);
 
 export default {
   name: "App",
+  components: {
+    AddEventModal: AddEventModal,
+  },
   data() {
     return {
       currentDate: dayjs().format("YYYY-MM-DD"),
@@ -143,6 +151,7 @@ export default {
       buttonFilterActive: "month",
       displaySchedule: [],
       showPopUpNumber: null,
+      addEventModalIsOpen: false,
       monthsList: [
         "January",
         "February",
@@ -552,6 +561,12 @@ export default {
     },
     offShowPopUp() {
       this.showPopUpNumber = null;
+    },
+    closeAddEventModal() {
+      this.addEventModalIsOpen = false;
+    },
+    openAddEventModal() {
+      this.addEventModalIsOpen = true;
     },
   },
   computed: {

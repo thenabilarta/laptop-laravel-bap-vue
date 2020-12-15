@@ -15019,8 +15019,11 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 
 
+
+
 __WEBPACK_IMPORTED_MODULE_1_dayjs___default.a.extend(__WEBPACK_IMPORTED_MODULE_2_dayjs_plugin_weekday___default.a);
 __WEBPACK_IMPORTED_MODULE_1_dayjs___default.a.extend(__WEBPACK_IMPORTED_MODULE_3_dayjs_plugin_weekOfYear___default.a);
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "App",
   data: function data() {
@@ -15049,26 +15052,112 @@ __WEBPACK_IMPORTED_MODULE_1_dayjs___default.a.extend(__WEBPACK_IMPORTED_MODULE_3
       }]
     };
   },
+
+  watch: {
+    currentDate: function currentDate() {
+      var _this = this;
+
+      switch (this.showTable) {
+        case "year":
+          var startYear = __WEBPACK_IMPORTED_MODULE_1_dayjs___default()(this.currentDate).startOf("year").valueOf();
+
+          var endYear = __WEBPACK_IMPORTED_MODULE_1_dayjs___default()(this.currentDate).endOf("year").valueOf();
+
+          __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post("http://127.0.0.1:8000/schedule/data", {
+            dateFrom: startYear,
+            dateTo: endYear
+          }).then(function (res) {
+            var arrayOfData = [];
+            res.data.result.map(function (r) {
+              var data = {
+                displayStart: r.start,
+                displayEnd: r.end,
+                sameDay: r.sameDay,
+                title: r.title
+              };
+              arrayOfData.push(data);
+            });
+            _this.displaySchedule = arrayOfData;
+          });
+          break;
+
+        case "month":
+          var startMonth = __WEBPACK_IMPORTED_MODULE_1_dayjs___default()(this.currentDate).startOf("month").valueOf();
+
+          var endMonth = __WEBPACK_IMPORTED_MODULE_1_dayjs___default()(this.currentDate).endOf("month").valueOf();
+
+          __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post("http://127.0.0.1:8000/schedule/data", {
+            dateFrom: startMonth,
+            dateTo: endMonth
+          }).then(function (res) {
+            var arrayOfData = [];
+            res.data.result.map(function (r) {
+              var data = {
+                displayStart: r.start,
+                displayEnd: r.end,
+                sameDay: r.sameDay,
+                title: r.title
+              };
+              arrayOfData.push(data);
+            });
+            _this.displaySchedule = arrayOfData;
+          });
+          break;
+
+        case "day":
+          var startDay = __WEBPACK_IMPORTED_MODULE_1_dayjs___default()(this.currentDate).startOf("day").valueOf();
+
+          var endDay = __WEBPACK_IMPORTED_MODULE_1_dayjs___default()(this.currentDate).endOf("day").valueOf();
+
+          __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post("http://127.0.0.1:8000/schedule/data", {
+            dateFrom: startDay,
+            dateTo: endDay
+          }).then(function (res) {
+            var arrayOfData = [];
+            res.data.result.map(function (r) {
+              var data = {
+                displayStart: r.start,
+                displayEnd: r.end,
+                sameDay: r.sameDay,
+                title: r.title
+              };
+              arrayOfData.push(data);
+            });
+            _this.displaySchedule = arrayOfData;
+          });
+
+          break;
+
+        default:
+          console.log("Mantap gan");
+      }
+    },
+    showTable: function showTable() {
+      console.log(this.showTable);
+    }
+  },
   mounted: function mounted() {
-    var _this = this;
+    var _this2 = this;
+
+    var startMonth = __WEBPACK_IMPORTED_MODULE_1_dayjs___default()(this.currentDate).startOf("month").valueOf();
+
+    var endMonth = __WEBPACK_IMPORTED_MODULE_1_dayjs___default()(this.currentDate).endOf("month").valueOf();
 
     __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post("http://127.0.0.1:8000/schedule/data", {
-      dateFrom: __WEBPACK_IMPORTED_MODULE_1_dayjs___default()().year(2015).valueOf(),
-      dateTo: __WEBPACK_IMPORTED_MODULE_1_dayjs___default()().year(2025).valueOf()
+      dateFrom: startMonth,
+      dateTo: endMonth
     }).then(function (res) {
-      console.log(res.data);
+      var arrayOfData = [];
       res.data.result.map(function (r) {
-        var displayStart = r.start;
-        var displayEnd = r.end;
-        var sameDay = r.sameDay;
-        var title = r.title;
-        _this.displaySchedule.push({
-          displayStart: displayStart,
-          displayEnd: displayEnd,
-          sameDay: sameDay,
-          title: title
-        });
+        var data = {
+          displayStart: r.start,
+          displayEnd: r.end,
+          sameDay: r.sameDay,
+          title: r.title
+        };
+        arrayOfData.push(data);
       });
+      _this2.displaySchedule = arrayOfData;
     });
   },
 
@@ -15130,14 +15219,83 @@ __WEBPACK_IMPORTED_MODULE_1_dayjs___default.a.extend(__WEBPACK_IMPORTED_MODULE_3
       return __WEBPACK_IMPORTED_MODULE_1_dayjs___default()(year + "-" + month + "-01").daysInMonth();
     },
     changeToYear: function changeToYear() {
+      var _this3 = this;
+
+      var startYear = __WEBPACK_IMPORTED_MODULE_1_dayjs___default()(this.currentDate).startOf("year").valueOf();
+
+      var endYear = __WEBPACK_IMPORTED_MODULE_1_dayjs___default()(this.currentDate).endOf("year").valueOf();
+
+      __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post("http://127.0.0.1:8000/schedule/data", {
+        dateFrom: startYear,
+        dateTo: endYear
+      }).then(function (res) {
+        var arrayOfData = [];
+        res.data.result.map(function (r) {
+          var data = {
+            displayStart: r.start,
+            displayEnd: r.end,
+            sameDay: r.sameDay,
+            title: r.title
+          };
+          arrayOfData.push(data);
+        });
+        _this3.displaySchedule = arrayOfData;
+      });
+
       this.showTable = "year";
       this.buttonFilterActive = "year";
     },
     changeToMonth: function changeToMonth() {
+      var _this4 = this;
+
+      var startMonth = __WEBPACK_IMPORTED_MODULE_1_dayjs___default()(this.currentDate).startOf("month").valueOf();
+
+      var endMonth = __WEBPACK_IMPORTED_MODULE_1_dayjs___default()(this.currentDate).endOf("month").valueOf();
+
+      __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post("http://127.0.0.1:8000/schedule/data", {
+        dateFrom: startMonth,
+        dateTo: endMonth
+      }).then(function (res) {
+        var arrayOfData = [];
+        res.data.result.map(function (r) {
+          var data = {
+            displayStart: r.start,
+            displayEnd: r.end,
+            sameDay: r.sameDay,
+            title: r.title
+          };
+          arrayOfData.push(data);
+        });
+        _this4.displaySchedule = arrayOfData;
+      });
+
       this.showTable = "month";
       this.buttonFilterActive = "month";
     },
     changeToDay: function changeToDay() {
+      var _this5 = this;
+
+      var startDay = __WEBPACK_IMPORTED_MODULE_1_dayjs___default()(this.currentDate).startOf("day").valueOf();
+
+      var endDay = __WEBPACK_IMPORTED_MODULE_1_dayjs___default()(this.currentDate).endOf("day").valueOf();
+
+      __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post("http://127.0.0.1:8000/schedule/data", {
+        dateFrom: startDay,
+        dateTo: endDay
+      }).then(function (res) {
+        var arrayOfData = [];
+        res.data.result.map(function (r) {
+          var data = {
+            displayStart: r.start,
+            displayEnd: r.end,
+            sameDay: r.sameDay,
+            title: r.title
+          };
+          arrayOfData.push(data);
+        });
+        _this5.displaySchedule = arrayOfData;
+      });
+
       this.showTable = "day";
       this.buttonFilterActive = "day";
     },
@@ -15222,14 +15380,14 @@ __WEBPACK_IMPORTED_MODULE_1_dayjs___default.a.extend(__WEBPACK_IMPORTED_MODULE_3
       return this.INITIAL_YEAR;
     },
     hourAndEventOfTheDay: function hourAndEventOfTheDay() {
-      var _this2 = this;
+      var _this6 = this;
 
       var arrayOfTimeAndEvent = [];
       var currentTime = __WEBPACK_IMPORTED_MODULE_1_dayjs___default()(this.currentDate);
 
       var _loop = function _loop() {
         var eventArray = [];
-        _this2.displaySchedule.map(function (d) {
+        _this6.displaySchedule.map(function (d) {
           if (d.displayStart <= currentTime.valueOf() && d.displayEnd >= currentTime.valueOf()) {
             eventArray.push(d.title);
           }

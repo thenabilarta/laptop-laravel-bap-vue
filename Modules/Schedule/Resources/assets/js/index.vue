@@ -125,9 +125,12 @@ import axios from "axios";
 import dayjs from "dayjs";
 import weekday from "dayjs/plugin/weekday";
 import weekOfYear from "dayjs/plugin/weekOfYear";
+
 import "../css/index.css";
+
 dayjs.extend(weekday);
 dayjs.extend(weekOfYear);
+
 export default {
   name: "App",
   data() {
@@ -174,30 +177,131 @@ export default {
       ],
     };
   },
+  watch: {
+    currentDate: function() {
+      switch (this.showTable) {
+        case "year":
+          let startYear = dayjs(this.currentDate)
+            .startOf("year")
+            .valueOf();
+
+          let endYear = dayjs(this.currentDate)
+            .endOf("year")
+            .valueOf();
+
+          axios
+            .post("http://127.0.0.1:8000/schedule/data", {
+              dateFrom: startYear,
+              dateTo: endYear,
+            })
+            .then((res) => {
+              let arrayOfData = [];
+              res.data.result.map((r) => {
+                let data = {
+                  displayStart: r.start,
+                  displayEnd: r.end,
+                  sameDay: r.sameDay,
+                  title: r.title,
+                };
+                arrayOfData.push(data);
+              });
+              this.displaySchedule = arrayOfData;
+            });
+          break;
+
+        case "month":
+          let startMonth = dayjs(this.currentDate)
+            .startOf("month")
+            .valueOf();
+
+          let endMonth = dayjs(this.currentDate)
+            .endOf("month")
+            .valueOf();
+
+          axios
+            .post("http://127.0.0.1:8000/schedule/data", {
+              dateFrom: startMonth,
+              dateTo: endMonth,
+            })
+            .then((res) => {
+              let arrayOfData = [];
+              res.data.result.map((r) => {
+                let data = {
+                  displayStart: r.start,
+                  displayEnd: r.end,
+                  sameDay: r.sameDay,
+                  title: r.title,
+                };
+                arrayOfData.push(data);
+              });
+              this.displaySchedule = arrayOfData;
+            });
+          break;
+
+        case "day":
+          let startDay = dayjs(this.currentDate)
+            .startOf("day")
+            .valueOf();
+
+          let endDay = dayjs(this.currentDate)
+            .endOf("day")
+            .valueOf();
+
+          axios
+            .post("http://127.0.0.1:8000/schedule/data", {
+              dateFrom: startDay,
+              dateTo: endDay,
+            })
+            .then((res) => {
+              let arrayOfData = [];
+              res.data.result.map((r) => {
+                let data = {
+                  displayStart: r.start,
+                  displayEnd: r.end,
+                  sameDay: r.sameDay,
+                  title: r.title,
+                };
+                arrayOfData.push(data);
+              });
+              this.displaySchedule = arrayOfData;
+            });
+
+          break;
+
+        default:
+          console.log("Mantap gan");
+      }
+    },
+    showTable: function() {
+      console.log(this.showTable);
+    },
+  },
   mounted() {
+    let startMonth = dayjs(this.currentDate)
+      .startOf("month")
+      .valueOf();
+
+    let endMonth = dayjs(this.currentDate)
+      .endOf("month")
+      .valueOf();
+
     axios
       .post("http://127.0.0.1:8000/schedule/data", {
-        dateFrom: dayjs()
-          .year(2015)
-          .valueOf(),
-        dateTo: dayjs()
-          .year(2025)
-          .valueOf(),
+        dateFrom: startMonth,
+        dateTo: endMonth,
       })
       .then((res) => {
-        console.log(res.data);
+        let arrayOfData = [];
         res.data.result.map((r) => {
-          let displayStart = r.start;
-          let displayEnd = r.end;
-          let sameDay = r.sameDay;
-          let title = r.title;
-          this.displaySchedule.push({
-            displayStart: displayStart,
-            displayEnd: displayEnd,
-            sameDay: sameDay,
-            title: title,
-          });
+          let data = {
+            displayStart: r.start,
+            displayEnd: r.end,
+            sameDay: r.sameDay,
+            title: r.title,
+          };
+          arrayOfData.push(data);
         });
+        this.displaySchedule = arrayOfData;
       });
   },
   methods: {
@@ -288,14 +392,95 @@ export default {
       return dayjs(`${year}-${month}-01`).daysInMonth();
     },
     changeToYear() {
+      let startYear = dayjs(this.currentDate)
+        .startOf("year")
+        .valueOf();
+
+      let endYear = dayjs(this.currentDate)
+        .endOf("year")
+        .valueOf();
+
+      axios
+        .post("http://127.0.0.1:8000/schedule/data", {
+          dateFrom: startYear,
+          dateTo: endYear,
+        })
+        .then((res) => {
+          let arrayOfData = [];
+          res.data.result.map((r) => {
+            let data = {
+              displayStart: r.start,
+              displayEnd: r.end,
+              sameDay: r.sameDay,
+              title: r.title,
+            };
+            arrayOfData.push(data);
+          });
+          this.displaySchedule = arrayOfData;
+        });
+
       this.showTable = "year";
       this.buttonFilterActive = "year";
     },
     changeToMonth() {
+      let startMonth = dayjs(this.currentDate)
+        .startOf("month")
+        .valueOf();
+
+      let endMonth = dayjs(this.currentDate)
+        .endOf("month")
+        .valueOf();
+
+      axios
+        .post("http://127.0.0.1:8000/schedule/data", {
+          dateFrom: startMonth,
+          dateTo: endMonth,
+        })
+        .then((res) => {
+          let arrayOfData = [];
+          res.data.result.map((r) => {
+            let data = {
+              displayStart: r.start,
+              displayEnd: r.end,
+              sameDay: r.sameDay,
+              title: r.title,
+            };
+            arrayOfData.push(data);
+          });
+          this.displaySchedule = arrayOfData;
+        });
+
       this.showTable = "month";
       this.buttonFilterActive = "month";
     },
     changeToDay() {
+      let startDay = dayjs(this.currentDate)
+        .startOf("day")
+        .valueOf();
+
+      let endDay = dayjs(this.currentDate)
+        .endOf("day")
+        .valueOf();
+
+      axios
+        .post("http://127.0.0.1:8000/schedule/data", {
+          dateFrom: startDay,
+          dateTo: endDay,
+        })
+        .then((res) => {
+          let arrayOfData = [];
+          res.data.result.map((r) => {
+            let data = {
+              displayStart: r.start,
+              displayEnd: r.end,
+              sameDay: r.sameDay,
+              title: r.title,
+            };
+            arrayOfData.push(data);
+          });
+          this.displaySchedule = arrayOfData;
+        });
+
       this.showTable = "day";
       this.buttonFilterActive = "day";
     },

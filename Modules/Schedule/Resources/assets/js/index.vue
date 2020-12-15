@@ -136,7 +136,7 @@ export default {
       displayForCurrentDay: false,
       showTable: "month",
       weekdays: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-      current: null,
+      current: 1,
       buttonFilterActive: "month",
       displaySchedule: [],
       showPopUpNumber: null,
@@ -156,7 +156,7 @@ export default {
       ],
       displayList: [
         {
-          text: "Polytron",
+          text: "All Display",
           value: 1,
         },
         {
@@ -177,10 +177,15 @@ export default {
   mounted() {
     axios
       .post("http://127.0.0.1:8000/schedule/data", {
-        dateFrom: dayjs(this.calendarList[0].date).valueOf(),
-        dateTo: dayjs(this.calendarList.pop().date).valueOf(),
+        dateFrom: dayjs()
+          .year(2015)
+          .valueOf(),
+        dateTo: dayjs()
+          .year(2025)
+          .valueOf(),
       })
       .then((res) => {
+        console.log(res.data);
         res.data.result.map((r) => {
           let displayStart = r.start;
           let displayEnd = r.end;
@@ -473,12 +478,11 @@ export default {
         },
       ];
 
-      let checkingCurrentDate = dayjs(this.currentDate).format("YYYY-MM");
-
+      let checkingCurrentDate = dayjs(this.currentDate).format("YYYY");
       let checkingDisplaySchedule = this.displaySchedule;
 
       checkingDisplaySchedule.map((c, index) => {
-        if (dayjs(c.displayStart).format("YYYY-MM") === checkingCurrentDate) {
+        if (dayjs(c.displayStart).format("YYYY") === checkingCurrentDate) {
           monthArray[
             parseInt(dayjs(c.displayStart).format("MM")) - 1
           ].display = true;

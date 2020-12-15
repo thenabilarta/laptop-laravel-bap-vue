@@ -15029,13 +15029,13 @@ __WEBPACK_IMPORTED_MODULE_1_dayjs___default.a.extend(__WEBPACK_IMPORTED_MODULE_3
       displayForCurrentDay: false,
       showTable: "month",
       weekdays: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-      current: null,
+      current: 1,
       buttonFilterActive: "month",
       displaySchedule: [],
       showPopUpNumber: null,
       monthsList: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
       displayList: [{
-        text: "Polytron",
+        text: "All Display",
         value: 1
       }, {
         text: "Xiaomi",
@@ -15053,9 +15053,10 @@ __WEBPACK_IMPORTED_MODULE_1_dayjs___default.a.extend(__WEBPACK_IMPORTED_MODULE_3
     var _this = this;
 
     __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post("http://127.0.0.1:8000/schedule/data", {
-      dateFrom: __WEBPACK_IMPORTED_MODULE_1_dayjs___default()(this.calendarList[0].date).valueOf(),
-      dateTo: __WEBPACK_IMPORTED_MODULE_1_dayjs___default()(this.calendarList.pop().date).valueOf()
+      dateFrom: __WEBPACK_IMPORTED_MODULE_1_dayjs___default()().year(2015).valueOf(),
+      dateTo: __WEBPACK_IMPORTED_MODULE_1_dayjs___default()().year(2025).valueOf()
     }).then(function (res) {
+      console.log(res.data);
       res.data.result.map(function (r) {
         var displayStart = r.start;
         var displayEnd = r.end;
@@ -15284,12 +15285,11 @@ __WEBPACK_IMPORTED_MODULE_1_dayjs___default.a.extend(__WEBPACK_IMPORTED_MODULE_3
         display: false
       }];
 
-      var checkingCurrentDate = __WEBPACK_IMPORTED_MODULE_1_dayjs___default()(this.currentDate).format("YYYY-MM");
-
+      var checkingCurrentDate = __WEBPACK_IMPORTED_MODULE_1_dayjs___default()(this.currentDate).format("YYYY");
       var checkingDisplaySchedule = this.displaySchedule;
 
       checkingDisplaySchedule.map(function (c, index) {
-        if (__WEBPACK_IMPORTED_MODULE_1_dayjs___default()(c.displayStart).format("YYYY-MM") === checkingCurrentDate) {
+        if (__WEBPACK_IMPORTED_MODULE_1_dayjs___default()(c.displayStart).format("YYYY") === checkingCurrentDate) {
           monthArray[parseInt(__WEBPACK_IMPORTED_MODULE_1_dayjs___default()(c.displayStart).format("MM")) - 1].display = true;
         }
       });

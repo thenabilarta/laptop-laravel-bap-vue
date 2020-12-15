@@ -125,9 +125,16 @@ li {
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 
   span {
     cursor: pointer;
+  }
+
+  i {
+    position: absolute;
+    top: 10px;
+    right: 10px;
   }
 }
 
@@ -168,6 +175,30 @@ li {
   background-color: #fff;
   color: var(--grey-800);
   padding: 5px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+
+  .display-icon {
+    .icon-and-popup {
+      position: relative;
+      cursor: pointer;
+
+      .popup {
+        position: absolute;
+        bottom: 100%;
+        right: -200%;
+        font-size: 10px;
+        padding: 0.3rem;
+        border-radius: 3px;
+        z-index: 1300;
+        min-width: 100px;
+        background-color: black;
+        color: white;
+        text-align: center;
+      }
+    }
+  }
 }
 
 .dayNumber {

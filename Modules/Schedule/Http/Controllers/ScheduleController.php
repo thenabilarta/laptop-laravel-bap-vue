@@ -17,7 +17,7 @@ class ScheduleController extends AppBaseController
 
         curl_setopt_array($curl, array(
             // CURLOPT_URL => 'http://192.168.44.127/xibo-cms/web/api/authorize/access_token',
-            CURLOPT_URL => 'http://192.168.1.6/xibo-cms/web/api/authorize/access_token',
+            CURLOPT_URL => 'http://192.168.44.127/xibo-cms/web/api/authorize/access_token',
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
@@ -40,5 +40,37 @@ class ScheduleController extends AppBaseController
         $_SESSION["token"] = $token;
 
         return view('schedule::index');
+    }
+
+    public function data(Request $request)
+    {
+        $dateFrom = $request->dateFrom;
+
+        $dateTo = $request->dateTo;
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'http://192.168.44.127/xibo-cms/web/api/schedule/data/events?displayGroupIds%5B%5D=-1&from=' . $dateFrom . '&to=' . $dateTo,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'GET',
+            CURLOPT_HTTPHEADER => array(
+                'Authorization: Bearer ' . $_SESSION["token"],
+            ),
+        ));
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+
+        $contents = $response;
+        $content = json_decode($contents, true);
+
+        return $content;
     }
 }

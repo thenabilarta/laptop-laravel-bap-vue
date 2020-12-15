@@ -129,10 +129,17 @@ li {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  position: relative;
 }
 
 .month-list span {
   cursor: pointer;
+}
+
+.month-list i {
+  position: absolute;
+  top: 10px;
+  right: 10px;
 }
 
 .day-of-week,
@@ -174,6 +181,34 @@ li {
   background-color: #fff;
   color: var(--grey-800);
   padding: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+}
+
+.calendar-day .display-icon .icon-and-popup {
+  position: relative;
+  cursor: pointer;
+}
+
+.calendar-day .display-icon .icon-and-popup .popup {
+  position: absolute;
+  bottom: 100%;
+  right: -200%;
+  font-size: 10px;
+  padding: 0.3rem;
+  border-radius: 3px;
+  z-index: 1300;
+  min-width: 100px;
+  background-color: black;
+  color: white;
+  text-align: center;
 }
 
 .dayNumber {

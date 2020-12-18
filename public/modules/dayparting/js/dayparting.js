@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 104);
+/******/ 	return __webpack_require__(__webpack_require__.s = 141);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -14732,15 +14732,20 @@ module.exports=function(e){var t={};function i(n){if(t[n])return t[n].exports;va
 /* 41 */,
 /* 42 */,
 /* 43 */,
-/* 44 */
+/* 44 */,
+/* 45 */,
+/* 46 */,
+/* 47 */,
+/* 48 */,
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(10)
 /* script */
-var __vue_script__ = __webpack_require__(106)
+var __vue_script__ = __webpack_require__(143)
 /* template */
-var __vue_template__ = __webpack_require__(109)
+var __vue_template__ = __webpack_require__(146)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -14757,7 +14762,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "modules/layout/resources/assets/js/index.vue"
+Component.options.__file = "modules/dayparting/resources/assets/js/index.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -14766,9 +14771,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-2e7cbd9f", Component.options)
+    hotAPI.createRecord("data-v-0dc4cda8", Component.options)
   } else {
-    hotAPI.reload("data-v-2e7cbd9f", Component.options)
+    hotAPI.reload("data-v-0dc4cda8", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -14779,11 +14784,6 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 45 */,
-/* 46 */,
-/* 47 */,
-/* 48 */,
-/* 49 */,
 /* 50 */,
 /* 51 */,
 /* 52 */,
@@ -14838,19 +14838,56 @@ module.exports = Component.exports
 /* 101 */,
 /* 102 */,
 /* 103 */,
-/* 104 */
+/* 104 */,
+/* 105 */,
+/* 106 */,
+/* 107 */,
+/* 108 */,
+/* 109 */,
+/* 110 */,
+/* 111 */,
+/* 112 */,
+/* 113 */,
+/* 114 */,
+/* 115 */,
+/* 116 */,
+/* 117 */,
+/* 118 */,
+/* 119 */,
+/* 120 */,
+/* 121 */,
+/* 122 */,
+/* 123 */,
+/* 124 */,
+/* 125 */,
+/* 126 */,
+/* 127 */,
+/* 128 */,
+/* 129 */,
+/* 130 */,
+/* 131 */,
+/* 132 */,
+/* 133 */,
+/* 134 */,
+/* 135 */,
+/* 136 */,
+/* 137 */,
+/* 138 */,
+/* 139 */,
+/* 140 */,
+/* 141 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(105);
+module.exports = __webpack_require__(142);
 
 
 /***/ }),
-/* 105 */
+/* 142 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__index_vue__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__index_vue__ = __webpack_require__(49);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__index_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__index_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_semantic_ui_vue__ = __webpack_require__(36);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_semantic_ui_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_semantic_ui_vue__);
@@ -14860,7 +14897,7 @@ window.Vue = __webpack_require__(34);
 
 
 
-Vue.component("index", __webpack_require__(44).default);
+Vue.component("index", __webpack_require__(49).default);
 
 Vue.use(__WEBPACK_IMPORTED_MODULE_1_semantic_ui_vue___default.a);
 
@@ -14872,17 +14909,15 @@ var app = new Vue({
 });
 
 /***/ }),
-/* 106 */
+/* 143 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__css_index_css__ = __webpack_require__(107);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__css_index_css__ = __webpack_require__(144);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__css_index_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__css_index_css__);
-//
-//
 //
 //
 //
@@ -14953,41 +14988,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   mounted: function mounted() {
     var _this = this;
 
-    __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("http://127.0.0.1:8000/layout/data").then(function (res) {
+    __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("http://127.0.0.1:8000/dayparting/data").then(function (res) {
       console.log(res.data);
       _this.tableList = res.data;
     });
-  },
-
-  methods: {
-    deleteLayout: function deleteLayout(id) {
-      var _this2 = this;
-
-      __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post("http://127.0.0.1:8000/layout/delete", { layoutId: id }).then(function (res) {
-        return console.log(res.data);
-      }).then(function () {
-        return _this2.refreshPage();
-      });
-    },
-    refreshPage: function refreshPage() {
-      var _this3 = this;
-
-      __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("http://127.0.0.1:8000/layout/data").then(function (res) {
-        console.log(res.data);
-        _this3.tableList = res.data;
-      });
-    }
   }
 });
 
 /***/ }),
-/* 107 */
+/* 144 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(108);
+var content = __webpack_require__(145);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -15012,7 +15027,7 @@ if(false) {
 }
 
 /***/ }),
-/* 108 */
+/* 145 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(3)(false);
@@ -15020,13 +15035,13 @@ exports = module.exports = __webpack_require__(3)(false);
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&display=swap);", ""]);
 
 // module
-exports.push([module.i, "* {\n  padding: 0;\n  margin: 0;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n}\n\nhtml,\nbody {\n  font-size: 14px;\n  font-family: \"Lato\", sans-serif;\n}\n\n.header {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: end;\n      -ms-flex-pack: end;\n          justify-content: flex-end;\n}\n\n.header .header-icon {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  padding: 0 2rem;\n}\n\n.header .header-icon .ui.multiple.dropdown {\n  padding: 0 !important;\n}\n\n.header .header-icon i {\n  font-size: 2rem;\n  margin: 0 1rem;\n}\n\n.td-table-image {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\n.table-image {\n  height: 30px;\n  margin: 0;\n  padding: 0;\n}\n\n.footer {\n  min-height: 50px;\n  padding: 20px;\n}\n\n.footer button {\n  background-color: #0e6eb8;\n  padding: 0.8rem 1.6rem;\n  outline: none;\n  border-radius: 0.5rem;\n  border: none;\n  color: white;\n}\n\n.footer button:hover {\n  background-color: #2185d0;\n}\n\ni,\nth {\n  cursor: pointer !important;\n}\n\n.loading {\n  height: 50vh;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\n.authorized-table-cell {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\n[type=\"checkbox\"]:not(.filled-in) + label:after {\n  transform: none !important;\n  -webkit-transform: none !important;\n}", ""]);
+exports.push([module.i, "* {\n  padding: 0;\n  margin: 0;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n}\n\nhtml,\nbody {\n  font-size: 14px;\n  font-family: \"Lato\", sans-serif;\n}\n\n.header {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: end;\n      -ms-flex-pack: end;\n          justify-content: flex-end;\n}\n\n.header .header-icon {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  padding: 0 2rem;\n}\n\n.header .header-icon .ui.multiple.dropdown {\n  padding: 0 !important;\n}\n\n.header .header-icon i {\n  font-size: 2rem;\n  margin: 0 1rem;\n}\n\n.td-table-image {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\n.table-image {\n  height: 30px;\n  margin: 0;\n  padding: 0;\n}\n\n.footer {\n  min-height: 50px;\n  padding: 20px;\n}\n\n.footer button {\n  background-color: #0e6eb8;\n  padding: 0.8rem 1.6rem;\n  outline: none;\n  border-radius: 0.5rem;\n  border: none;\n  color: white;\n}\n\n.footer button:hover {\n  background-color: #2185d0;\n}\n\ni,\nth {\n  cursor: pointer !important;\n}\n\n.dropdown-table-cell {\n  max-width: 1px !important;\n}\n\n.dropdown-table-cell .right {\n  float: none !important;\n}\n\n.loading {\n  height: 50vh;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\n.authorized-table-cell {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\n[type=\"checkbox\"]:not(.filled-in) + label:after {\n  transform: none !important;\n  -webkit-transform: none !important;\n}", ""]);
 
 // exports
 
 
 /***/ }),
-/* 109 */
+/* 146 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -15081,19 +15096,17 @@ var render = function() {
                     _c(
                       "sui-table-row",
                       [
-                        _c("sui-table-header-cell", [_vm._v("Layout ID")]),
-                        _vm._v(" "),
                         _c("sui-table-header-cell", [_vm._v("Name")]),
                         _vm._v(" "),
-                        _c("sui-table-header-cell", [_vm._v("Duration")]),
+                        _c("sui-table-header-cell", [_vm._v("Description")]),
                         _vm._v(" "),
-                        _c("sui-table-header-cell", [_vm._v("Dimension")]),
+                        _c("sui-table-header-cell", [_vm._v("Start Time")]),
                         _vm._v(" "),
-                        _c("sui-table-header-cell", [_vm._v("Owner")]),
+                        _c("sui-table-header-cell", [_vm._v("End Time")]),
                         _vm._v(" "),
-                        _c("sui-table-header-cell", [_vm._v("Status")]),
-                        _vm._v(" "),
-                        _c("sui-table-header-cell")
+                        _c("sui-table-header-cell", {
+                          staticClass: "dropdown-table-cell"
+                        })
                       ],
                       1
                     )
@@ -15103,31 +15116,27 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "sui-table-body",
-                  _vm._l(_vm.tableList, function(list) {
+                  _vm._l(_vm.tableList, function(t, index) {
                     return _c(
                       "sui-table-row",
-                      { key: list.layoutId },
+                      { key: index },
                       [
-                        _c("sui-table-cell", [_vm._v(_vm._s(list.layoutId))]),
-                        _vm._v(" "),
-                        _c("sui-table-cell", [_vm._v(_vm._s(list.layout))]),
-                        _vm._v(" "),
-                        _c("sui-table-cell", [_vm._v(_vm._s(list.duration))]),
-                        _vm._v(" "),
-                        _c("sui-table-cell", [
-                          _vm._v(
-                            _vm._s(list.width) + " x " + _vm._s(list.height)
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("sui-table-cell", [_vm._v(_vm._s(list.owner))]),
+                        _c("sui-table-cell", [_vm._v(_vm._s(t.name))]),
                         _vm._v(" "),
                         _c("sui-table-cell", [
                           _vm._v(
                             _vm._s(
-                              list.status === 1 ? "Ready" : "Not build yet"
+                              t.description ? t.description : "No Description"
                             )
                           )
+                        ]),
+                        _vm._v(" "),
+                        _c("sui-table-cell", [
+                          _vm._v(_vm._s(t.startTime ? t.startTime : "--"))
+                        ]),
+                        _vm._v(" "),
+                        _c("sui-table-cell", [
+                          _vm._v(_vm._s(t.endTime ? t.endTime : "--"))
                         ]),
                         _vm._v(" "),
                         _c(
@@ -15145,24 +15154,18 @@ var render = function() {
                                   [
                                     _c("sui-dropdown-item", [_vm._v("Edit")]),
                                     _vm._v(" "),
-                                    _c(
-                                      "sui-dropdown-item",
-                                      {
-                                        on: {
-                                          click: function($event) {
-                                            return _vm.deleteLayout(
-                                              list.layoutId
-                                            )
-                                          }
-                                        }
-                                      },
-                                      [_vm._v("Delete")]
-                                    ),
+                                    _c("sui-dropdown-item", [_vm._v("Delete")]),
                                     _vm._v(" "),
                                     _c("sui-dropdown-divider"),
                                     _vm._v(" "),
                                     _c("sui-dropdown-item", [
-                                      _vm._v("Permission")
+                                      _vm._v("Default Layout")
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("sui-dropdown-divider"),
+                                    _vm._v(" "),
+                                    _c("sui-dropdown-item", [
+                                      _vm._v("Preview Profile")
                                     ])
                                   ],
                                   1
@@ -15193,7 +15196,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-2e7cbd9f", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-0dc4cda8", module.exports)
   }
 }
 

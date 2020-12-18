@@ -38,3 +38,7 @@ mix.js(
   "modules/displaygroup/resources/assets/js/displayGroup.js",
   "public/modules/displayGroup/js"
 );
+mix.js(
+  "modules/dayparting/resources/assets/js/dayparting.js",
+  "public/modules/dayparting/js"
+);

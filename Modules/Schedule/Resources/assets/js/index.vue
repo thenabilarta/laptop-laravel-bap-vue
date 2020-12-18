@@ -92,7 +92,10 @@
                   @mouseover="onShowPopUp(cal.date, index)"
                   @mouseleave="offShowPopUp"
                   @click="onClickMonthDisplayIcon(d.id)"
-                  :class="d.isPriority > 0 ? 'fas fa-star' : 'fas fa-desktop'"
+                  :class="[
+                    d.isPriority > 0 ? 'fas fa-star' : 'fas fa-desktop',
+                    d.recurrenceType === null ? '' : 'fa-spin',
+                  ]"
                   :style="d.displayGroups.length > 1 ? 'color: red' : ''"
                 ></i>
                 <span
@@ -145,6 +148,9 @@
         </sui-table>
       </div>
     </main>
+    <p>Red = Multiple</p>
+    <p>Star = Priority</p>
+    <p>Is Spinning = Repeat On</p>
   </div>
 </template>
 
@@ -243,6 +249,7 @@ export default {
                   displayOrder: r.event.displayOrder,
                   syncTimezone: r.event.syncTimezone,
                   displayGroups: r.event.displayGroups,
+                  recurrenceType: r.event.recurrenceType,
                 };
                 arrayOfData.push(data);
               });
@@ -275,6 +282,7 @@ export default {
                   displayOrder: r.event.displayOrder,
                   syncTimezone: r.event.syncTimezone,
                   displayGroups: r.event.displayGroups,
+                  recurrenceType: r.event.recurrenceType,
                 };
                 arrayOfData.push(data);
               });
@@ -307,6 +315,7 @@ export default {
                   displayOrder: r.event.displayOrder,
                   syncTimezone: r.event.syncTimezone,
                   displayGroups: r.event.displayGroups,
+                  recurrenceType: r.event.recurrenceType,
                 };
                 arrayOfData.push(data);
               });
@@ -346,6 +355,7 @@ export default {
             displayOrder: r.event.displayOrder,
             syncTimezone: r.event.syncTimezone,
             displayGroups: r.event.displayGroups,
+            recurrenceType: r.event.recurrenceType,
           };
           arrayOfData.push(data);
         });
@@ -383,6 +393,7 @@ export default {
                   displayOrder: r.event.displayOrder,
                   syncTimezone: r.event.syncTimezone,
                   displayGroups: r.event.displayGroups,
+                  recurrenceType: r.event.recurrenceType,
                 };
                 arrayOfData.push(data);
               });
@@ -415,6 +426,7 @@ export default {
                   displayOrder: r.event.displayOrder,
                   syncTimezone: r.event.syncTimezone,
                   displayGroups: r.event.displayGroups,
+                  recurrenceType: r.event.recurrenceType,
                 };
                 arrayOfData.push(data);
               });
@@ -447,6 +459,7 @@ export default {
                   displayOrder: r.event.displayOrder,
                   syncTimezone: r.event.syncTimezone,
                   displayGroups: r.event.displayGroups,
+                  recurrenceType: r.event.recurrenceType,
                 };
                 arrayOfData.push(data);
               });
@@ -484,6 +497,7 @@ export default {
                   displayOrder: s.displayOrder,
                   syncTimezone: s.syncTimezone,
                   displayGroups: s.displayGroups,
+                  recurrenceType: s.recurrenceType,
                 });
               }
             });
@@ -578,6 +592,7 @@ export default {
               displayOrder: r.event.displayOrder,
               syncTimezone: r.event.syncTimezone,
               displayGroups: r.event.displayGroups,
+              recurrenceType: r.event.recurrenceType,
             };
             arrayOfData.push(data);
           });
@@ -611,6 +626,7 @@ export default {
               displayOrder: r.event.displayOrder,
               syncTimezone: r.event.syncTimezone,
               displayGroups: r.event.displayGroups,
+              recurrenceType: r.event.recurrenceType,
             };
             arrayOfData.push(data);
           });
@@ -644,6 +660,7 @@ export default {
               displayOrder: r.event.displayOrder,
               syncTimezone: r.event.syncTimezone,
               displayGroups: r.event.displayGroups,
+              recurrenceType: r.event.recurrenceType,
             };
             arrayOfData.push(data);
           });

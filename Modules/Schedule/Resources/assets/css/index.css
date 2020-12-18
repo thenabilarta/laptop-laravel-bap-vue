@@ -261,4 +261,8 @@ footer td {
 .ui.selection.dropdown {
   width: 150px !important;
 }
+
+.full-width-input {
+  min-width: 400px !important;
+}
 /*# sourceMappingURL=index.css.map */

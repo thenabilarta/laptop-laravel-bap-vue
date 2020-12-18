@@ -16,7 +16,7 @@ class LayoutController extends AppBaseController
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-            CURLOPT_URL => 'http://192.168.44.127/xibo-cms/web/api/authorize/access_token',
+            CURLOPT_URL => 'http://192.168.44.141/xibo-cms/web/api/authorize/access_token',
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
@@ -46,7 +46,7 @@ class LayoutController extends AppBaseController
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-            CURLOPT_URL => 'http://192.168.44.127/xibo-cms/web/api/layout',
+            CURLOPT_URL => 'http://192.168.44.141/xibo-cms/web/api/layout',
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
@@ -76,7 +76,7 @@ class LayoutController extends AppBaseController
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-            CURLOPT_URL => 'http://192.168.44.127/xibo-cms/web/api/layout/' . $layoutId,
+            CURLOPT_URL => 'http://192.168.44.141/xibo-cms/web/api/layout/' . $layoutId,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,

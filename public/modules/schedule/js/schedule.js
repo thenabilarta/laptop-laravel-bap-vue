@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 106);
+/******/ 	return __webpack_require__(__webpack_require__.s = 109);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -14739,9 +14739,9 @@ module.exports=function(e){var t={};function i(n){if(t[n])return t[n].exports;va
 var disposed = false
 var normalizeComponent = __webpack_require__(4)
 /* script */
-var __vue_script__ = __webpack_require__(108)
+var __vue_script__ = __webpack_require__(111)
 /* template */
-var __vue_template__ = __webpack_require__(114)
+var __vue_template__ = __webpack_require__(127)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -14780,7 +14780,13 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 46 */,
+/* 46 */
+/***/ (function(module, exports, __webpack_require__) {
+
+!function(t,e){ true?module.exports=e():"function"==typeof define&&define.amd?define(e):t.dayjs=e()}(this,function(){"use strict";var t="millisecond",e="second",n="minute",r="hour",i="day",s="week",u="month",a="quarter",o="year",f="date",h=/^(\d{4})[-/]?(\d{1,2})?[-/]?(\d{0,2})[^0-9]*(\d{1,2})?:?(\d{1,2})?:?(\d{1,2})?.?(\d+)?$/,c=/\[([^\]]+)]|Y{1,4}|M{1,4}|D{1,2}|d{1,4}|H{1,2}|h{1,2}|a|A|m{1,2}|s{1,2}|Z{1,2}|SSS/g,d={name:"en",weekdays:"Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"),months:"January_February_March_April_May_June_July_August_September_October_November_December".split("_")},$=function(t,e,n){var r=String(t);return!r||r.length>=e?t:""+Array(e+1-r.length).join(n)+t},l={s:$,z:function(t){var e=-t.utcOffset(),n=Math.abs(e),r=Math.floor(n/60),i=n%60;return(e<=0?"+":"-")+$(r,2,"0")+":"+$(i,2,"0")},m:function t(e,n){if(e.date()<n.date())return-t(n,e);var r=12*(n.year()-e.year())+(n.month()-e.month()),i=e.clone().add(r,u),s=n-i<0,a=e.clone().add(r+(s?-1:1),u);return+(-(r+(n-i)/(s?i-a:a-i))||0)},a:function(t){return t<0?Math.ceil(t)||0:Math.floor(t)},p:function(h){return{M:u,y:o,w:s,d:i,D:f,h:r,m:n,s:e,ms:t,Q:a}[h]||String(h||"").toLowerCase().replace(/s$/,"")},u:function(t){return void 0===t}},y="en",M={};M[y]=d;var m=function(t){return t instanceof S},D=function(t,e,n){var r;if(!t)return y;if("string"==typeof t)M[t]&&(r=t),e&&(M[t]=e,r=t);else{var i=t.name;M[i]=t,r=i}return!n&&r&&(y=r),r||!n&&y},v=function(t,e){if(m(t))return t.clone();var n="object"==typeof e?e:{};return n.date=t,n.args=arguments,new S(n)},g=l;g.l=D,g.i=m,g.w=function(t,e){return v(t,{locale:e.$L,utc:e.$u,x:e.$x,$offset:e.$offset})};var S=function(){function d(t){this.$L=D(t.locale,null,!0),this.parse(t)}var $=d.prototype;return $.parse=function(t){this.$d=function(t){var e=t.date,n=t.utc;if(null===e)return new Date(NaN);if(g.u(e))return new Date;if(e instanceof Date)return new Date(e);if("string"==typeof e&&!/Z$/i.test(e)){var r=e.match(h);if(r){var i=r[2]-1||0,s=(r[7]||"0").substring(0,3);return n?new Date(Date.UTC(r[1],i,r[3]||1,r[4]||0,r[5]||0,r[6]||0,s)):new Date(r[1],i,r[3]||1,r[4]||0,r[5]||0,r[6]||0,s)}}return new Date(e)}(t),this.$x=t.x||{},this.init()},$.init=function(){var t=this.$d;this.$y=t.getFullYear(),this.$M=t.getMonth(),this.$D=t.getDate(),this.$W=t.getDay(),this.$H=t.getHours(),this.$m=t.getMinutes(),this.$s=t.getSeconds(),this.$ms=t.getMilliseconds()},$.$utils=function(){return g},$.isValid=function(){return!("Invalid Date"===this.$d.toString())},$.isSame=function(t,e){var n=v(t);return this.startOf(e)<=n&&n<=this.endOf(e)},$.isAfter=function(t,e){return v(t)<this.startOf(e)},$.isBefore=function(t,e){return this.endOf(e)<v(t)},$.$g=function(t,e,n){return g.u(t)?this[e]:this.set(n,t)},$.unix=function(){return Math.floor(this.valueOf()/1e3)},$.valueOf=function(){return this.$d.getTime()},$.startOf=function(t,a){var h=this,c=!!g.u(a)||a,d=g.p(t),$=function(t,e){var n=g.w(h.$u?Date.UTC(h.$y,e,t):new Date(h.$y,e,t),h);return c?n:n.endOf(i)},l=function(t,e){return g.w(h.toDate()[t].apply(h.toDate("s"),(c?[0,0,0,0]:[23,59,59,999]).slice(e)),h)},y=this.$W,M=this.$M,m=this.$D,D="set"+(this.$u?"UTC":"");switch(d){case o:return c?$(1,0):$(31,11);case u:return c?$(1,M):$(0,M+1);case s:var v=this.$locale().weekStart||0,S=(y<v?y+7:y)-v;return $(c?m-S:m+(6-S),M);case i:case f:return l(D+"Hours",0);case r:return l(D+"Minutes",1);case n:return l(D+"Seconds",2);case e:return l(D+"Milliseconds",3);default:return this.clone()}},$.endOf=function(t){return this.startOf(t,!1)},$.$set=function(s,a){var h,c=g.p(s),d="set"+(this.$u?"UTC":""),$=(h={},h[i]=d+"Date",h[f]=d+"Date",h[u]=d+"Month",h[o]=d+"FullYear",h[r]=d+"Hours",h[n]=d+"Minutes",h[e]=d+"Seconds",h[t]=d+"Milliseconds",h)[c],l=c===i?this.$D+(a-this.$W):a;if(c===u||c===o){var y=this.clone().set(f,1);y.$d[$](l),y.init(),this.$d=y.set(f,Math.min(this.$D,y.daysInMonth())).$d}else $&&this.$d[$](l);return this.init(),this},$.set=function(t,e){return this.clone().$set(t,e)},$.get=function(t){return this[g.p(t)]()},$.add=function(t,a){var f,h=this;t=Number(t);var c=g.p(a),d=function(e){var n=v(h);return g.w(n.date(n.date()+Math.round(e*t)),h)};if(c===u)return this.set(u,this.$M+t);if(c===o)return this.set(o,this.$y+t);if(c===i)return d(1);if(c===s)return d(7);var $=(f={},f[n]=6e4,f[r]=36e5,f[e]=1e3,f)[c]||1,l=this.$d.getTime()+t*$;return g.w(l,this)},$.subtract=function(t,e){return this.add(-1*t,e)},$.format=function(t){var e=this;if(!this.isValid())return"Invalid Date";var n=t||"YYYY-MM-DDTHH:mm:ssZ",r=g.z(this),i=this.$locale(),s=this.$H,u=this.$m,a=this.$M,o=i.weekdays,f=i.months,h=function(t,r,i,s){return t&&(t[r]||t(e,n))||i[r].substr(0,s)},d=function(t){return g.s(s%12||12,t,"0")},$=i.meridiem||function(t,e,n){var r=t<12?"AM":"PM";return n?r.toLowerCase():r},l={YY:String(this.$y).slice(-2),YYYY:this.$y,M:a+1,MM:g.s(a+1,2,"0"),MMM:h(i.monthsShort,a,f,3),MMMM:h(f,a),D:this.$D,DD:g.s(this.$D,2,"0"),d:String(this.$W),dd:h(i.weekdaysMin,this.$W,o,2),ddd:h(i.weekdaysShort,this.$W,o,3),dddd:o[this.$W],H:String(s),HH:g.s(s,2,"0"),h:d(1),hh:d(2),a:$(s,u,!0),A:$(s,u,!1),m:String(u),mm:g.s(u,2,"0"),s:String(this.$s),ss:g.s(this.$s,2,"0"),SSS:g.s(this.$ms,3,"0"),Z:r};return n.replace(c,function(t,e){return e||l[t]||r.replace(":","")})},$.utcOffset=function(){return 15*-Math.round(this.$d.getTimezoneOffset()/15)},$.diff=function(t,f,h){var c,d=g.p(f),$=v(t),l=6e4*($.utcOffset()-this.utcOffset()),y=this-$,M=g.m(this,$);return M=(c={},c[o]=M/12,c[u]=M,c[a]=M/3,c[s]=(y-l)/6048e5,c[i]=(y-l)/864e5,c[r]=y/36e5,c[n]=y/6e4,c[e]=y/1e3,c)[d]||y,h?M:g.a(M)},$.daysInMonth=function(){return this.endOf(u).$D},$.$locale=function(){return M[this.$L]},$.locale=function(t,e){if(!t)return this.$L;var n=this.clone(),r=D(t,e,!0);return r&&(n.$L=r),n},$.clone=function(){return g.w(this.$d,this)},$.toDate=function(){return new Date(this.valueOf())},$.toJSON=function(){return this.isValid()?this.toISOString():null},$.toISOString=function(){return this.$d.toISOString()},$.toString=function(){return this.$d.toUTCString()},d}(),p=S.prototype;return v.prototype=p,[["$ms",t],["$s",e],["$m",n],["$H",r],["$W",i],["$M",u],["$y",o],["$D",f]].forEach(function(t){p[t[1]]=function(e){return this.$g(e,t[0],t[1])}}),v.extend=function(t,e){return t.$i||(t(e,S,v),t.$i=!0),v},v.locale=D,v.isDayjs=m,v.unix=function(t){return v(1e3*t)},v.en=M[y],v.Ls=M,v.p={},v});
+
+
+/***/ }),
 /* 47 */,
 /* 48 */,
 /* 49 */,
@@ -14840,14 +14846,17 @@ module.exports = Component.exports
 /* 103 */,
 /* 104 */,
 /* 105 */,
-/* 106 */
+/* 106 */,
+/* 107 */,
+/* 108 */,
+/* 109 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(107);
+module.exports = __webpack_require__(110);
 
 
 /***/ }),
-/* 107 */
+/* 110 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -14874,25 +14883,53 @@ var app = new Vue({
 });
 
 /***/ }),
-/* 108 */
+/* 111 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_dayjs__ = __webpack_require__(109);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_dayjs__ = __webpack_require__(46);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_dayjs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_dayjs__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_dayjs_plugin_weekday__ = __webpack_require__(110);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_dayjs_plugin_weekday__ = __webpack_require__(112);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_dayjs_plugin_weekday___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_dayjs_plugin_weekday__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_dayjs_plugin_weekOfYear__ = __webpack_require__(111);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_dayjs_plugin_weekOfYear__ = __webpack_require__(113);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_dayjs_plugin_weekOfYear___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_dayjs_plugin_weekOfYear__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_AddEventModal__ = __webpack_require__(115);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_AddEventModal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__components_AddEventModal__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__css_index_css__ = __webpack_require__(112);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__css_index_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__css_index_css__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_dayjs_plugin_isBetween__ = __webpack_require__(114);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_dayjs_plugin_isBetween___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_dayjs_plugin_isBetween__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_AddEventModal__ = __webpack_require__(115);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_AddEventModal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__components_AddEventModal__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_EditEventModal__ = __webpack_require__(120);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_EditEventModal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__components_EditEventModal__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__css_index_css__ = __webpack_require__(125);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__css_index_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__css_index_css__);
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -15030,11 +15067,12 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 __WEBPACK_IMPORTED_MODULE_1_dayjs___default.a.extend(__WEBPACK_IMPORTED_MODULE_2_dayjs_plugin_weekday___default.a);
 __WEBPACK_IMPORTED_MODULE_1_dayjs___default.a.extend(__WEBPACK_IMPORTED_MODULE_3_dayjs_plugin_weekOfYear___default.a);
-
+__WEBPACK_IMPORTED_MODULE_1_dayjs___default.a.extend(__WEBPACK_IMPORTED_MODULE_4_dayjs_plugin_isBetween___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "App",
   components: {
-    AddEventModal: __WEBPACK_IMPORTED_MODULE_4__components_AddEventModal___default.a
+    AddEventModal: __WEBPACK_IMPORTED_MODULE_5__components_AddEventModal___default.a,
+    EditEventModal: __WEBPACK_IMPORTED_MODULE_6__components_EditEventModal___default.a
   },
   data: function data() {
     return {
@@ -15047,6 +15085,9 @@ __WEBPACK_IMPORTED_MODULE_1_dayjs___default.a.extend(__WEBPACK_IMPORTED_MODULE_3
       displaySchedule: [],
       showPopUpNumber: null,
       addEventModalIsOpen: false,
+      editEventModalIsOpen: false,
+      idWhenEditEventModalIsOpen: null,
+      loading: false,
       monthsList: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
       displayList: [{
         text: "All Display",
@@ -15068,12 +15109,11 @@ __WEBPACK_IMPORTED_MODULE_1_dayjs___default.a.extend(__WEBPACK_IMPORTED_MODULE_3
     currentDate: function currentDate() {
       var _this = this;
 
+      this.loading = true;
       switch (this.showTable) {
         case "year":
           var startYear = __WEBPACK_IMPORTED_MODULE_1_dayjs___default()(this.currentDate).startOf("year").valueOf();
-
           var endYear = __WEBPACK_IMPORTED_MODULE_1_dayjs___default()(this.currentDate).endOf("year").valueOf();
-
           __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post("http://127.0.0.1:8000/schedule/data", {
             dateFrom: startYear,
             dateTo: endYear
@@ -15084,19 +15124,22 @@ __WEBPACK_IMPORTED_MODULE_1_dayjs___default.a.extend(__WEBPACK_IMPORTED_MODULE_3
                 displayStart: r.start,
                 displayEnd: r.end,
                 sameDay: r.sameDay,
-                title: r.title
+                title: r.title,
+                id: r.id,
+                isPriority: r.event.isPriority,
+                displayOrder: r.event.displayOrder,
+                syncTimezone: r.event.syncTimezone,
+                displayGroups: r.event.displayGroups
               };
               arrayOfData.push(data);
             });
             _this.displaySchedule = arrayOfData;
+            _this.loading = false;
           });
           break;
-
         case "month":
           var startMonth = __WEBPACK_IMPORTED_MODULE_1_dayjs___default()(this.currentDate).startOf("month").valueOf();
-
           var endMonth = __WEBPACK_IMPORTED_MODULE_1_dayjs___default()(this.currentDate).endOf("month").valueOf();
-
           __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post("http://127.0.0.1:8000/schedule/data", {
             dateFrom: startMonth,
             dateTo: endMonth
@@ -15107,19 +15150,22 @@ __WEBPACK_IMPORTED_MODULE_1_dayjs___default.a.extend(__WEBPACK_IMPORTED_MODULE_3
                 displayStart: r.start,
                 displayEnd: r.end,
                 sameDay: r.sameDay,
-                title: r.title
+                title: r.title,
+                id: r.id,
+                isPriority: r.event.isPriority,
+                displayOrder: r.event.displayOrder,
+                syncTimezone: r.event.syncTimezone,
+                displayGroups: r.event.displayGroups
               };
               arrayOfData.push(data);
             });
             _this.displaySchedule = arrayOfData;
+            _this.loading = false;
           });
           break;
-
         case "day":
           var startDay = __WEBPACK_IMPORTED_MODULE_1_dayjs___default()(this.currentDate).startOf("day").valueOf();
-
           var endDay = __WEBPACK_IMPORTED_MODULE_1_dayjs___default()(this.currentDate).endOf("day").valueOf();
-
           __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post("http://127.0.0.1:8000/schedule/data", {
             dateFrom: startDay,
             dateTo: endDay
@@ -15130,62 +15176,162 @@ __WEBPACK_IMPORTED_MODULE_1_dayjs___default.a.extend(__WEBPACK_IMPORTED_MODULE_3
                 displayStart: r.start,
                 displayEnd: r.end,
                 sameDay: r.sameDay,
-                title: r.title
+                title: r.title,
+                id: r.id,
+                isPriority: r.event.isPriority,
+                displayOrder: r.event.displayOrder,
+                syncTimezone: r.event.syncTimezone,
+                displayGroups: r.event.displayGroups
               };
               arrayOfData.push(data);
             });
             _this.displaySchedule = arrayOfData;
+            _this.loading = false;
           });
-
           break;
-
         default:
           console.log("Mantap gan");
       }
-    },
-    showTable: function showTable() {
-      console.log(this.showTable);
     }
   },
   mounted: function mounted() {
     var _this2 = this;
 
     var startMonth = __WEBPACK_IMPORTED_MODULE_1_dayjs___default()(this.currentDate).startOf("month").valueOf();
-
     var endMonth = __WEBPACK_IMPORTED_MODULE_1_dayjs___default()(this.currentDate).endOf("month").valueOf();
-
+    this.loading = true;
     __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post("http://127.0.0.1:8000/schedule/data", {
       dateFrom: startMonth,
       dateTo: endMonth
     }).then(function (res) {
       var arrayOfData = [];
+      console.log(res);
       res.data.result.map(function (r) {
         var data = {
           displayStart: r.start,
           displayEnd: r.end,
           sameDay: r.sameDay,
-          title: r.title
+          title: r.title,
+          id: r.id,
+          isPriority: r.event.isPriority,
+          displayOrder: r.event.displayOrder,
+          syncTimezone: r.event.syncTimezone,
+          displayGroups: r.event.displayGroups
         };
         arrayOfData.push(data);
       });
       _this2.displaySchedule = arrayOfData;
+      _this2.loading = false;
     });
   },
 
   methods: {
+    refreshPage: function refreshPage() {
+      var _this3 = this;
+
+      console.log("Refresh");
+      this.loading = true;
+      switch (this.showTable) {
+        case "year":
+          var startYear = __WEBPACK_IMPORTED_MODULE_1_dayjs___default()(this.currentDate).startOf("year").valueOf();
+          var endYear = __WEBPACK_IMPORTED_MODULE_1_dayjs___default()(this.currentDate).endOf("year").valueOf();
+          __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post("http://127.0.0.1:8000/schedule/data", {
+            dateFrom: startYear,
+            dateTo: endYear
+          }).then(function (res) {
+            var arrayOfData = [];
+            res.data.result.map(function (r) {
+              var data = {
+                displayStart: r.start,
+                displayEnd: r.end,
+                sameDay: r.sameDay,
+                title: r.title,
+                id: r.id,
+                isPriority: r.event.isPriority,
+                displayOrder: r.event.displayOrder,
+                syncTimezone: r.event.syncTimezone,
+                displayGroups: r.event.displayGroups
+              };
+              arrayOfData.push(data);
+            });
+            _this3.displaySchedule = arrayOfData;
+            _this3.loading = false;
+          });
+          break;
+        case "month":
+          var startMonth = __WEBPACK_IMPORTED_MODULE_1_dayjs___default()(this.currentDate).startOf("month").valueOf();
+          var endMonth = __WEBPACK_IMPORTED_MODULE_1_dayjs___default()(this.currentDate).endOf("month").valueOf();
+          __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post("http://127.0.0.1:8000/schedule/data", {
+            dateFrom: startMonth,
+            dateTo: endMonth
+          }).then(function (res) {
+            var arrayOfData = [];
+            res.data.result.map(function (r) {
+              var data = {
+                displayStart: r.start,
+                displayEnd: r.end,
+                sameDay: r.sameDay,
+                title: r.title,
+                id: r.id,
+                isPriority: r.event.isPriority,
+                displayOrder: r.event.displayOrder,
+                syncTimezone: r.event.syncTimezone,
+                displayGroups: r.event.displayGroups
+              };
+              arrayOfData.push(data);
+            });
+            _this3.displaySchedule = arrayOfData;
+            _this3.loading = false;
+          });
+          break;
+        case "day":
+          var startDay = __WEBPACK_IMPORTED_MODULE_1_dayjs___default()(this.currentDate).startOf("day").valueOf();
+          var endDay = __WEBPACK_IMPORTED_MODULE_1_dayjs___default()(this.currentDate).endOf("day").valueOf();
+          __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post("http://127.0.0.1:8000/schedule/data", {
+            dateFrom: startDay,
+            dateTo: endDay
+          }).then(function (res) {
+            var arrayOfData = [];
+            res.data.result.map(function (r) {
+              var data = {
+                displayStart: r.start,
+                displayEnd: r.end,
+                sameDay: r.sameDay,
+                title: r.title,
+                id: r.id,
+                isPriority: r.event.isPriority,
+                displayOrder: r.event.displayOrder,
+                syncTimezone: r.event.syncTimezone,
+                displayGroups: r.event.displayGroups
+              };
+              arrayOfData.push(data);
+            });
+            _this3.displaySchedule = arrayOfData;
+            _this3.loading = false;
+          });
+          break;
+        default:
+          console.log("Mantap gan");
+      }
+    },
     getWeekday: function getWeekday(date) {
       return __WEBPACK_IMPORTED_MODULE_1_dayjs___default()(date).weekday();
     },
     createDaysForCurrentMonth: function createDaysForCurrentMonth(year, month, schedule) {
       return [].concat(_toConsumableArray(Array(this.getNumberOfDaysInMonth(year, month)))).map(function (day, index) {
         var displayProperty = [];
-        var dateInUnix = __WEBPACK_IMPORTED_MODULE_1_dayjs___default()(year + "-" + month + "-" + (index + 1)).valueOf();
+        var dateInUnix = __WEBPACK_IMPORTED_MODULE_1_dayjs___default()(year + "-" + month + "-" + (index + 1));
         if (schedule.length > 0) {
           schedule.map(function (s) {
-            if (dateInUnix + 86400 * 1000 - s.displayStart >= 0 && dateInUnix + 86400 * 1000 - s.displayEnd <= 0) {
+            if (dateInUnix.isBetween(__WEBPACK_IMPORTED_MODULE_1_dayjs___default()(s.displayStart), __WEBPACK_IMPORTED_MODULE_1_dayjs___default()(s.displayEnd)) || __WEBPACK_IMPORTED_MODULE_1_dayjs___default()(s.displayStart).date() === dateInUnix.date() || __WEBPACK_IMPORTED_MODULE_1_dayjs___default()(s.displayEnd).date() === dateInUnix.date()) {
               displayProperty.push({
                 exist: true,
-                title: s.title
+                title: s.title,
+                id: s.id,
+                isPriority: s.isPriority,
+                displayOrder: s.displayOrder,
+                syncTimezone: s.syncTimezone,
+                displayGroups: s.displayGroups
               });
             }
           });
@@ -15230,12 +15376,10 @@ __WEBPACK_IMPORTED_MODULE_1_dayjs___default.a.extend(__WEBPACK_IMPORTED_MODULE_3
       return __WEBPACK_IMPORTED_MODULE_1_dayjs___default()(year + "-" + month + "-01").daysInMonth();
     },
     changeToYear: function changeToYear() {
-      var _this3 = this;
+      var _this4 = this;
 
       var startYear = __WEBPACK_IMPORTED_MODULE_1_dayjs___default()(this.currentDate).startOf("year").valueOf();
-
       var endYear = __WEBPACK_IMPORTED_MODULE_1_dayjs___default()(this.currentDate).endOf("year").valueOf();
-
       __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post("http://127.0.0.1:8000/schedule/data", {
         dateFrom: startYear,
         dateTo: endYear
@@ -15246,23 +15390,25 @@ __WEBPACK_IMPORTED_MODULE_1_dayjs___default.a.extend(__WEBPACK_IMPORTED_MODULE_3
             displayStart: r.start,
             displayEnd: r.end,
             sameDay: r.sameDay,
-            title: r.title
+            title: r.title,
+            id: r.id,
+            isPriority: r.event.isPriority,
+            displayOrder: r.event.displayOrder,
+            syncTimezone: r.event.syncTimezone,
+            displayGroups: r.event.displayGroups
           };
           arrayOfData.push(data);
         });
-        _this3.displaySchedule = arrayOfData;
+        _this4.displaySchedule = arrayOfData;
       });
-
       this.showTable = "year";
       this.buttonFilterActive = "year";
     },
     changeToMonth: function changeToMonth() {
-      var _this4 = this;
+      var _this5 = this;
 
       var startMonth = __WEBPACK_IMPORTED_MODULE_1_dayjs___default()(this.currentDate).startOf("month").valueOf();
-
       var endMonth = __WEBPACK_IMPORTED_MODULE_1_dayjs___default()(this.currentDate).endOf("month").valueOf();
-
       __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post("http://127.0.0.1:8000/schedule/data", {
         dateFrom: startMonth,
         dateTo: endMonth
@@ -15273,23 +15419,25 @@ __WEBPACK_IMPORTED_MODULE_1_dayjs___default.a.extend(__WEBPACK_IMPORTED_MODULE_3
             displayStart: r.start,
             displayEnd: r.end,
             sameDay: r.sameDay,
-            title: r.title
+            title: r.title,
+            id: r.id,
+            isPriority: r.event.isPriority,
+            displayOrder: r.event.displayOrder,
+            syncTimezone: r.event.syncTimezone,
+            displayGroups: r.event.displayGroups
           };
           arrayOfData.push(data);
         });
-        _this4.displaySchedule = arrayOfData;
+        _this5.displaySchedule = arrayOfData;
       });
-
       this.showTable = "month";
       this.buttonFilterActive = "month";
     },
     changeToDay: function changeToDay() {
-      var _this5 = this;
+      var _this6 = this;
 
       var startDay = __WEBPACK_IMPORTED_MODULE_1_dayjs___default()(this.currentDate).startOf("day").valueOf();
-
       var endDay = __WEBPACK_IMPORTED_MODULE_1_dayjs___default()(this.currentDate).endOf("day").valueOf();
-
       __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post("http://127.0.0.1:8000/schedule/data", {
         dateFrom: startDay,
         dateTo: endDay
@@ -15300,13 +15448,17 @@ __WEBPACK_IMPORTED_MODULE_1_dayjs___default.a.extend(__WEBPACK_IMPORTED_MODULE_3
             displayStart: r.start,
             displayEnd: r.end,
             sameDay: r.sameDay,
-            title: r.title
+            title: r.title,
+            id: r.id,
+            isPriority: r.event.isPriority,
+            displayOrder: r.event.displayOrder,
+            syncTimezone: r.event.syncTimezone,
+            displayGroups: r.event.displayGroups
           };
           arrayOfData.push(data);
         });
-        _this5.displaySchedule = arrayOfData;
+        _this6.displaySchedule = arrayOfData;
       });
-
       this.showTable = "day";
       this.buttonFilterActive = "day";
     },
@@ -15366,9 +15518,30 @@ __WEBPACK_IMPORTED_MODULE_1_dayjs___default.a.extend(__WEBPACK_IMPORTED_MODULE_3
     },
     closeAddEventModal: function closeAddEventModal() {
       this.addEventModalIsOpen = false;
+      this.refreshPage();
     },
     openAddEventModal: function openAddEventModal() {
       this.addEventModalIsOpen = true;
+    },
+    closeEditEventModal: function closeEditEventModal() {
+      this.editEventModalIsOpen = false;
+      this.refreshPage();
+    },
+    openEditEventModal: function openEditEventModal() {
+      this.editEventModalIsOpen = true;
+    },
+    onClickYearDisplayIcon: function onClickYearDisplayIcon(id) {
+      console.log(id);
+    },
+    onClickMonthDisplayIcon: function onClickMonthDisplayIcon(id) {
+      console.log("Display Icon Month clicked, Id = " + id);
+      this.editEventModalIsOpen = true;
+      this.idWhenEditEventModalIsOpen = id;
+    },
+    onClickDayDisplayTitle: function onClickDayDisplayTitle(id) {
+      console.log("Display Icon Day clicked, Id = " + id);
+      this.editEventModalIsOpen = true;
+      this.idWhenEditEventModalIsOpen = id;
     }
   },
   computed: {
@@ -15397,21 +15570,28 @@ __WEBPACK_IMPORTED_MODULE_1_dayjs___default.a.extend(__WEBPACK_IMPORTED_MODULE_3
       return this.INITIAL_YEAR;
     },
     hourAndEventOfTheDay: function hourAndEventOfTheDay() {
-      var _this6 = this;
+      var _this7 = this;
 
       var arrayOfTimeAndEvent = [];
       var currentTime = __WEBPACK_IMPORTED_MODULE_1_dayjs___default()(this.currentDate);
 
       var _loop = function _loop() {
         var eventArray = [];
-        _this6.displaySchedule.map(function (d) {
+        var id = null;
+        _this7.displaySchedule.map(function (d) {
           if (d.displayStart <= currentTime.valueOf() && d.displayEnd >= currentTime.valueOf()) {
-            eventArray.push(d.title);
+            eventArray.push({
+              timeStart: __WEBPACK_IMPORTED_MODULE_1_dayjs___default()(d.displayStart).format("HH-mm"),
+              timeEnd: __WEBPACK_IMPORTED_MODULE_1_dayjs___default()(d.displayEnd).format("HH-mm"),
+              title: d.title,
+              id: d.id
+            });
           }
         });
         arrayOfTimeAndEvent.push({
           time: currentTime.format("HH-mm"),
-          event: eventArray
+          event: eventArray,
+          id: id
         });
         currentTime = currentTime.add(30, "minute");
       };
@@ -15424,85 +15604,1275 @@ __WEBPACK_IMPORTED_MODULE_1_dayjs___default.a.extend(__WEBPACK_IMPORTED_MODULE_3
     monthsListComputed: function monthsListComputed() {
       var monthArray = [{
         month: "January",
-        display: false
+        display: false,
+        id: []
       }, {
         month: "February",
-        display: false
+        display: false,
+        id: []
       }, {
         month: "March",
-        display: false
+        display: false,
+        id: []
       }, {
         month: "April",
-        display: false
+        display: false,
+        id: []
       }, {
         month: "May",
-        display: false
+        display: false,
+        id: []
       }, {
         month: "June",
-        display: false
+        display: false,
+        id: []
       }, {
         month: "July",
-        display: false
+        display: false,
+        id: []
       }, {
         month: "August",
-        display: false
+        display: false,
+        id: []
       }, {
         month: "September",
-        display: false
+        display: false,
+        id: []
       }, {
         month: "October",
-        display: false
+        display: false,
+        id: []
       }, {
         month: "November",
-        display: false
+        display: false,
+        id: []
       }, {
         month: "December",
-        display: false
+        display: false,
+        id: []
       }];
-
       var checkingCurrentDate = __WEBPACK_IMPORTED_MODULE_1_dayjs___default()(this.currentDate).format("YYYY");
       var checkingDisplaySchedule = this.displaySchedule;
-
       checkingDisplaySchedule.map(function (c, index) {
         if (__WEBPACK_IMPORTED_MODULE_1_dayjs___default()(c.displayStart).format("YYYY") === checkingCurrentDate) {
           monthArray[parseInt(__WEBPACK_IMPORTED_MODULE_1_dayjs___default()(c.displayStart).format("MM")) - 1].display = true;
+          monthArray[parseInt(__WEBPACK_IMPORTED_MODULE_1_dayjs___default()(c.displayStart).format("MM")) - 1].id.push(c.id);
         }
       });
-
       return monthArray;
     }
   }
 });
 
 /***/ }),
-/* 109 */
-/***/ (function(module, exports, __webpack_require__) {
-
-!function(t,e){ true?module.exports=e():"function"==typeof define&&define.amd?define(e):t.dayjs=e()}(this,function(){"use strict";var t="millisecond",e="second",n="minute",r="hour",i="day",s="week",u="month",a="quarter",o="year",f="date",h=/^(\d{4})[-/]?(\d{1,2})?[-/]?(\d{0,2})[^0-9]*(\d{1,2})?:?(\d{1,2})?:?(\d{1,2})?.?(\d+)?$/,c=/\[([^\]]+)]|Y{1,4}|M{1,4}|D{1,2}|d{1,4}|H{1,2}|h{1,2}|a|A|m{1,2}|s{1,2}|Z{1,2}|SSS/g,d={name:"en",weekdays:"Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"),months:"January_February_March_April_May_June_July_August_September_October_November_December".split("_")},$=function(t,e,n){var r=String(t);return!r||r.length>=e?t:""+Array(e+1-r.length).join(n)+t},l={s:$,z:function(t){var e=-t.utcOffset(),n=Math.abs(e),r=Math.floor(n/60),i=n%60;return(e<=0?"+":"-")+$(r,2,"0")+":"+$(i,2,"0")},m:function t(e,n){if(e.date()<n.date())return-t(n,e);var r=12*(n.year()-e.year())+(n.month()-e.month()),i=e.clone().add(r,u),s=n-i<0,a=e.clone().add(r+(s?-1:1),u);return+(-(r+(n-i)/(s?i-a:a-i))||0)},a:function(t){return t<0?Math.ceil(t)||0:Math.floor(t)},p:function(h){return{M:u,y:o,w:s,d:i,D:f,h:r,m:n,s:e,ms:t,Q:a}[h]||String(h||"").toLowerCase().replace(/s$/,"")},u:function(t){return void 0===t}},y="en",M={};M[y]=d;var m=function(t){return t instanceof S},D=function(t,e,n){var r;if(!t)return y;if("string"==typeof t)M[t]&&(r=t),e&&(M[t]=e,r=t);else{var i=t.name;M[i]=t,r=i}return!n&&r&&(y=r),r||!n&&y},v=function(t,e){if(m(t))return t.clone();var n="object"==typeof e?e:{};return n.date=t,n.args=arguments,new S(n)},g=l;g.l=D,g.i=m,g.w=function(t,e){return v(t,{locale:e.$L,utc:e.$u,x:e.$x,$offset:e.$offset})};var S=function(){function d(t){this.$L=D(t.locale,null,!0),this.parse(t)}var $=d.prototype;return $.parse=function(t){this.$d=function(t){var e=t.date,n=t.utc;if(null===e)return new Date(NaN);if(g.u(e))return new Date;if(e instanceof Date)return new Date(e);if("string"==typeof e&&!/Z$/i.test(e)){var r=e.match(h);if(r){var i=r[2]-1||0,s=(r[7]||"0").substring(0,3);return n?new Date(Date.UTC(r[1],i,r[3]||1,r[4]||0,r[5]||0,r[6]||0,s)):new Date(r[1],i,r[3]||1,r[4]||0,r[5]||0,r[6]||0,s)}}return new Date(e)}(t),this.$x=t.x||{},this.init()},$.init=function(){var t=this.$d;this.$y=t.getFullYear(),this.$M=t.getMonth(),this.$D=t.getDate(),this.$W=t.getDay(),this.$H=t.getHours(),this.$m=t.getMinutes(),this.$s=t.getSeconds(),this.$ms=t.getMilliseconds()},$.$utils=function(){return g},$.isValid=function(){return!("Invalid Date"===this.$d.toString())},$.isSame=function(t,e){var n=v(t);return this.startOf(e)<=n&&n<=this.endOf(e)},$.isAfter=function(t,e){return v(t)<this.startOf(e)},$.isBefore=function(t,e){return this.endOf(e)<v(t)},$.$g=function(t,e,n){return g.u(t)?this[e]:this.set(n,t)},$.unix=function(){return Math.floor(this.valueOf()/1e3)},$.valueOf=function(){return this.$d.getTime()},$.startOf=function(t,a){var h=this,c=!!g.u(a)||a,d=g.p(t),$=function(t,e){var n=g.w(h.$u?Date.UTC(h.$y,e,t):new Date(h.$y,e,t),h);return c?n:n.endOf(i)},l=function(t,e){return g.w(h.toDate()[t].apply(h.toDate("s"),(c?[0,0,0,0]:[23,59,59,999]).slice(e)),h)},y=this.$W,M=this.$M,m=this.$D,D="set"+(this.$u?"UTC":"");switch(d){case o:return c?$(1,0):$(31,11);case u:return c?$(1,M):$(0,M+1);case s:var v=this.$locale().weekStart||0,S=(y<v?y+7:y)-v;return $(c?m-S:m+(6-S),M);case i:case f:return l(D+"Hours",0);case r:return l(D+"Minutes",1);case n:return l(D+"Seconds",2);case e:return l(D+"Milliseconds",3);default:return this.clone()}},$.endOf=function(t){return this.startOf(t,!1)},$.$set=function(s,a){var h,c=g.p(s),d="set"+(this.$u?"UTC":""),$=(h={},h[i]=d+"Date",h[f]=d+"Date",h[u]=d+"Month",h[o]=d+"FullYear",h[r]=d+"Hours",h[n]=d+"Minutes",h[e]=d+"Seconds",h[t]=d+"Milliseconds",h)[c],l=c===i?this.$D+(a-this.$W):a;if(c===u||c===o){var y=this.clone().set(f,1);y.$d[$](l),y.init(),this.$d=y.set(f,Math.min(this.$D,y.daysInMonth())).$d}else $&&this.$d[$](l);return this.init(),this},$.set=function(t,e){return this.clone().$set(t,e)},$.get=function(t){return this[g.p(t)]()},$.add=function(t,a){var f,h=this;t=Number(t);var c=g.p(a),d=function(e){var n=v(h);return g.w(n.date(n.date()+Math.round(e*t)),h)};if(c===u)return this.set(u,this.$M+t);if(c===o)return this.set(o,this.$y+t);if(c===i)return d(1);if(c===s)return d(7);var $=(f={},f[n]=6e4,f[r]=36e5,f[e]=1e3,f)[c]||1,l=this.$d.getTime()+t*$;return g.w(l,this)},$.subtract=function(t,e){return this.add(-1*t,e)},$.format=function(t){var e=this;if(!this.isValid())return"Invalid Date";var n=t||"YYYY-MM-DDTHH:mm:ssZ",r=g.z(this),i=this.$locale(),s=this.$H,u=this.$m,a=this.$M,o=i.weekdays,f=i.months,h=function(t,r,i,s){return t&&(t[r]||t(e,n))||i[r].substr(0,s)},d=function(t){return g.s(s%12||12,t,"0")},$=i.meridiem||function(t,e,n){var r=t<12?"AM":"PM";return n?r.toLowerCase():r},l={YY:String(this.$y).slice(-2),YYYY:this.$y,M:a+1,MM:g.s(a+1,2,"0"),MMM:h(i.monthsShort,a,f,3),MMMM:h(f,a),D:this.$D,DD:g.s(this.$D,2,"0"),d:String(this.$W),dd:h(i.weekdaysMin,this.$W,o,2),ddd:h(i.weekdaysShort,this.$W,o,3),dddd:o[this.$W],H:String(s),HH:g.s(s,2,"0"),h:d(1),hh:d(2),a:$(s,u,!0),A:$(s,u,!1),m:String(u),mm:g.s(u,2,"0"),s:String(this.$s),ss:g.s(this.$s,2,"0"),SSS:g.s(this.$ms,3,"0"),Z:r};return n.replace(c,function(t,e){return e||l[t]||r.replace(":","")})},$.utcOffset=function(){return 15*-Math.round(this.$d.getTimezoneOffset()/15)},$.diff=function(t,f,h){var c,d=g.p(f),$=v(t),l=6e4*($.utcOffset()-this.utcOffset()),y=this-$,M=g.m(this,$);return M=(c={},c[o]=M/12,c[u]=M,c[a]=M/3,c[s]=(y-l)/6048e5,c[i]=(y-l)/864e5,c[r]=y/36e5,c[n]=y/6e4,c[e]=y/1e3,c)[d]||y,h?M:g.a(M)},$.daysInMonth=function(){return this.endOf(u).$D},$.$locale=function(){return M[this.$L]},$.locale=function(t,e){if(!t)return this.$L;var n=this.clone(),r=D(t,e,!0);return r&&(n.$L=r),n},$.clone=function(){return g.w(this.$d,this)},$.toDate=function(){return new Date(this.valueOf())},$.toJSON=function(){return this.isValid()?this.toISOString():null},$.toISOString=function(){return this.$d.toISOString()},$.toString=function(){return this.$d.toUTCString()},d}(),p=S.prototype;return v.prototype=p,[["$ms",t],["$s",e],["$m",n],["$H",r],["$W",i],["$M",u],["$y",o],["$D",f]].forEach(function(t){p[t[1]]=function(e){return this.$g(e,t[0],t[1])}}),v.extend=function(t,e){return t.$i||(t(e,S,v),t.$i=!0),v},v.locale=D,v.isDayjs=m,v.unix=function(t){return v(1e3*t)},v.en=M[y],v.Ls=M,v.p={},v});
-
-
-/***/ }),
-/* 110 */
+/* 112 */
 /***/ (function(module, exports, __webpack_require__) {
 
 !function(e,t){ true?module.exports=t():"function"==typeof define&&define.amd?define(t):e.dayjs_plugin_weekday=t()}(this,function(){"use strict";return function(e,t){t.prototype.weekday=function(e){var t=this.$locale().weekStart||0,n=this.$W,i=(n<t?n+7:n)-t;return this.$utils().u(e)?i:this.subtract(i,"day").add(e,"day")}}});
 
 
 /***/ }),
-/* 111 */
+/* 113 */
 /***/ (function(module, exports, __webpack_require__) {
 
 !function(e,t){ true?module.exports=t():"function"==typeof define&&define.amd?define(t):e.dayjs_plugin_weekOfYear=t()}(this,function(){"use strict";var e="week",t="year";return function(i,n,r){var f=n.prototype;f.week=function(i){if(void 0===i&&(i=null),null!==i)return this.add(7*(i-this.week()),"day");var n=this.$locale().yearStart||1;if(11===this.month()&&this.date()>25){var f=r(this).startOf(t).add(1,t).date(n),s=r(this).endOf(e);if(f.isBefore(s))return 1}var a=r(this).startOf(t).date(n).startOf(e).subtract(1,"millisecond"),d=this.diff(a,e,!0);return d<0?r(this).startOf("week").week():Math.ceil(d)},f.weeks=function(e){return void 0===e&&(e=null),this.week(e)}}});
 
 
 /***/ }),
-/* 112 */
+/* 114 */
+/***/ (function(module, exports, __webpack_require__) {
+
+!function(e,t){ true?module.exports=t():"function"==typeof define&&define.amd?define(t):e.dayjs_plugin_isBetween=t()}(this,function(){"use strict";return function(e,t,i){t.prototype.isBetween=function(e,t,s,f){var n=i(e),o=i(t),r="("===(f=f||"()")[0],u=")"===f[1];return(r?this.isAfter(n,s):!this.isBefore(n,s))&&(u?this.isBefore(o,s):!this.isAfter(o,s))||(r?this.isBefore(n,s):!this.isAfter(n,s))&&(u?this.isAfter(o,s):!this.isBefore(o,s))}}});
+
+
+/***/ }),
+/* 115 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(4)
+/* script */
+var __vue_script__ = __webpack_require__(116)
+/* template */
+var __vue_template__ = __webpack_require__(119)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "modules/schedule/resources/assets/js/components/AddEventModal.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-6b17cfd1", Component.options)
+  } else {
+    hotAPI.reload("data-v-6b17cfd1", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 116 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__css_AddEventModal_css__ = __webpack_require__(117);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__css_AddEventModal_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__css_AddEventModal_css__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "AddEventModal",
+  data: function data() {
+    return {
+      eventType: 1,
+      display: null,
+      layout: null,
+      dateFrom: "2020-12-18",
+      dateTo: "2020-12-25",
+      timeFrom: "01:00",
+      timeTo: "23:00",
+      isPriority: null,
+      displayOrder: null,
+      syncTimezone: false,
+      eventTypeOption: [{
+        text: "Campaign/Layout",
+        value: 1
+      }],
+      displayOption: [{
+        text: "Display",
+        disabled: true
+      }],
+      layoutOption: [{
+        text: "Layouts",
+        disabled: true
+      }]
+    };
+  },
+
+  watch: {
+    timeFrom: function timeFrom() {
+      console.log(this.timeFrom);
+    }
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    __WEBPACK_IMPORTED_MODULE_0_axios___default.a.all([__WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("http://127.0.0.1:8000/display/data"), __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("http://127.0.0.1:8000/layout/data"), __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("http://127.0.0.1:8000/displaygroup/data"), __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("http://127.0.0.1:8000/campaign/data")]).then(function (res) {
+      console.log(res);
+      res[0].data.map(function (d) {
+        _this.displayOption.push({
+          text: d.display,
+          value: d.displayId
+        });
+      });
+      res[1].data.map(function (l) {
+        _this.layoutOption.push({
+          text: l.layout,
+          value: l.layoutId
+        });
+      });
+      _this.displayOption.push({
+        text: "Display Group",
+        disabled: true
+      });
+      res[2].data.map(function (d) {
+        _this.displayOption.push({
+          text: d.displayGroup,
+          value: d.displayGroupId
+        });
+      });
+      _this.layoutOption.push({
+        text: "Campaign",
+        disabled: true
+      });
+      res[3].data.map(function (c) {
+        _this.layoutOption.push({
+          text: c.campaign,
+          value: c.campaignId
+        });
+      });
+    });
+  },
+
+  methods: {
+    closeAddEventModal: function closeAddEventModal() {
+      this.$emit("closeAddEventModal");
+    },
+    onAddEventClick: function onAddEventClick() {
+      __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post("http://127.0.0.1:8000/schedule", {
+        display: this.display,
+        eventType: this.eventType,
+        layout: this.layout,
+        dateFrom: this.dateFrom,
+        dateTo: this.dateTo,
+        timeFrom: this.computedTimeFrom,
+        timeTo: this.computedTimeTo,
+        isPriority: this.isPriority,
+        displayOrder: this.displayOrder,
+        syncTimezone: this.syncTimezone === true ? "on" : "off"
+      }).then(function (res) {
+        return console.log(res.data);
+      });
+    }
+  },
+  computed: {
+    computedTimeFrom: function computedTimeFrom() {
+      var newTimeFrom = this.timeFrom.split(":");
+      var tFrom = newTimeFrom.join("%3A") + "%3A00";
+      return tFrom;
+    },
+    computedTimeTo: function computedTimeTo() {
+      var newTimeFrom = this.timeTo.split(":");
+      var tTo = newTimeFrom.join("%3A") + "%3A00";
+      return tTo;
+    }
+  }
+});
+
+/***/ }),
+/* 117 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(113);
+var content = __webpack_require__(118);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(12)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../../../../node_modules/css-loader/index.js!./AddEventModal.css", function() {
+			var newContent = require("!!../../../../../node_modules/css-loader/index.js!./AddEventModal.css");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 118 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)(false);
+// imports
+
+
+// module
+exports.push([module.i, ".edit-display-modal {\n  top: 0;\n  bottom: 0;\n  right: 0;\n  left: 0;\n  position: fixed;\n  background-color: rgba(0, 0, 0, 0.5);\n  z-index: 1100 !important;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\n.edit-display-modal .edit-display-modal-content {\n  height: 80%;\n  width: 70%;\n  border-radius: 10px;\n  background-color: #f5f5f5;\n}\n\n.edit-display-modal .edit-display-modal-content .edit-display-modal-header {\n  height: 15%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\n.edit-display-modal .edit-display-modal-content .edit-display-modal-header h1 {\n  font-weight: 400;\n  margin-left: 5rem;\n  font-size: 24px;\n}\n\n.edit-display-modal .edit-display-modal-content .edit-display-modal-body {\n  height: 70%;\n  border-top: 1px solid rgba(0, 0, 0, 0.2);\n  border-bottom: 1px solid rgba(0, 0, 0, 0.2);\n  padding: 2rem 5rem;\n  overflow-y: scroll;\n}\n\n.edit-display-modal .edit-display-modal-content .edit-display-modal-body .edit-display-modal-body-row {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  margin: 0.4rem 0;\n}\n\n.edit-display-modal .edit-display-modal-content .edit-display-modal-body .edit-display-modal-body-row input {\n  min-width: 400px;\n}\n\n.edit-display-modal .edit-display-modal-content .edit-display-modal-body .edit-display-modal-body-row label {\n  margin-bottom: 0 !important;\n}\n\n.edit-display-modal .edit-display-modal-content .edit-display-modal-body .edit-display-modal-body-row .ui.selection.dropdown,\n.edit-display-modal .edit-display-modal-content .edit-display-modal-body .edit-display-modal-body-row .input-number {\n  min-width: 400px !important;\n}\n\n.edit-display-modal .edit-display-modal-content .edit-display-modal-body .time input {\n  width: calc(200px - 0.1rem) !important;\n  min-width: calc(200px - 0.1rem) !important;\n}\n\n.edit-display-modal .edit-display-modal-content .edit-display-modal-actions {\n  height: 15%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: end;\n      -ms-flex-pack: end;\n          justify-content: flex-end;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  padding: 0 5rem;\n}\n\n[type=\"checkbox\"]:not(.filled-in) + label:after {\n  transform: scale(1) !important;\n  -webkit-transform: scale(1) !important;\n}\n\n.edit-display-modal\n.edit-display-modal-content\n.edit-display-modal-body\n.edit-display-modal-body-row\ninput {\n  min-width: 0 !important;\n}", ""]);
+
+// exports
+
+
+/***/ }),
+/* 119 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      staticClass: "edit-display-modal",
+      on: {
+        click: function($event) {
+          if ($event.target !== $event.currentTarget) {
+            return null
+          }
+          return _vm.closeAddEventModal($event)
+        }
+      }
+    },
+    [
+      _c("div", { staticClass: "edit-display-modal-content" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c("div", { staticClass: "edit-display-modal-body" }, [
+          _c(
+            "div",
+            { staticClass: "edit-display-modal-body-row" },
+            [
+              _c("label", [_vm._v("Display / Display Group")]),
+              _vm._v(" "),
+              _c("sui-dropdown", {
+                staticClass: "input-multiple",
+                attrs: {
+                  selection: "",
+                  multiple: "",
+                  search: "",
+                  options: _vm.displayOption
+                },
+                model: {
+                  value: _vm.display,
+                  callback: function($$v) {
+                    _vm.display = $$v
+                  },
+                  expression: "display"
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "edit-display-modal-body-row" },
+            [
+              _c("label", [_vm._v("Event Type")]),
+              _vm._v(" "),
+              _c("sui-dropdown", {
+                attrs: { selection: "", options: _vm.eventTypeOption },
+                model: {
+                  value: _vm.eventType,
+                  callback: function($$v) {
+                    _vm.eventType = $$v
+                  },
+                  expression: "eventType"
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "edit-display-modal-body-row" },
+            [
+              _c("label", [_vm._v("Layout / Campaign")]),
+              _vm._v(" "),
+              _c("sui-dropdown", {
+                attrs: { selection: "", search: "", options: _vm.layoutOption },
+                model: {
+                  value: _vm.layout,
+                  callback: function($$v) {
+                    _vm.layout = $$v
+                  },
+                  expression: "layout"
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "edit-display-modal-body-row time" }, [
+            _c("label", [_vm._v("From")]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "time-input" },
+              [
+                _c("sui-input", {
+                  attrs: { type: "date" },
+                  model: {
+                    value: _vm.dateFrom,
+                    callback: function($$v) {
+                      _vm.dateFrom = $$v
+                    },
+                    expression: "dateFrom"
+                  }
+                }),
+                _vm._v(" "),
+                _c("sui-input", {
+                  attrs: { type: "time" },
+                  model: {
+                    value: _vm.timeFrom,
+                    callback: function($$v) {
+                      _vm.timeFrom = $$v
+                    },
+                    expression: "timeFrom"
+                  }
+                })
+              ],
+              1
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "edit-display-modal-body-row time" }, [
+            _c("label", [_vm._v("To")]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "time-input" },
+              [
+                _c("sui-input", {
+                  attrs: { type: "date" },
+                  model: {
+                    value: _vm.dateTo,
+                    callback: function($$v) {
+                      _vm.dateTo = $$v
+                    },
+                    expression: "dateTo"
+                  }
+                }),
+                _vm._v(" "),
+                _c("sui-input", {
+                  attrs: { type: "time" },
+                  model: {
+                    value: _vm.timeTo,
+                    callback: function($$v) {
+                      _vm.timeTo = $$v
+                    },
+                    expression: "timeTo"
+                  }
+                })
+              ],
+              1
+            )
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "edit-display-modal-body-row" },
+            [
+              _c("label", [_vm._v("Display Order")]),
+              _vm._v(" "),
+              _c("sui-input", {
+                staticClass: "input-number",
+                attrs: { type: "number" },
+                model: {
+                  value: _vm.displayOrder,
+                  callback: function($$v) {
+                    _vm.displayOrder = $$v
+                  },
+                  expression: "displayOrder"
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "edit-display-modal-body-row" },
+            [
+              _c("label", [_vm._v("Priority")]),
+              _vm._v(" "),
+              _c("sui-input", {
+                staticClass: "input-number",
+                attrs: { type: "number" },
+                model: {
+                  value: _vm.isPriority,
+                  callback: function($$v) {
+                    _vm.isPriority = $$v
+                  },
+                  expression: "isPriority"
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "edit-display-modal-body-row" },
+            [
+              _c("sui-checkbox", {
+                attrs: { label: "Run at CMS Time?", toggle: "" },
+                model: {
+                  value: _vm.syncTimezone,
+                  callback: function($$v) {
+                    _vm.syncTimezone = $$v
+                  },
+                  expression: "syncTimezone"
+                }
+              })
+            ],
+            1
+          )
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "edit-display-modal-actions" },
+          [
+            _c("sui-button", [_vm._v("Cancel")]),
+            _vm._v(" "),
+            _c(
+              "sui-button",
+              { attrs: { color: "green" }, on: { click: _vm.onAddEventClick } },
+              [_vm._v("Add Event")]
+            )
+          ],
+          1
+        )
+      ])
+    ]
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "edit-display-modal-header" }, [
+      _c("h1", [_vm._v("Add Event")])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-6b17cfd1", module.exports)
+  }
+}
+
+/***/ }),
+/* 120 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(4)
+/* script */
+var __vue_script__ = __webpack_require__(121)
+/* template */
+var __vue_template__ = __webpack_require__(124)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "modules/schedule/resources/assets/js/components/EditEventModal.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-55ed2b10", Component.options)
+  } else {
+    hotAPI.reload("data-v-55ed2b10", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 121 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_dayjs__ = __webpack_require__(46);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_dayjs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_dayjs__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__css_EditEventModal_css__ = __webpack_require__(122);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__css_EditEventModal_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__css_EditEventModal_css__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "EditEventModal",
+  data: function data() {
+    return {
+      eventType: 1,
+      display: [],
+      layout: null,
+      dateFrom: "",
+      dateTo: "",
+      timeFrom: "",
+      timeTo: "",
+      eventIdAsProps: null,
+      loading: false,
+      isPriority: null,
+      displayOrder: null,
+      syncTimezone: false,
+      eventTypeOption: [{
+        text: "Campaign/Layout",
+        value: 1
+      }],
+      displayOption: [{
+        text: "Display",
+        disabled: true
+      }],
+      layoutOption: [{
+        text: "Layouts",
+        disabled: true
+      }]
+    };
+  },
+
+  props: {
+    idWhenEditEventModalIsOpen: Number,
+    showTable: String,
+    currentDate: String
+  },
+  watch: {
+    displayOption: function displayOption() {
+      console.log(this.displayOption);
+    },
+    display: function display() {
+      console.log(this.display);
+    }
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    console.log(this.idWhenEditEventModalIsOpen);
+    console.log(this.showTable);
+    this.loading = true;
+    __WEBPACK_IMPORTED_MODULE_0_axios___default.a.all([__WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("http://127.0.0.1:8000/display/data"), __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("http://127.0.0.1:8000/layout/data"), __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("http://127.0.0.1:8000/displaygroup/data"), __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("http://127.0.0.1:8000/campaign/data")]).then(function (res) {
+      console.log(res);
+      res[0].data.map(function (d) {
+        _this.displayOption.push({
+          text: d.display,
+          value: d.displayId
+        });
+      });
+      res[1].data.map(function (l) {
+        _this.layoutOption.push({
+          text: l.layout,
+          value: l.layoutId
+        });
+      });
+      _this.displayOption.push({
+        text: "Display Group",
+        disabled: true
+      });
+      res[2].data.map(function (d) {
+        _this.displayOption.push({
+          text: d.displayGroup,
+          value: d.displayGroupId
+        });
+      });
+      _this.layoutOption.push({
+        text: "Campaign",
+        disabled: true
+      });
+      res[3].data.map(function (c) {
+        _this.layoutOption.push({
+          text: c.campaign,
+          value: c.campaignId
+        });
+      });
+    }).then(function () {
+      return _this.loading = false;
+    });
+    this.getStartOfTheMonthUnix();
+  },
+
+  methods: {
+    closeEditEventModal: function closeEditEventModal() {
+      this.$emit("closeEditEventModal");
+    },
+    getStartOfTheMonthUnix: function getStartOfTheMonthUnix() {
+      var _this2 = this;
+
+      var getStartOfMonth = __WEBPACK_IMPORTED_MODULE_1_dayjs___default()(this.currentDate).startOf("month").valueOf();
+      var getEndOfMonth = __WEBPACK_IMPORTED_MODULE_1_dayjs___default()(this.currentDate).endOf("month").valueOf();
+      __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post("http://127.0.0.1:8000/schedule/data", {
+        dateFrom: getStartOfMonth,
+        dateTo: getEndOfMonth
+      }).then(function (res) {
+        res.data.result.map(function (r) {
+          if (r.id === _this2.idWhenEditEventModalIsOpen) {
+            /* Display Group belom di debug buat edit event */
+            console.log(r);
+            r.event.displayGroups.map(function (d) {
+              _this2.display.push(d.displayGroupId);
+            });
+            _this2.layout = r.event.campaignId;
+            _this2.dateFrom = __WEBPACK_IMPORTED_MODULE_1_dayjs___default()(r.start).format("YYYY-MM-DD");
+            _this2.dateTo = __WEBPACK_IMPORTED_MODULE_1_dayjs___default()(r.end).format("YYYY-MM-DD");
+            _this2.timeFrom = __WEBPACK_IMPORTED_MODULE_1_dayjs___default()(r.start).format("HH:mm");
+            _this2.timeTo = __WEBPACK_IMPORTED_MODULE_1_dayjs___default()(r.end).format("HH:mm");
+            _this2.isPriority = r.event.isPriority;
+            _this2.displayOrder = r.event.displayOrder;
+            _this2.syncTimezone = r.event.syncTimezone === 1 ? true : false;
+          }
+        });
+      });
+    },
+    onEditEventClick: function onEditEventClick() {
+      __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post("http://127.0.0.1:8000/schedule/edit", {
+        display: this.display,
+        eventType: this.eventType,
+        layout: this.layout,
+        dateFrom: this.dateFrom,
+        dateTo: this.dateTo,
+        timeFrom: this.computedTimeFrom,
+        timeTo: this.computedTimeTo,
+        id: this.idWhenEditEventModalIsOpen,
+        isPriority: this.isPriority,
+        displayOrder: this.displayOrder,
+        syncTimezone: this.syncTimezone === true ? "on" : "off"
+      }).then(function (res) {
+        return console.log(res.data);
+      });
+    },
+    onDeleteEventClick: function onDeleteEventClick() {
+      __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post("http://127.0.0.1:8000/schedule/delete", {
+        id: this.idWhenEditEventModalIsOpen
+      }).then(function (res) {
+        return console.log(res.data);
+      });
+    }
+  },
+  computed: {
+    computedTimeFrom: function computedTimeFrom() {
+      var newTimeFrom = this.timeFrom.split(":");
+      var tFrom = newTimeFrom.join("%3A") + "%3A00";
+      return tFrom;
+    },
+    computedTimeTo: function computedTimeTo() {
+      var newTimeFrom = this.timeTo.split(":");
+      var tTo = newTimeFrom.join("%3A") + "%3A00";
+      return tTo;
+    }
+  }
+});
+
+/***/ }),
+/* 122 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(123);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(12)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../../../../node_modules/css-loader/index.js!./EditEventModal.css", function() {
+			var newContent = require("!!../../../../../node_modules/css-loader/index.js!./EditEventModal.css");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 123 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)(false);
+// imports
+
+
+// module
+exports.push([module.i, ".edit-display-modal {\n  top: 0;\n  bottom: 0;\n  right: 0;\n  left: 0;\n  position: fixed;\n  background-color: rgba(0, 0, 0, 0.5);\n  z-index: 1100 !important;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\n.edit-display-modal .edit-display-modal-content {\n  height: 80%;\n  width: 70%;\n  border-radius: 10px;\n  background-color: #f5f5f5;\n}\n\n.edit-display-modal .edit-display-modal-content .edit-display-modal-header {\n  height: 15%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\n.edit-display-modal .edit-display-modal-content .edit-display-modal-header h1 {\n  font-weight: 400;\n  margin-left: 5rem;\n  font-size: 24px;\n}\n\n.edit-display-modal .edit-display-modal-content .edit-display-modal-body {\n  height: 70%;\n  border-top: 1px solid rgba(0, 0, 0, 0.2);\n  border-bottom: 1px solid rgba(0, 0, 0, 0.2);\n  padding: 2rem 5rem;\n  overflow-y: scroll;\n}\n\n.edit-display-modal .edit-display-modal-content .edit-display-modal-body .edit-display-modal-body-row {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  margin: 0.4rem 0;\n}\n\n.edit-display-modal .edit-display-modal-content .edit-display-modal-body .edit-display-modal-body-row input {\n  min-width: 400px;\n}\n\n.edit-display-modal .edit-display-modal-content .edit-display-modal-body .edit-display-modal-body-row label {\n  margin-bottom: 0 !important;\n}\n\n.edit-display-modal .edit-display-modal-content .edit-display-modal-body .edit-display-modal-body-row .ui.selection.dropdown {\n  min-width: 400px !important;\n}\n\n.edit-display-modal .edit-display-modal-content .edit-display-modal-body .time input {\n  width: calc(200px - 0.1rem) !important;\n  min-width: calc(200px - 0.1rem) !important;\n}\n\n.edit-display-modal .edit-display-modal-content .edit-display-modal-actions {\n  height: 15%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: end;\n      -ms-flex-pack: end;\n          justify-content: flex-end;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  padding: 0 5rem;\n}\n\n[type=\"checkbox\"]:not(.filled-in) + label:after {\n  transform: scale(1) !important;\n  -webkit-transform: scale(1) !important;\n}\n\n.edit-display-modal\n.edit-display-modal-content\n.edit-display-modal-body\n.edit-display-modal-body-row\ninput {\n  min-width: 0 !important;\n}", ""]);
+
+// exports
+
+
+/***/ }),
+/* 124 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      staticClass: "edit-display-modal",
+      on: {
+        click: function($event) {
+          if ($event.target !== $event.currentTarget) {
+            return null
+          }
+          return _vm.closeEditEventModal($event)
+        }
+      }
+    },
+    [
+      _c(
+        "div",
+        { staticClass: "edit-display-modal-content" },
+        [
+          _vm.loading
+            ? _c("sui-loader", { attrs: { active: "", size: "massive" } })
+            : _vm._e(),
+          _vm._v(" "),
+          _vm._m(0),
+          _vm._v(" "),
+          _c("div", { staticClass: "edit-display-modal-body" }, [
+            _c(
+              "div",
+              { staticClass: "edit-display-modal-body-row" },
+              [
+                _c("label", [_vm._v("Display / Display Group")]),
+                _vm._v(" "),
+                _c("sui-dropdown", {
+                  attrs: {
+                    selection: "",
+                    search: "",
+                    multiple: "",
+                    options: _vm.displayOption
+                  },
+                  model: {
+                    value: _vm.display,
+                    callback: function($$v) {
+                      _vm.display = $$v
+                    },
+                    expression: "display"
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "edit-display-modal-body-row" },
+              [
+                _c("label", [_vm._v("Event Type")]),
+                _vm._v(" "),
+                _c("sui-dropdown", {
+                  attrs: { selection: "", options: _vm.eventTypeOption },
+                  model: {
+                    value: _vm.eventType,
+                    callback: function($$v) {
+                      _vm.eventType = $$v
+                    },
+                    expression: "eventType"
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "edit-display-modal-body-row" },
+              [
+                _c("label", [_vm._v("Layout / Campaign")]),
+                _vm._v(" "),
+                _c("sui-dropdown", {
+                  attrs: {
+                    selection: "",
+                    search: "",
+                    options: _vm.layoutOption
+                  },
+                  model: {
+                    value: _vm.layout,
+                    callback: function($$v) {
+                      _vm.layout = $$v
+                    },
+                    expression: "layout"
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "edit-display-modal-body-row time" }, [
+              _c("label", [_vm._v("From")]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "time-input" },
+                [
+                  _c("sui-input", {
+                    attrs: { type: "date" },
+                    model: {
+                      value: _vm.dateFrom,
+                      callback: function($$v) {
+                        _vm.dateFrom = $$v
+                      },
+                      expression: "dateFrom"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("sui-input", {
+                    attrs: { type: "time" },
+                    model: {
+                      value: _vm.timeFrom,
+                      callback: function($$v) {
+                        _vm.timeFrom = $$v
+                      },
+                      expression: "timeFrom"
+                    }
+                  })
+                ],
+                1
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "edit-display-modal-body-row time" }, [
+              _c("label", [_vm._v("To")]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "time-input" },
+                [
+                  _c("sui-input", {
+                    attrs: { type: "date" },
+                    model: {
+                      value: _vm.dateTo,
+                      callback: function($$v) {
+                        _vm.dateTo = $$v
+                      },
+                      expression: "dateTo"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("sui-input", {
+                    attrs: { type: "time" },
+                    model: {
+                      value: _vm.timeTo,
+                      callback: function($$v) {
+                        _vm.timeTo = $$v
+                      },
+                      expression: "timeTo"
+                    }
+                  })
+                ],
+                1
+              )
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "edit-display-modal-body-row" },
+              [
+                _c("label", [_vm._v("Display Order")]),
+                _vm._v(" "),
+                _c("sui-input", {
+                  staticClass: "input-number",
+                  attrs: { type: "number" },
+                  model: {
+                    value: _vm.displayOrder,
+                    callback: function($$v) {
+                      _vm.displayOrder = $$v
+                    },
+                    expression: "displayOrder"
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "edit-display-modal-body-row" },
+              [
+                _c("label", [_vm._v("Priority")]),
+                _vm._v(" "),
+                _c("sui-input", {
+                  staticClass: "input-number",
+                  attrs: { type: "number" },
+                  model: {
+                    value: _vm.isPriority,
+                    callback: function($$v) {
+                      _vm.isPriority = $$v
+                    },
+                    expression: "isPriority"
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "edit-display-modal-body-row" },
+              [
+                _c("sui-checkbox", {
+                  attrs: { label: "Run at CMS Time?", toggle: "" },
+                  model: {
+                    value: _vm.syncTimezone,
+                    callback: function($$v) {
+                      _vm.syncTimezone = $$v
+                    },
+                    expression: "syncTimezone"
+                  }
+                })
+              ],
+              1
+            )
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "edit-display-modal-actions" },
+            [
+              _c("sui-button", [_vm._v("Cancel")]),
+              _vm._v(" "),
+              _c(
+                "sui-button",
+                {
+                  attrs: { color: "orange" },
+                  on: { click: _vm.onDeleteEventClick }
+                },
+                [_vm._v("Delete")]
+              ),
+              _vm._v(" "),
+              _c(
+                "sui-button",
+                {
+                  attrs: { color: "blue" },
+                  on: { click: _vm.onEditEventClick }
+                },
+                [_vm._v("Edit Event")]
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ]
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "edit-display-modal-header" }, [
+      _c("h1", [_vm._v("Edit Event")])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-55ed2b10", module.exports)
+  }
+}
+
+/***/ }),
+/* 125 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(126);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -15527,7 +16897,7 @@ if(false) {
 }
 
 /***/ }),
-/* 113 */
+/* 126 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(3)(false);
@@ -15535,13 +16905,13 @@ exports = module.exports = __webpack_require__(3)(false);
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&display=swap);", ""]);
 
 // module
-exports.push([module.i, "* {\n  padding: 0;\n  margin: 0;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n}\n\nhtml,\nbody {\n  font-size: 14px;\n  font-family: \"Lato\", sans-serif;\n  --grey-100: #e4e9f0;\n  --grey-200: #cfd7e3;\n  --grey-300: #b5c0cd;\n  --grey-800: #3e4e63;\n  --grid-gap: 1px;\n  --day-label-size: 20px;\n}\n\n.navigation {\n  padding: 2rem;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\n.navigation > * {\n  margin-left: 2rem !important;\n}\n\n.navigation h2 {\n  margin: 0px !important;\n  font-weight: 400 !important;\n}\n\n.date-input {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  padding: 0 2rem 1rem 2rem;\n}\n\n.date-input > * {\n  margin-left: 2rem !important;\n}\n\n.date-input .ui.input {\n  margin-left: 0 !important;\n}\n\nmain {\n  padding: 0 2rem 2rem 2rem;\n}\n\nmain .year {\n  margin-top: 2rem;\n}\n\nmain .year .month-of-year {\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-columns: (1fr)[3];\n      grid-template-columns: repeat(3, 1fr);\n  grid-column-gap: 1px;\n  grid-row-gap: 1px;\n  border: solid 1px rgba(0, 0, 0, 0.1);\n  background-color: #e2e2e2;\n}\n\nmain .year .month-list {\n  min-height: 100px;\n  font-size: 16px;\n  background-color: #fff;\n  color: var(--grey-800);\n  padding: 5px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  position: relative;\n}\n\nmain .year .month-list span {\n  cursor: pointer;\n}\n\nmain .year .month-list i {\n  position: absolute;\n  top: 10px;\n  right: 10px;\n}\n\nmain #calendar-days {\n  border: 1px solid rgba(0, 0, 0, 0.1);\n}\n\nmain .days-grid {\n  height: 100%;\n  position: relative;\n  grid-column-gap: 1px;\n  grid-row-gap: 1px;\n  border-top: solid 1px black;\n  background-color: #e2e2e2;\n}\n\nmain .day-of-week,\nmain .days-grid {\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-columns: (1fr)[7];\n      grid-template-columns: repeat(7, 1fr);\n}\n\nmain .day-of-week .calendar-day,\nmain .days-grid .calendar-day {\n  position: relative;\n  min-height: 100px;\n  font-size: 16px;\n  background-color: #fff;\n  color: var(--grey-800);\n  padding: 5px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n  -webkit-box-align: end;\n      -ms-flex-align: end;\n          align-items: flex-end;\n}\n\nmain .day-of-week .calendar-day .not-current span,\nmain .days-grid .calendar-day .not-current span {\n  opacity: 0.5;\n}\n\nmain .day-of-week .calendar-day .dayNumber,\nmain .days-grid .calendar-day .dayNumber {\n  position: absolute;\n  top: 10px;\n  right: 10px;\n  cursor: pointer;\n}\n\nmain .day-of-week .calendar-day .display-icon .icon-and-popup,\nmain .days-grid .calendar-day .display-icon .icon-and-popup {\n  position: relative;\n  cursor: pointer;\n}\n\nmain .day-of-week .calendar-day .display-icon .icon-and-popup .popup,\nmain .days-grid .calendar-day .display-icon .icon-and-popup .popup {\n  position: absolute;\n  bottom: 100%;\n  right: -200%;\n  font-size: 10px;\n  padding: 0.3rem;\n  border-radius: 3px;\n  z-index: 1300;\n  min-width: 100px;\n  background-color: black;\n  color: white;\n  text-align: center;\n}\n\nmain .day-of-week .not-current,\nmain .days-grid .not-current {\n  background-color: #eeeeee !important;\n}\n\nmain .day-of-week {\n  color: var(--grey-800);\n  font-size: 18px;\n  background-color: #fff;\n  padding-bottom: 5px;\n  padding-top: 10px;\n}\n\nmain .day-of-week .day-list {\n  text-align: center;\n}\n\nmain .day {\n  margin-top: 2rem;\n}\n\nmain .day .time {\n  width: 10% !important;\n  text-align: center !important;\n}\n\nmain .day .events {\n  text-align: center !important;\n}\n\nmain ol,\nmain li {\n  padding: 0;\n  margin: 0;\n  list-style: none;\n}\n\n.ui.selection.dropdown {\n  min-width: 5em;\n}\n\n.button-active {\n  background-color: #babbbc !important;\n}\n\n.ui.selection.dropdown {\n  width: 150px !important;\n}", ""]);
+exports.push([module.i, "* {\n  padding: 0;\n  margin: 0;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n}\n\nhtml,\nbody {\n  font-size: 14px;\n  font-family: \"Lato\", sans-serif;\n  --grey-100: #e4e9f0;\n  --grey-200: #cfd7e3;\n  --grey-300: #b5c0cd;\n  --grey-800: #3e4e63;\n  --grid-gap: 1px;\n  --day-label-size: 20px;\n}\n\n.navigation {\n  padding: 2rem;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\n.navigation > * {\n  margin-left: 2rem !important;\n}\n\n.navigation h2 {\n  margin: 0px !important;\n  font-weight: 400 !important;\n}\n\n.date-input {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  padding: 0 2rem 1rem 2rem;\n}\n\n.date-input > * {\n  margin-left: 2rem !important;\n}\n\n.date-input .ui.input {\n  margin-left: 0 !important;\n}\n\nmain {\n  padding: 0 2rem 2rem 2rem;\n}\n\nmain .year {\n  margin-top: 2rem;\n}\n\nmain .year .month-of-year {\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-columns: (1fr)[3];\n      grid-template-columns: repeat(3, 1fr);\n  grid-column-gap: 1px;\n  grid-row-gap: 1px;\n  border: solid 1px rgba(0, 0, 0, 0.1);\n  background-color: #e2e2e2;\n}\n\nmain .year .month-list {\n  min-height: 100px;\n  font-size: 16px;\n  background-color: #fff;\n  color: var(--grey-800);\n  padding: 5px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  position: relative;\n}\n\nmain .year .month-list span {\n  cursor: pointer;\n}\n\nmain .year .month-list i {\n  position: absolute;\n  top: 10px;\n  right: 10px;\n  cursor: pointer;\n}\n\nmain #calendar-days {\n  border: 1px solid rgba(0, 0, 0, 0.1);\n}\n\nmain .days-grid {\n  height: 100%;\n  position: relative;\n  grid-column-gap: 1px;\n  grid-row-gap: 1px;\n  border-top: solid 1px black;\n  background-color: #e2e2e2;\n}\n\nmain .day-of-week,\nmain .days-grid {\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-columns: (1fr)[7];\n      grid-template-columns: repeat(7, 1fr);\n}\n\nmain .day-of-week .calendar-day,\nmain .days-grid .calendar-day {\n  position: relative;\n  min-height: 100px;\n  font-size: 16px;\n  background-color: #fff;\n  color: var(--grey-800);\n  padding: 5px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n  -webkit-box-align: end;\n      -ms-flex-align: end;\n          align-items: flex-end;\n}\n\nmain .day-of-week .calendar-day .not-current span,\nmain .days-grid .calendar-day .not-current span {\n  opacity: 0.5;\n}\n\nmain .day-of-week .calendar-day .dayNumber,\nmain .days-grid .calendar-day .dayNumber {\n  position: absolute;\n  top: 10px;\n  right: 10px;\n  cursor: pointer;\n}\n\nmain .day-of-week .calendar-day .display-icon .icon-and-popup,\nmain .days-grid .calendar-day .display-icon .icon-and-popup {\n  position: relative;\n  cursor: pointer;\n}\n\nmain .day-of-week .calendar-day .display-icon .icon-and-popup .popup,\nmain .days-grid .calendar-day .display-icon .icon-and-popup .popup {\n  position: absolute;\n  bottom: 100%;\n  right: -200%;\n  font-size: 10px;\n  padding: 0.3rem;\n  border-radius: 3px;\n  z-index: 1300;\n  min-width: 100px;\n  background-color: black;\n  color: white;\n  text-align: center;\n}\n\nmain .day-of-week .not-current,\nmain .days-grid .not-current {\n  background-color: #eeeeee !important;\n}\n\nmain .day-of-week {\n  color: var(--grey-800);\n  font-size: 18px;\n  background-color: #fff;\n  padding-bottom: 5px;\n  padding-top: 10px;\n}\n\nmain .day-of-week .day-list {\n  text-align: center;\n}\n\nmain .day {\n  margin-top: 2rem;\n}\n\nmain .day .time {\n  width: 10% !important;\n  text-align: center !important;\n}\n\nmain .day .events {\n  text-align: center !important;\n}\n\nmain .day .day-title {\n  cursor: pointer;\n}\n\nmain .day .day-title .display-time {\n  font-weight: bolder;\n  color: blue;\n}\n\nmain ol,\nmain li {\n  padding: 0;\n  margin: 0;\n  list-style: none;\n}\n\n.ui.selection.dropdown {\n  min-width: 5em;\n}\n\n.button-active {\n  background-color: #babbbc !important;\n}\n\n.ui.selection.dropdown {\n  width: 150px !important;\n}", ""]);
 
 // exports
 
 
 /***/ }),
-/* 114 */
+/* 127 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -15556,6 +16926,21 @@ var render = function() {
         ? _c("add-event-modal", {
             on: { closeAddEventModal: _vm.closeAddEventModal }
           })
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.editEventModalIsOpen
+        ? _c("edit-event-modal", {
+            attrs: {
+              idWhenEditEventModalIsOpen: _vm.idWhenEditEventModalIsOpen,
+              showTable: _vm.showTable,
+              currentDate: _vm.currentDate
+            },
+            on: { closeEditEventModal: _vm.closeEditEventModal }
+          })
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.loading
+        ? _c("sui-loader", { attrs: { active: "", size: "massive" } })
         : _vm._e(),
       _vm._v(" "),
       _c(
@@ -15688,7 +17073,14 @@ var render = function() {
                     ),
                     _vm._v(" "),
                     m.display
-                      ? _c("i", { staticClass: "fas fa-desktop" })
+                      ? _c("i", {
+                          staticClass: "fas fa-desktop",
+                          on: {
+                            click: function($event) {
+                              return _vm.onClickYearDisplayIcon(m.id)
+                            }
+                          }
+                        })
                       : _vm._e()
                   ])
                 }),
@@ -15729,12 +17121,22 @@ var render = function() {
                           [
                             _c("div", { staticClass: "icon-and-popup" }, [
                               _c("i", {
-                                staticClass: "fas fa-desktop",
+                                class:
+                                  d.isPriority > 0
+                                    ? "fas fa-star"
+                                    : "fas fa-desktop",
+                                style:
+                                  d.displayGroups.length > 1
+                                    ? "color: red"
+                                    : "",
                                 on: {
                                   mouseover: function($event) {
                                     return _vm.onShowPopUp(cal.date, index)
                                   },
-                                  mouseleave: _vm.offShowPopUp
+                                  mouseleave: _vm.offShowPopUp,
+                                  click: function($event) {
+                                    return _vm.onClickMonthDisplayIcon(d.id)
+                                  }
                                 }
                               }),
                               _vm._v(" "),
@@ -15822,9 +17224,38 @@ var render = function() {
                             _c(
                               "sui-table-cell",
                               _vm._l(h.event, function(e, index) {
-                                return _c("p", { key: index }, [
-                                  _vm._v(_vm._s(e))
-                                ])
+                                return _c(
+                                  "p",
+                                  {
+                                    key: index,
+                                    staticClass: "day-title",
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.onClickDayDisplayTitle(e.id)
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _c(
+                                      "span",
+                                      { staticClass: "display-time" },
+                                      [
+                                        _vm._v(
+                                          "[" +
+                                            _vm._s(e.timeStart) +
+                                            " : " +
+                                            _vm._s(e.timeEnd) +
+                                            "]"
+                                        )
+                                      ]
+                                    ),
+                                    _vm._v(
+                                      "\n                " +
+                                        _vm._s(e.title) +
+                                        "\n              "
+                                    )
+                                  ]
+                                )
                               }),
                               0
                             )
@@ -15853,323 +17284,6 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-1d3f30cc", module.exports)
-  }
-}
-
-/***/ }),
-/* 115 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var normalizeComponent = __webpack_require__(4)
-/* script */
-var __vue_script__ = __webpack_require__(116)
-/* template */
-var __vue_template__ = __webpack_require__(119)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "modules/schedule/resources/assets/js/components/AddEventModal.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-6b17cfd1", Component.options)
-  } else {
-    hotAPI.reload("data-v-6b17cfd1", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 116 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__css_AddEventModal_css__ = __webpack_require__(117);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__css_AddEventModal_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__css_AddEventModal_css__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  name: "AddEventModal",
-  data: function data() {
-    return {
-      eventType: 1,
-      eventTypeOption: [{
-        text: "Campaign/Layout",
-        value: 1
-      }, {
-        text: "Command",
-        value: 2
-      }, {
-        text: "Overlay Layout",
-        value: 3
-      }]
-    };
-  },
-
-  methods: {
-    closeAddEventModal: function closeAddEventModal() {
-      this.$emit("closeAddEventModal");
-    }
-  }
-});
-
-/***/ }),
-/* 117 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(118);
-if(typeof content === 'string') content = [[module.i, content, '']];
-// Prepare cssTransformation
-var transform;
-
-var options = {}
-options.transform = transform
-// add the styles to the DOM
-var update = __webpack_require__(12)(content, options);
-if(content.locals) module.exports = content.locals;
-// Hot Module Replacement
-if(false) {
-	// When the styles change, update the <style> tags
-	if(!content.locals) {
-		module.hot.accept("!!../../../../../node_modules/css-loader/index.js!./AddEventModal.css", function() {
-			var newContent = require("!!../../../../../node_modules/css-loader/index.js!./AddEventModal.css");
-			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-			update(newContent);
-		});
-	}
-	// When the module is disposed, remove the <style> tags
-	module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 118 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(3)(false);
-// imports
-
-
-// module
-exports.push([module.i, ".edit-display-modal {\n  top: 0;\n  bottom: 0;\n  right: 0;\n  left: 0;\n  position: fixed;\n  background-color: rgba(0, 0, 0, 0.5);\n  z-index: 1100 !important;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\n.edit-display-modal .edit-display-modal-content {\n  height: 80%;\n  width: 70%;\n  border-radius: 10px;\n  background-color: #f5f5f5;\n}\n\n.edit-display-modal .edit-display-modal-content .edit-display-modal-header {\n  height: 15%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\n.edit-display-modal .edit-display-modal-content .edit-display-modal-header h1 {\n  font-weight: 400;\n  margin-left: 1rem;\n  font-size: 24px;\n}\n\n.edit-display-modal .edit-display-modal-content .edit-display-modal-body {\n  height: 70%;\n  border-top: 1px solid rgba(0, 0, 0, 0.2);\n  border-bottom: 1px solid rgba(0, 0, 0, 0.2);\n  padding: 2rem 5rem;\n}\n\n.edit-display-modal .edit-display-modal-content .edit-display-modal-body .edit-display-modal-body-row {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  margin: 0.4rem 0;\n}\n\n.edit-display-modal .edit-display-modal-content .edit-display-modal-body .edit-display-modal-body-row input {\n  min-width: 400px;\n}\n\n.edit-display-modal .edit-display-modal-content .edit-display-modal-body .edit-display-modal-body-row label {\n  margin-bottom: 0 !important;\n}\n\n.edit-display-modal .edit-display-modal-content .edit-display-modal-body .edit-display-modal-body-row .ui.selection.dropdown {\n  min-width: 400px !important;\n}\n\n.edit-display-modal .edit-display-modal-content .edit-display-modal-body .time input {\n  width: calc(200px - 0.1rem) !important;\n  min-width: calc(200px - 0.1rem) !important;\n}\n\n.edit-display-modal .edit-display-modal-content .edit-display-modal-actions {\n  height: 15%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: end;\n      -ms-flex-pack: end;\n          justify-content: flex-end;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  padding: 0 5rem;\n}", ""]);
-
-// exports
-
-
-/***/ }),
-/* 119 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    {
-      staticClass: "edit-display-modal",
-      on: {
-        click: function($event) {
-          if ($event.target !== $event.currentTarget) {
-            return null
-          }
-          return _vm.closeAddEventModal($event)
-        }
-      }
-    },
-    [
-      _c("div", { staticClass: "edit-display-modal-content" }, [
-        _vm._m(0),
-        _vm._v(" "),
-        _c("div", { staticClass: "edit-display-modal-body" }, [
-          _c(
-            "div",
-            { staticClass: "edit-display-modal-body-row" },
-            [
-              _c("label", [_vm._v("Display")]),
-              _vm._v(" "),
-              _c("sui-input", { attrs: { fluid: "" } })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "edit-display-modal-body-row" },
-            [
-              _c("label", [_vm._v("Event Type")]),
-              _vm._v(" "),
-              _c("sui-dropdown", {
-                attrs: {
-                  placeholder: "--",
-                  selection: "",
-                  options: _vm.eventTypeOption
-                },
-                model: {
-                  value: _vm.eventType,
-                  callback: function($$v) {
-                    _vm.eventType = $$v
-                  },
-                  expression: "eventType"
-                }
-              })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "edit-display-modal-body-row" },
-            [
-              _c("label", [_vm._v("Layout / Campaign")]),
-              _vm._v(" "),
-              _c("sui-input", { attrs: { fluid: "" } })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c("div", { staticClass: "edit-display-modal-body-row time" }, [
-            _c("label", [_vm._v("From")]),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "time-input" },
-              [
-                _c("sui-input", { attrs: { type: "date" } }),
-                _vm._v(" "),
-                _c("sui-input", { attrs: { type: "time" } })
-              ],
-              1
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "edit-display-modal-body-row time" }, [
-            _c("label", [_vm._v("To")]),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "time-input" },
-              [
-                _c("sui-input", { attrs: { type: "date" } }),
-                _vm._v(" "),
-                _c("sui-input", { attrs: { type: "time" } })
-              ],
-              1
-            )
-          ])
-        ]),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "edit-display-modal-actions" },
-          [
-            _c("sui-button", { attrs: { color: "yellow" } }, [
-              _vm._v("Cancel")
-            ]),
-            _vm._v(" "),
-            _c("sui-button", { attrs: { color: "green" } }, [_vm._v("Save")])
-          ],
-          1
-        )
-      ])
-    ]
-  )
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "edit-display-modal-header" }, [
-      _c("h1", [_vm._v("Add Event")])
-    ])
-  }
-]
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-6b17cfd1", module.exports)
   }
 }
 

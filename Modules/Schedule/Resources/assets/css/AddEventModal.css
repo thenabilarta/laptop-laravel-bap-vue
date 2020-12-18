@@ -39,7 +39,7 @@
 
 .edit-display-modal .edit-display-modal-content .edit-display-modal-header h1 {
   font-weight: 400;
-  margin-left: 1rem;
+  margin-left: 5rem;
   font-size: 24px;
 }
 
@@ -48,6 +48,7 @@
   border-top: 1px solid rgba(0, 0, 0, 0.2);
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   padding: 2rem 5rem;
+  overflow-y: scroll;
 }
 
 .edit-display-modal .edit-display-modal-content .edit-display-modal-body .edit-display-modal-body-row {
@@ -71,7 +72,8 @@
   margin-bottom: 0 !important;
 }
 
-.edit-display-modal .edit-display-modal-content .edit-display-modal-body .edit-display-modal-body-row .ui.selection.dropdown {
+.edit-display-modal .edit-display-modal-content .edit-display-modal-body .edit-display-modal-body-row .ui.selection.dropdown,
+.edit-display-modal .edit-display-modal-content .edit-display-modal-body .edit-display-modal-body-row .input-number {
   min-width: 400px !important;
 }
 
@@ -92,5 +94,18 @@
       -ms-flex-align: center;
           align-items: center;
   padding: 0 5rem;
+}
+
+[type="checkbox"]:not(.filled-in) + label:after {
+  transform: scale(1) !important;
+  -webkit-transform: scale(1) !important;
+}
+
+.edit-display-modal
+.edit-display-modal-content
+.edit-display-modal-body
+.edit-display-modal-body-row
+input {
+  min-width: 0 !important;
 }
 /*# sourceMappingURL=AddEventModal.css.map */

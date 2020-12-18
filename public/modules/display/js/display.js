@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 77);
+/******/ 	return __webpack_require__(__webpack_require__.s = 80);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -31937,9 +31937,9 @@ module.exports = function(module) {
 var disposed = false
 var normalizeComponent = __webpack_require__(4)
 /* script */
-var __vue_script__ = __webpack_require__(79)
+var __vue_script__ = __webpack_require__(82)
 /* template */
-var __vue_template__ = __webpack_require__(92)
+var __vue_template__ = __webpack_require__(95)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -32013,14 +32013,17 @@ module.exports = Component.exports
 /* 74 */,
 /* 75 */,
 /* 76 */,
-/* 77 */
+/* 77 */,
+/* 78 */,
+/* 79 */,
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(78);
+module.exports = __webpack_require__(81);
 
 
 /***/ }),
-/* 78 */
+/* 81 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -32047,7 +32050,7 @@ var app = new Vue({
 });
 
 /***/ }),
-/* 79 */
+/* 82 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -32058,11 +32061,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_sweetalert___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_sweetalert__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_lodash__ = __webpack_require__(37);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_lodash__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_EditDisplayModal__ = __webpack_require__(80);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_EditDisplayModal__ = __webpack_require__(83);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_EditDisplayModal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__components_EditDisplayModal__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_PreviewProfileModal__ = __webpack_require__(85);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_PreviewProfileModal__ = __webpack_require__(88);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_PreviewProfileModal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__components_PreviewProfileModal__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__css_index_css__ = __webpack_require__(90);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__css_index_css__ = __webpack_require__(93);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__css_index_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__css_index_css__);
 //
 //
@@ -32340,15 +32343,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 80 */
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(4)
 /* script */
-var __vue_script__ = __webpack_require__(81)
+var __vue_script__ = __webpack_require__(84)
 /* template */
-var __vue_template__ = __webpack_require__(84)
+var __vue_template__ = __webpack_require__(87)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -32387,7 +32390,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 81 */
+/* 84 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -32396,7 +32399,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash__ = __webpack_require__(37);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_lodash__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__css_EditDisplayModal_css__ = __webpack_require__(82);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__css_EditDisplayModal_css__ = __webpack_require__(85);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__css_EditDisplayModal_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__css_EditDisplayModal_css__);
 //
 //
@@ -32550,13 +32553,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 82 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(83);
+var content = __webpack_require__(86);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -32581,7 +32584,7 @@ if(false) {
 }
 
 /***/ }),
-/* 83 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(3)(false);
@@ -32595,7 +32598,7 @@ exports.push([module.i, ".edit-display-modal {\n  top: 0;\n  bottom: 0;\n  right
 
 
 /***/ }),
-/* 84 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -32807,15 +32810,15 @@ if (false) {
 }
 
 /***/ }),
-/* 85 */
+/* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(4)
 /* script */
-var __vue_script__ = __webpack_require__(86)
+var __vue_script__ = __webpack_require__(89)
 /* template */
-var __vue_template__ = __webpack_require__(89)
+var __vue_template__ = __webpack_require__(92)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -32854,7 +32857,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 86 */
+/* 89 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -32863,7 +32866,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash__ = __webpack_require__(37);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_lodash__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__css_PreviewProfileModal_css__ = __webpack_require__(87);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__css_PreviewProfileModal_css__ = __webpack_require__(90);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__css_PreviewProfileModal_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__css_PreviewProfileModal_css__);
 //
 //
@@ -33089,8 +33092,56 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-
-
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -33117,7 +33168,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     });
     this.dataTableList = data[0];
     console.log(this.previewProfileModalOpenId);
-
     __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post("http://127.0.0.1:8000/display/previewProfileData", {
       displayID: this.tableList.displayProfileId
     }).then(function (res) {
@@ -33137,13 +33187,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 87 */
+/* 90 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(88);
+var content = __webpack_require__(91);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -33168,7 +33218,7 @@ if(false) {
 }
 
 /***/ }),
-/* 88 */
+/* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(3)(false);
@@ -33182,7 +33232,7 @@ exports.push([module.i, ".preview-profile-modal {\n  top: 0;\n  bottom: 0;\n  ri
 
 
 /***/ }),
-/* 89 */
+/* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -33291,7 +33341,10 @@ var render = function() {
                             _vm._v(" "),
                             _c("sui-table-cell", [
                               _vm._v(
-                                _vm._s(_vm.previewProfileData.config[0].value)
+                                _vm._s(
+                                  _vm.previewProfileData.config[0] &&
+                                    _vm.previewProfileData.config[0].value
+                                )
                               )
                             ])
                           ],
@@ -33307,7 +33360,10 @@ var render = function() {
                             _vm._v(" "),
                             _c("sui-table-cell", [
                               _vm._v(
-                                _vm._s(_vm.previewProfileData.config[1].value)
+                                _vm._s(
+                                  _vm.previewProfileData.config[1] &&
+                                    _vm.previewProfileData.config[1].value
+                                )
                               )
                             ])
                           ],
@@ -33323,7 +33379,10 @@ var render = function() {
                             _vm._v(" "),
                             _c("sui-table-cell", [
                               _vm._v(
-                                _vm._s(_vm.previewProfileData.config[2].value)
+                                _vm._s(
+                                  _vm.previewProfileData.config[2] &&
+                                    _vm.previewProfileData.config[2].value
+                                )
                               )
                             ])
                           ],
@@ -33340,7 +33399,8 @@ var render = function() {
                             _c("sui-table-cell", [
                               _vm._v(
                                 _vm._s(
-                                  _vm.previewProfileData.config[3].value === 1
+                                  _vm.previewProfileData.config[3] &&
+                                    _vm.previewProfileData.config[3].value === 1
                                     ? "true"
                                     : "false"
                                 )
@@ -33358,7 +33418,8 @@ var render = function() {
                             _c("sui-table-cell", [
                               _vm._v(
                                 _vm._s(
-                                  _vm.previewProfileData.config[4].value === 1
+                                  _vm.previewProfileData.config[4] &&
+                                    _vm.previewProfileData.config[4].value === 1
                                     ? "true"
                                     : "false"
                                 )
@@ -33377,7 +33438,10 @@ var render = function() {
                             _vm._v(" "),
                             _c("sui-table-cell", [
                               _vm._v(
-                                _vm._s(_vm.previewProfileData.config[5].value)
+                                _vm._s(
+                                  _vm.previewProfileData.config[5] &&
+                                    _vm.previewProfileData.config[5].value
+                                )
                               )
                             ])
                           ],
@@ -33391,7 +33455,10 @@ var render = function() {
                             _vm._v(" "),
                             _c("sui-table-cell", [
                               _vm._v(
-                                _vm._s(_vm.previewProfileData.config[6].value)
+                                _vm._s(
+                                  _vm.previewProfileData.config[6] &&
+                                    _vm.previewProfileData.config[6].value
+                                )
                               )
                             ])
                           ],
@@ -33405,7 +33472,10 @@ var render = function() {
                             _vm._v(" "),
                             _c("sui-table-cell", [
                               _vm._v(
-                                _vm._s(_vm.previewProfileData.config[7].value)
+                                _vm._s(
+                                  _vm.previewProfileData.config[7] &&
+                                    _vm.previewProfileData.config[7].value
+                                )
                               )
                             ])
                           ],
@@ -33419,7 +33489,10 @@ var render = function() {
                             _vm._v(" "),
                             _c("sui-table-cell", [
                               _vm._v(
-                                _vm._s(_vm.previewProfileData.config[8].value)
+                                _vm._s(
+                                  _vm.previewProfileData.config[8] &&
+                                    _vm.previewProfileData.config[8].value
+                                )
                               )
                             ])
                           ],
@@ -33433,7 +33506,10 @@ var render = function() {
                             _vm._v(" "),
                             _c("sui-table-cell", [
                               _vm._v(
-                                _vm._s(_vm.previewProfileData.config[9].value)
+                                _vm._s(
+                                  _vm.previewProfileData.config[9] &&
+                                    _vm.previewProfileData.config[9].value
+                                )
                               )
                             ])
                           ],
@@ -33450,7 +33526,9 @@ var render = function() {
                             _c("sui-table-cell", [
                               _vm._v(
                                 _vm._s(
-                                  _vm.previewProfileData.config[10].value === 1
+                                  _vm.previewProfileData.config[10] &&
+                                    _vm.previewProfileData.config[10].value ===
+                                      1
                                     ? "true"
                                     : "false"
                                 )
@@ -33469,7 +33547,10 @@ var render = function() {
                             _vm._v(" "),
                             _c("sui-table-cell", [
                               _vm._v(
-                                _vm._s(_vm.previewProfileData.config[11].value)
+                                _vm._s(
+                                  _vm.previewProfileData.config[11] &&
+                                    _vm.previewProfileData.config[11].value
+                                )
                               )
                             ])
                           ],
@@ -33483,7 +33564,10 @@ var render = function() {
                             _vm._v(" "),
                             _c("sui-table-cell", [
                               _vm._v(
-                                _vm._s(_vm.previewProfileData.config[12].value)
+                                _vm._s(
+                                  _vm.previewProfileData.config[12] &&
+                                    _vm.previewProfileData.config[12].value
+                                )
                               )
                             ])
                           ],
@@ -33499,7 +33583,10 @@ var render = function() {
                             _vm._v(" "),
                             _c("sui-table-cell", [
                               _vm._v(
-                                _vm._s(_vm.previewProfileData.config[13].value)
+                                _vm._s(
+                                  _vm.previewProfileData.config[13] &&
+                                    _vm.previewProfileData.config[13].value
+                                )
                               )
                             ])
                           ],
@@ -33513,7 +33600,10 @@ var render = function() {
                             _vm._v(" "),
                             _c("sui-table-cell", [
                               _vm._v(
-                                _vm._s(_vm.previewProfileData.config[14].value)
+                                _vm._s(
+                                  _vm.previewProfileData.config[14] &&
+                                    _vm.previewProfileData.config[14].value
+                                )
                               )
                             ])
                           ],
@@ -33529,7 +33619,10 @@ var render = function() {
                             _vm._v(" "),
                             _c("sui-table-cell", [
                               _vm._v(
-                                _vm._s(_vm.previewProfileData.config[15].value)
+                                _vm._s(
+                                  _vm.previewProfileData.config[15] &&
+                                    _vm.previewProfileData.config[15].value
+                                )
                               )
                             ])
                           ],
@@ -33544,7 +33637,9 @@ var render = function() {
                             _c("sui-table-cell", [
                               _vm._v(
                                 _vm._s(
-                                  _vm.previewProfileData.config[16].value === 1
+                                  _vm.previewProfileData.config[16] &&
+                                    _vm.previewProfileData.config[16].value ===
+                                      1
                                     ? "true"
                                     : "false"
                                 )
@@ -33563,7 +33658,10 @@ var render = function() {
                             _vm._v(" "),
                             _c("sui-table-cell", [
                               _vm._v(
-                                _vm._s(_vm.previewProfileData.config[17].value)
+                                _vm._s(
+                                  _vm.previewProfileData.config[17] &&
+                                    _vm.previewProfileData.config[17].value
+                                )
                               )
                             ])
                           ],
@@ -33578,7 +33676,9 @@ var render = function() {
                             _c("sui-table-cell", [
                               _vm._v(
                                 _vm._s(
-                                  _vm.previewProfileData.config[18].value === 1
+                                  _vm.previewProfileData.config[18] &&
+                                    _vm.previewProfileData.config[18].value ===
+                                      1
                                     ? "true"
                                     : "false"
                                 )
@@ -33598,7 +33698,9 @@ var render = function() {
                             _c("sui-table-cell", [
                               _vm._v(
                                 _vm._s(
-                                  _vm.previewProfileData.config[19].value === 1
+                                  _vm.previewProfileData.config[19] &&
+                                    _vm.previewProfileData.config[19].value ===
+                                      1
                                     ? "true"
                                     : "false"
                                 )
@@ -33618,7 +33720,9 @@ var render = function() {
                             _c("sui-table-cell", [
                               _vm._v(
                                 _vm._s(
-                                  _vm.previewProfileData.config[20].value === 1
+                                  _vm.previewProfileData.config[20] &&
+                                    _vm.previewProfileData.config[20].value ===
+                                      1
                                     ? "true"
                                     : "false"
                                 )
@@ -33637,7 +33741,10 @@ var render = function() {
                             _vm._v(" "),
                             _c("sui-table-cell", [
                               _vm._v(
-                                _vm._s(_vm.previewProfileData.config[21].value)
+                                _vm._s(
+                                  _vm.previewProfileData.config[21] &&
+                                    _vm.previewProfileData.config[21].value
+                                )
                               )
                             ])
                           ],
@@ -33653,7 +33760,10 @@ var render = function() {
                             _vm._v(" "),
                             _c("sui-table-cell", [
                               _vm._v(
-                                _vm._s(_vm.previewProfileData.config[22].value)
+                                _vm._s(
+                                  _vm.previewProfileData.config[22] &&
+                                    _vm.previewProfileData.config[22].value
+                                )
                               )
                             ])
                           ],
@@ -33670,7 +33780,9 @@ var render = function() {
                             _c("sui-table-cell", [
                               _vm._v(
                                 _vm._s(
-                                  _vm.previewProfileData.config[23].value === 1
+                                  _vm.previewProfileData.config[23] &&
+                                    _vm.previewProfileData.config[23].value ===
+                                      1
                                     ? "true"
                                     : "false"
                                 )
@@ -33690,7 +33802,9 @@ var render = function() {
                             _c("sui-table-cell", [
                               _vm._v(
                                 _vm._s(
-                                  _vm.previewProfileData.config[24].value === 1
+                                  _vm.previewProfileData.config[24] &&
+                                    _vm.previewProfileData.config[24].value ===
+                                      1
                                     ? "true"
                                     : "false"
                                 )
@@ -33709,7 +33823,10 @@ var render = function() {
                             _vm._v(" "),
                             _c("sui-table-cell", [
                               _vm._v(
-                                _vm._s(_vm.previewProfileData.config[25].value)
+                                _vm._s(
+                                  _vm.previewProfileData.config[25] &&
+                                    _vm.previewProfileData.config[25].value
+                                )
                               )
                             ])
                           ],
@@ -33723,7 +33840,10 @@ var render = function() {
                             _vm._v(" "),
                             _c("sui-table-cell", [
                               _vm._v(
-                                _vm._s(_vm.previewProfileData.config[26].value)
+                                _vm._s(
+                                  _vm.previewProfileData.config[26] &&
+                                    _vm.previewProfileData.config[26].value
+                                )
                               )
                             ])
                           ],
@@ -33739,7 +33859,10 @@ var render = function() {
                             _vm._v(" "),
                             _c("sui-table-cell", [
                               _vm._v(
-                                _vm._s(_vm.previewProfileData.config[27].value)
+                                _vm._s(
+                                  _vm.previewProfileData.config[27] &&
+                                    _vm.previewProfileData.config[27].value
+                                )
                               )
                             ])
                           ],
@@ -33755,7 +33878,10 @@ var render = function() {
                             _vm._v(" "),
                             _c("sui-table-cell", [
                               _vm._v(
-                                _vm._s(_vm.previewProfileData.config[28].value)
+                                _vm._s(
+                                  _vm.previewProfileData.config[28] &&
+                                    _vm.previewProfileData.config[28].value
+                                )
                               )
                             ])
                           ],
@@ -33770,7 +33896,9 @@ var render = function() {
                             _c("sui-table-cell", [
                               _vm._v(
                                 _vm._s(
-                                  _vm.previewProfileData.config[29].value === 1
+                                  _vm.previewProfileData.config[29] &&
+                                    _vm.previewProfileData.config[29].value ===
+                                      1
                                     ? "true"
                                     : "false"
                                 )
@@ -33824,13 +33952,13 @@ if (false) {
 }
 
 /***/ }),
-/* 90 */
+/* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(91);
+var content = __webpack_require__(94);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -33855,7 +33983,7 @@ if(false) {
 }
 
 /***/ }),
-/* 91 */
+/* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(3)(false);
@@ -33869,7 +33997,7 @@ exports.push([module.i, "* {\n  padding: 0;\n  margin: 0;\n  -webkit-box-sizing:
 
 
 /***/ }),
-/* 92 */
+/* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {

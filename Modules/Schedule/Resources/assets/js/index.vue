@@ -148,9 +148,42 @@
         </sui-table>
       </div>
     </main>
-    <p>Red = Multiple</p>
-    <p>Star = Priority</p>
-    <p>Is Spinning = Repeat On</p>
+    <footer>
+      <sui-table celled>
+        <sui-table-body>
+          <sui-table-row>
+            <sui-table-cell>
+              <sui-header-content>
+                <i class="fas fa-square-full" style="color:red"></i>
+              </sui-header-content>
+            </sui-table-cell>
+            <sui-table-cell>
+              Multiple
+            </sui-table-cell>
+          </sui-table-row>
+          <sui-table-row>
+            <sui-table-cell>
+              <sui-header-content>
+                <i class="fas fa-star"></i>
+              </sui-header-content>
+            </sui-table-cell>
+            <sui-table-cell>
+              Priority
+            </sui-table-cell>
+          </sui-table-row>
+          <sui-table-row>
+            <sui-table-cell>
+              <sui-header-content>
+                <i class="fas fa-sync fa-spin"></i>
+              </sui-header-content>
+            </sui-table-cell>
+            <sui-table-cell>
+              Repeat On
+            </sui-table-cell>
+          </sui-table-row>
+        </sui-table-body>
+      </sui-table>
+    </footer>
   </div>
 </template>
 

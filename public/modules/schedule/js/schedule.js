@@ -15063,6 +15063,39 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -16923,7 +16956,7 @@ exports = module.exports = __webpack_require__(3)(false);
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&display=swap);", ""]);
 
 // module
-exports.push([module.i, "* {\n  padding: 0;\n  margin: 0;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n}\n\nhtml,\nbody {\n  font-size: 14px;\n  font-family: \"Lato\", sans-serif;\n  --grey-100: #e4e9f0;\n  --grey-200: #cfd7e3;\n  --grey-300: #b5c0cd;\n  --grey-800: #3e4e63;\n  --grid-gap: 1px;\n  --day-label-size: 20px;\n}\n\n.navigation {\n  padding: 2rem;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\n.navigation > * {\n  margin-left: 2rem !important;\n}\n\n.navigation h2 {\n  margin: 0px !important;\n  font-weight: 400 !important;\n}\n\n.date-input {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  padding: 0 2rem 1rem 2rem;\n}\n\n.date-input > * {\n  margin-left: 2rem !important;\n}\n\n.date-input .ui.input {\n  margin-left: 0 !important;\n}\n\nmain {\n  padding: 0 2rem 2rem 2rem;\n}\n\nmain .year {\n  margin-top: 2rem;\n}\n\nmain .year .month-of-year {\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-columns: (1fr)[3];\n      grid-template-columns: repeat(3, 1fr);\n  grid-column-gap: 1px;\n  grid-row-gap: 1px;\n  border: solid 1px rgba(0, 0, 0, 0.1);\n  background-color: #e2e2e2;\n}\n\nmain .year .month-list {\n  min-height: 100px;\n  font-size: 16px;\n  background-color: #fff;\n  color: var(--grey-800);\n  padding: 5px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  position: relative;\n}\n\nmain .year .month-list span {\n  cursor: pointer;\n}\n\nmain .year .month-list i {\n  position: absolute;\n  top: 10px;\n  right: 10px;\n  cursor: pointer;\n}\n\nmain #calendar-days {\n  border: 1px solid rgba(0, 0, 0, 0.1);\n}\n\nmain .days-grid {\n  height: 100%;\n  position: relative;\n  grid-column-gap: 1px;\n  grid-row-gap: 1px;\n  border-top: solid 1px black;\n  background-color: #e2e2e2;\n}\n\nmain .day-of-week,\nmain .days-grid {\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-columns: (1fr)[7];\n      grid-template-columns: repeat(7, 1fr);\n}\n\nmain .day-of-week .calendar-day,\nmain .days-grid .calendar-day {\n  position: relative;\n  min-height: 100px;\n  font-size: 16px;\n  background-color: #fff;\n  color: var(--grey-800);\n  padding: 5px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n  -webkit-box-align: end;\n      -ms-flex-align: end;\n          align-items: flex-end;\n}\n\nmain .day-of-week .calendar-day .not-current span,\nmain .days-grid .calendar-day .not-current span {\n  opacity: 0.5;\n}\n\nmain .day-of-week .calendar-day .dayNumber,\nmain .days-grid .calendar-day .dayNumber {\n  position: absolute;\n  top: 10px;\n  right: 10px;\n  cursor: pointer;\n}\n\nmain .day-of-week .calendar-day .display-icon .icon-and-popup,\nmain .days-grid .calendar-day .display-icon .icon-and-popup {\n  position: relative;\n  cursor: pointer;\n}\n\nmain .day-of-week .calendar-day .display-icon .icon-and-popup .popup,\nmain .days-grid .calendar-day .display-icon .icon-and-popup .popup {\n  position: absolute;\n  bottom: 100%;\n  right: -200%;\n  font-size: 10px;\n  padding: 0.3rem;\n  border-radius: 3px;\n  z-index: 1300;\n  min-width: 100px;\n  background-color: black;\n  color: white;\n  text-align: center;\n}\n\nmain .day-of-week .not-current,\nmain .days-grid .not-current {\n  background-color: #eeeeee !important;\n}\n\nmain .day-of-week {\n  color: var(--grey-800);\n  font-size: 18px;\n  background-color: #fff;\n  padding-bottom: 5px;\n  padding-top: 10px;\n}\n\nmain .day-of-week .day-list {\n  text-align: center;\n}\n\nmain .day {\n  margin-top: 2rem;\n}\n\nmain .day .time {\n  width: 10% !important;\n  text-align: center !important;\n}\n\nmain .day .events {\n  text-align: center !important;\n}\n\nmain .day .day-title {\n  cursor: pointer;\n}\n\nmain .day .day-title .display-time {\n  font-weight: bolder;\n  color: blue;\n}\n\nmain ol,\nmain li {\n  padding: 0;\n  margin: 0;\n  list-style: none;\n}\n\n.ui.selection.dropdown {\n  min-width: 5em;\n}\n\n.button-active {\n  background-color: #babbbc !important;\n}\n\n.ui.selection.dropdown {\n  width: 150px !important;\n}", ""]);
+exports.push([module.i, "* {\n  padding: 0;\n  margin: 0;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n}\n\nhtml,\nbody {\n  font-size: 14px;\n  font-family: \"Lato\", sans-serif;\n  --grey-100: #e4e9f0;\n  --grey-200: #cfd7e3;\n  --grey-300: #b5c0cd;\n  --grey-800: #3e4e63;\n  --grid-gap: 1px;\n  --day-label-size: 20px;\n}\n\n.navigation {\n  padding: 2rem;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\n.navigation > * {\n  margin-left: 2rem !important;\n}\n\n.navigation h2 {\n  margin: 0px !important;\n  font-weight: 400 !important;\n}\n\n.date-input {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  padding: 0 2rem 1rem 2rem;\n}\n\n.date-input > * {\n  margin-left: 2rem !important;\n}\n\n.date-input .ui.input {\n  margin-left: 0 !important;\n}\n\nmain {\n  padding: 0 2rem 2rem 2rem;\n}\n\nmain .year {\n  margin-top: 2rem;\n}\n\nmain .year .month-of-year {\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-columns: (1fr)[3];\n      grid-template-columns: repeat(3, 1fr);\n  grid-column-gap: 1px;\n  grid-row-gap: 1px;\n  border: solid 1px rgba(0, 0, 0, 0.1);\n  background-color: #e2e2e2;\n}\n\nmain .year .month-list {\n  min-height: 100px;\n  font-size: 16px;\n  background-color: #fff;\n  color: var(--grey-800);\n  padding: 5px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  position: relative;\n}\n\nmain .year .month-list span {\n  cursor: pointer;\n}\n\nmain .year .month-list i {\n  position: absolute;\n  top: 10px;\n  right: 10px;\n  cursor: pointer;\n}\n\nmain #calendar-days {\n  border: 1px solid rgba(0, 0, 0, 0.1);\n}\n\nmain .days-grid {\n  height: 100%;\n  position: relative;\n  grid-column-gap: 1px;\n  grid-row-gap: 1px;\n  border-top: solid 1px black;\n  background-color: #e2e2e2;\n}\n\nmain .day-of-week,\nmain .days-grid {\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-columns: (1fr)[7];\n      grid-template-columns: repeat(7, 1fr);\n}\n\nmain .day-of-week .calendar-day,\nmain .days-grid .calendar-day {\n  position: relative;\n  min-height: 100px;\n  font-size: 16px;\n  background-color: #fff;\n  color: var(--grey-800);\n  padding: 5px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n  -webkit-box-align: end;\n      -ms-flex-align: end;\n          align-items: flex-end;\n}\n\nmain .day-of-week .calendar-day .not-current span,\nmain .days-grid .calendar-day .not-current span {\n  opacity: 0.5;\n}\n\nmain .day-of-week .calendar-day .dayNumber,\nmain .days-grid .calendar-day .dayNumber {\n  position: absolute;\n  top: 10px;\n  right: 10px;\n  cursor: pointer;\n}\n\nmain .day-of-week .calendar-day .display-icon .icon-and-popup,\nmain .days-grid .calendar-day .display-icon .icon-and-popup {\n  position: relative;\n  cursor: pointer;\n}\n\nmain .day-of-week .calendar-day .display-icon .icon-and-popup .popup,\nmain .days-grid .calendar-day .display-icon .icon-and-popup .popup {\n  position: absolute;\n  bottom: 100%;\n  right: -200%;\n  font-size: 10px;\n  padding: 0.3rem;\n  border-radius: 3px;\n  z-index: 1300;\n  min-width: 100px;\n  background-color: black;\n  color: white;\n  text-align: center;\n}\n\nmain .day-of-week .not-current,\nmain .days-grid .not-current {\n  background-color: #eeeeee !important;\n}\n\nmain .day-of-week {\n  color: var(--grey-800);\n  font-size: 18px;\n  background-color: #fff;\n  padding-bottom: 5px;\n  padding-top: 10px;\n}\n\nmain .day-of-week .day-list {\n  text-align: center;\n}\n\nmain .day {\n  margin-top: 2rem;\n}\n\nmain .day .time {\n  width: 10% !important;\n  text-align: center !important;\n}\n\nmain .day .events {\n  text-align: center !important;\n}\n\nmain .day .day-title {\n  cursor: pointer;\n}\n\nmain .day .day-title .display-time {\n  font-weight: bolder;\n  color: blue;\n}\n\nmain ol,\nmain li {\n  padding: 0;\n  margin: 0;\n  list-style: none;\n}\n\nfooter {\n  padding: 0 2rem 2rem 2rem;\n  max-width: 30%;\n}\n\nfooter .content {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -ms-flex-item-align: center;\n      align-self: center;\n  margin: auto !important;\n}\n\nfooter td {\n  vertical-align: middle !important;\n}\n\n.ui.selection.dropdown {\n  min-width: 5em;\n}\n\n.button-active {\n  background-color: #babbbc !important;\n}\n\n.ui.selection.dropdown {\n  width: 150px !important;\n}", ""]);
 
 // exports
 
@@ -17294,11 +17327,87 @@ var render = function() {
           : _vm._e()
       ]),
       _vm._v(" "),
-      _c("p", [_vm._v("Red = Multiple")]),
-      _vm._v(" "),
-      _c("p", [_vm._v("Star = Priority")]),
-      _vm._v(" "),
-      _c("p", [_vm._v("Is Spinning = Repeat On")])
+      _c(
+        "footer",
+        [
+          _c(
+            "sui-table",
+            { attrs: { celled: "" } },
+            [
+              _c(
+                "sui-table-body",
+                [
+                  _c(
+                    "sui-table-row",
+                    [
+                      _c(
+                        "sui-table-cell",
+                        [
+                          _c("sui-header-content", [
+                            _c("i", {
+                              staticClass: "fas fa-square-full",
+                              staticStyle: { color: "red" }
+                            })
+                          ])
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("sui-table-cell", [
+                        _vm._v("\n            Multiple\n          ")
+                      ])
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "sui-table-row",
+                    [
+                      _c(
+                        "sui-table-cell",
+                        [
+                          _c("sui-header-content", [
+                            _c("i", { staticClass: "fas fa-star" })
+                          ])
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("sui-table-cell", [
+                        _vm._v("\n            Priority\n          ")
+                      ])
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "sui-table-row",
+                    [
+                      _c(
+                        "sui-table-cell",
+                        [
+                          _c("sui-header-content", [
+                            _c("i", { staticClass: "fas fa-sync fa-spin" })
+                          ])
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("sui-table-cell", [
+                        _vm._v("\n            Repeat On\n          ")
+                      ])
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
     ],
     1
   )

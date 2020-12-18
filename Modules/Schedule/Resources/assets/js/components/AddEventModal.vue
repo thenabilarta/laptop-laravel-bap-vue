@@ -98,8 +98,8 @@
         <div class="edit-display-modal-body-row time" v-if="repeat !== 1">
           <label>Until</label>
           <div class="time-input">
-            <sui-input type="date" v-model="dateUntilTo" />
-            <sui-input type="time" v-model="timeUntilTo" />
+            <sui-input type="date" v-model="dateFromUntil" />
+            <sui-input type="time" v-model="timeFromUntil" />
           </div>
         </div>
       </div>
@@ -133,8 +133,8 @@ export default {
       displayOrder: null,
       syncTimezone: false,
       loading: false,
-      dateUntilTo: null,
-      timeUntilTo: null,
+      dateFromUntil: null,
+      timeFromUntil: null,
       repeat: 1,
       repeatDay: 1,
       repeatEvery: null,
@@ -305,6 +305,11 @@ export default {
           isPriority: this.isPriority,
           displayOrder: this.displayOrder,
           syncTimezone: this.syncTimezone === true ? "on" : "off",
+          repeat: this.repeat,
+          repeatEvery: this.repeatEvery,
+          repeatDay: this.repeatDay,
+          dateFromUntil: this.dateFromUntil,
+          timeFromUntil: this.timeFromUntil,
         })
         .then((res) => console.log(res.data));
     },

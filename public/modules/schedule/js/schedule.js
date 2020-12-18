@@ -15932,8 +15932,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       displayOrder: null,
       syncTimezone: false,
       loading: false,
-      dateUntilTo: null,
-      timeUntilTo: null
+      dateFromUntil: null,
+      timeFromUntil: null
     }, _defineProperty(_ref, "repeat", 1), _defineProperty(_ref, "repeatDay", 1), _defineProperty(_ref, "repeatEvery", null), _defineProperty(_ref, "eventTypeOption", [{
       text: "Campaign/Layout",
       value: 1
@@ -16065,7 +16065,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         timeTo: this.computedTimeTo,
         isPriority: this.isPriority,
         displayOrder: this.displayOrder,
-        syncTimezone: this.syncTimezone === true ? "on" : "off"
+        syncTimezone: this.syncTimezone === true ? "on" : "off",
+        repeat: this.repeat,
+        repeatEvery: this.repeatEvery,
+        repeatDay: this.repeatDay,
+        dateFromUntil: this.dateFromUntil,
+        timeFromUntil: this.timeFromUntil
       }).then(function (res) {
         return console.log(res.data);
       });
@@ -16462,22 +16467,22 @@ var render = function() {
                       _c("sui-input", {
                         attrs: { type: "date" },
                         model: {
-                          value: _vm.dateUntilTo,
+                          value: _vm.dateFromUntil,
                           callback: function($$v) {
-                            _vm.dateUntilTo = $$v
+                            _vm.dateFromUntil = $$v
                           },
-                          expression: "dateUntilTo"
+                          expression: "dateFromUntil"
                         }
                       }),
                       _vm._v(" "),
                       _c("sui-input", {
                         attrs: { type: "time" },
                         model: {
-                          value: _vm.timeUntilTo,
+                          value: _vm.timeFromUntil,
                           callback: function($$v) {
-                            _vm.timeUntilTo = $$v
+                            _vm.timeFromUntil = $$v
                           },
-                          expression: "timeUntilTo"
+                          expression: "timeFromUntil"
                         }
                       })
                     ],

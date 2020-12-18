@@ -75,74 +75,76 @@ class ScheduleController extends AppBaseController
 
     public function addSchedule(Request $request)
     {
-        $dateFrom = $request->dateFrom;
+        return $request;
 
-        $dateTo = $request->dateTo;
+        // $dateFrom = $request->dateFrom;
 
-        $timeFrom = $request->timeFrom;
+        // $dateTo = $request->dateTo;
 
-        $timeTo = $request->timeTo;
+        // $timeFrom = $request->timeFrom;
 
-        $eventType = $request->eventType;
+        // $timeTo = $request->timeTo;
 
-        $layout = $request->layout;
+        // $eventType = $request->eventType;
 
-        // For each array of Display
+        // $layout = $request->layout;
 
-        $newString = '';
+        // // For each array of Display
 
-        $string = '&displayGroupIds%5B%5D=';
+        // $newString = '';
 
-        $display = $request->display;
+        // $string = '&displayGroupIds%5B%5D=';
 
-        foreach ($display as $d) {
-            $newString = $newString . $string . $d;
-        }
+        // $display = $request->display;
 
-        // end of array
+        // foreach ($display as $d) {
+        //     $newString = $newString . $string . $d;
+        // }
 
-        $isPriority = $request->isPriority;
+        // // end of array
 
-        $displayOrder = $request->displayOrder;
+        // $isPriority = $request->isPriority;
 
-        $syncTimezone = $request->syncTimezone;
+        // $displayOrder = $request->displayOrder;
 
-        $curl = curl_init();
+        // $syncTimezone = $request->syncTimezone;
 
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => 'http://192.168.44.141/xibo-cms/web/api/schedule',
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'POST',
-            CURLOPT_POSTFIELDS =>
-            'fromDt=' . $dateFrom .
-                '%20' . $timeFrom .
-                '&toDt=' . $dateTo .
-                '%20' . $timeTo .
-                $newString .
-                '&eventTypeId=' . $eventType .
-                '&campaignId=' . $layout .
-                '&isPriority=' . $isPriority .
-                '&displayOrder=' . $displayOrder .
-                '&syncTimezone=' . $syncTimezone,
-            CURLOPT_HTTPHEADER => array(
-                'Authorization: Bearer ' . $_SESSION["token"],
-                'Content-Type: application/x-www-form-urlencoded'
-            ),
-        ));
+        // $curl = curl_init();
 
-        $response = curl_exec($curl);
+        // curl_setopt_array($curl, array(
+        //     CURLOPT_URL => 'http://192.168.44.141/xibo-cms/web/api/schedule',
+        //     CURLOPT_RETURNTRANSFER => true,
+        //     CURLOPT_ENCODING => '',
+        //     CURLOPT_MAXREDIRS => 10,
+        //     CURLOPT_TIMEOUT => 0,
+        //     CURLOPT_FOLLOWLOCATION => true,
+        //     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        //     CURLOPT_CUSTOMREQUEST => 'POST',
+        //     CURLOPT_POSTFIELDS =>
+        //     'fromDt=' . $dateFrom .
+        //         '%20' . $timeFrom .
+        //         '&toDt=' . $dateTo .
+        //         '%20' . $timeTo .
+        //         $newString .
+        //         '&eventTypeId=' . $eventType .
+        //         '&campaignId=' . $layout .
+        //         '&isPriority=' . $isPriority .
+        //         '&displayOrder=' . $displayOrder .
+        //         '&syncTimezone=' . $syncTimezone,
+        //     CURLOPT_HTTPHEADER => array(
+        //         'Authorization: Bearer ' . $_SESSION["token"],
+        //         'Content-Type: application/x-www-form-urlencoded'
+        //     ),
+        // ));
 
-        curl_close($curl);
+        // $response = curl_exec($curl);
 
-        $contents = $response;
-        $content = json_decode($contents, true);
+        // curl_close($curl);
 
-        return $content;
+        // $contents = $response;
+        // $content = json_decode($contents, true);
+
+        // return $content;
     }
 
     public function editSchedule(Request $request)

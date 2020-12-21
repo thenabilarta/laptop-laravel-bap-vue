@@ -83,11 +83,11 @@
           <label>Repeats</label>
           <sui-dropdown selection :options="repeatOption" v-model="repeat" />
         </div>
-        <div class="edit-display-modal-body-row" v-if="repeat !== 1">
+        <div class="edit-display-modal-body-row" v-if="repeat !== 0">
           <label>Repeat Every</label>
           <sui-input type="number" class="input-number" v-model="repeatEvery" />
         </div>
-        <div class="edit-display-modal-body-row" v-if="repeat === 5">
+        <div class="edit-display-modal-body-row" v-if="repeat === 4">
           <label>Day</label>
           <sui-dropdown
             selection
@@ -95,7 +95,7 @@
             v-model="repeatDay"
           />
         </div>
-        <div class="edit-display-modal-body-row time" v-if="repeat !== 1">
+        <div class="edit-display-modal-body-row time" v-if="repeat !== 0">
           <label>Until</label>
           <div class="time-input">
             <sui-input type="date" v-model="dateFromUntil" />
@@ -115,7 +115,10 @@
 
 <script>
 import axios from "axios";
+import swal from "sweetalert";
+
 import "../../css/AddEventModal.css";
+
 export default {
   name: "AddEventModal",
   data() {
@@ -124,19 +127,18 @@ export default {
       display: null,
       layout: null,
       dayparting: 1,
-      repeat: 0,
-      dateFrom: "2020-12-18",
-      dateTo: "2020-12-25",
-      timeFrom: "01:00",
-      timeTo: "23:00",
+      dateFrom: null,
+      dateTo: "",
+      timeFrom: null,
+      timeTo: "",
       isPriority: null,
       displayOrder: null,
       syncTimezone: false,
       loading: false,
       dateFromUntil: null,
       timeFromUntil: null,
-      repeat: 1,
-      repeatDay: 1,
+      repeat: 0,
+      repeatDay: null,
       repeatEvery: null,
       eventTypeOption: [
         {
@@ -169,31 +171,31 @@ export default {
       repeatOption: [
         {
           text: "None",
-          value: 1,
+          value: 0,
         },
         {
           text: "Per Minute",
-          value: 2,
+          value: 1,
         },
         {
           text: "Hourly",
-          value: 3,
+          value: 2,
         },
         {
           text: "Daily",
-          value: 4,
+          value: 3,
         },
         {
           text: "Weekly",
-          value: 5,
+          value: 4,
         },
         {
           text: "Monthly",
-          value: 6,
+          value: 5,
         },
         {
           text: "Yearly",
-          value: 7,
+          value: 6,
         },
       ],
       repeatDayOption: [
@@ -231,6 +233,9 @@ export default {
   watch: {
     timeFrom: function() {
       console.log(this.timeFrom);
+    },
+    dayparting: function() {
+      console.log(this.dayparting);
     },
   },
   mounted() {
@@ -309,21 +314,44 @@ export default {
           repeatEvery: this.repeatEvery,
           repeatDay: this.repeatDay,
           dateFromUntil: this.dateFromUntil,
-          timeFromUntil: this.timeFromUntil,
+          timeFromUntil: this.repeatUntil,
+          dayparting: this.dayparting,
         })
-        .then((res) => console.log(res.data));
+        .then((res) => {
+          console.log(res);
+          swal({
+            text: "Telah ditambahkan",
+          });
+        });
     },
   },
   computed: {
     computedTimeFrom() {
-      let newTimeFrom = this.timeFrom.split(":");
-      let tFrom = newTimeFrom.join("%3A") + "%3A00";
-      return tFrom;
+      if (this.timeFrom) {
+        let newTimeFrom = this.timeFrom.split(":");
+        let tFrom = newTimeFrom.join("%3A") + "%3A00";
+        return tFrom;
+      } else {
+        return this.timeFrom;
+      }
     },
     computedTimeTo() {
-      let newTimeFrom = this.timeTo.split(":");
-      let tTo = newTimeFrom.join("%3A") + "%3A00";
-      return tTo;
+      if (this.timeTo) {
+        let newTimeFrom = this.timeTo.split(":");
+        let tTo = newTimeFrom.join("%3A") + "%3A00";
+        return tTo;
+      } else {
+        return this.timeTo;
+      }
+    },
+    repeatUntil() {
+      if (this.timeFromUntil) {
+        let newRepeatUntil = this.timeFromUntil.split(":");
+        let repeatTo = newRepeatUntil.join("%3A") + "%3A00";
+        return repeatTo;
+      } else {
+        return this.timeFromUntil;
+      }
     },
   },
 };

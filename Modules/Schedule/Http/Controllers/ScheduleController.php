@@ -16,7 +16,7 @@ class ScheduleController extends AppBaseController
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-            CURLOPT_URL => 'http://192.168.44.141/xibo-cms/web/api/authorize/access_token',
+            CURLOPT_URL => 'http://192.168.44.127/xibo-cms/web/api/authorize/access_token',
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
@@ -50,7 +50,7 @@ class ScheduleController extends AppBaseController
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-            CURLOPT_URL => 'http://192.168.44.141/xibo-cms/web/api/schedule/data/events?displayGroupIds%5B%5D=-1&from=' . $dateFrom . '&to=' . $dateTo,
+            CURLOPT_URL => 'http://192.168.44.127/xibo-cms/web/api/schedule/data/events?displayGroupIds%5B%5D=-1&from=' . $dateFrom . '&to=' . $dateTo,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
@@ -75,118 +75,311 @@ class ScheduleController extends AppBaseController
 
     public function addSchedule(Request $request)
     {
-        return $request;
+        $dateFromPostField = null;
 
-        // $dateFrom = $request->dateFrom;
+        $dateToPostField = null;
 
-        // $dateTo = $request->dateTo;
+        $arrayOfDisplayPostField = null;
 
-        // $timeFrom = $request->timeFrom;
+        $eventTypePostField = null;
 
-        // $timeTo = $request->timeTo;
+        $campaignIdPostField = null;
 
-        // $eventType = $request->eventType;
+        $isPriorityPostField = null;
 
-        // $layout = $request->layout;
+        $displayOrderPostField = null;
 
-        // // For each array of Display
+        $snycTimezonePostField = null;
 
-        // $newString = '';
+        $recurrenceTypePostField = null;
 
-        // $string = '&displayGroupIds%5B%5D=';
+        $recurrenceDetailPostField = null;
 
-        // $display = $request->display;
+        $recurrenceRangePostField = null;
 
-        // foreach ($display as $d) {
-        //     $newString = $newString . $string . $d;
-        // }
+        $recurrenceRepeatsOnPostField = null;
 
-        // // end of array
+        $dayPartIdPostField = null;
 
-        // $isPriority = $request->isPriority;
 
-        // $displayOrder = $request->displayOrder;
+        //////////////////////////////////
 
-        // $syncTimezone = $request->syncTimezone;
 
-        // $curl = curl_init();
-
-        // curl_setopt_array($curl, array(
-        //     CURLOPT_URL => 'http://192.168.44.141/xibo-cms/web/api/schedule',
-        //     CURLOPT_RETURNTRANSFER => true,
-        //     CURLOPT_ENCODING => '',
-        //     CURLOPT_MAXREDIRS => 10,
-        //     CURLOPT_TIMEOUT => 0,
-        //     CURLOPT_FOLLOWLOCATION => true,
-        //     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        //     CURLOPT_CUSTOMREQUEST => 'POST',
-        //     CURLOPT_POSTFIELDS =>
-        //     'fromDt=' . $dateFrom .
-        //         '%20' . $timeFrom .
-        //         '&toDt=' . $dateTo .
-        //         '%20' . $timeTo .
-        //         $newString .
-        //         '&eventTypeId=' . $eventType .
-        //         '&campaignId=' . $layout .
-        //         '&isPriority=' . $isPriority .
-        //         '&displayOrder=' . $displayOrder .
-        //         '&syncTimezone=' . $syncTimezone,
-        //     CURLOPT_HTTPHEADER => array(
-        //         'Authorization: Bearer ' . $_SESSION["token"],
-        //         'Content-Type: application/x-www-form-urlencoded'
-        //     ),
-        // ));
-
-        // $response = curl_exec($curl);
-
-        // curl_close($curl);
-
-        // $contents = $response;
-        // $content = json_decode($contents, true);
-
-        // return $content;
-    }
-
-    public function editSchedule(Request $request)
-    {
         $dateFrom = $request->dateFrom;
-
-        $dateTo = $request->dateTo;
 
         $timeFrom = $request->timeFrom;
 
+        if ($dateFrom && $timeFrom) {
+            $dateFromPostField = 'fromDt=' . $dateFrom . '%20' . $timeFrom;
+        }
+
+
+        $dateTo = $request->dateTo;
+
         $timeTo = $request->timeTo;
+
+        if ($dateTo && $timeTo) {
+            $dateToPostField = '&toDt=' . $dateTo . '%20' . $timeTo;
+        }
+
 
         $eventType = $request->eventType;
 
+        if ($eventType) {
+            $eventTypePostField = '&eventTypeId=' . $eventType;
+        }
+
+
         $layout = $request->layout;
 
-        //
+        if ($layout) {
+            $campaignIdPostField = '&campaignId=' . $layout;
+        }
 
-        $newString = '';
-
-        $string = '&displayGroupIds%5B%5D=';
 
         $display = $request->display;
 
+        $arrayOfDisplayPostField = '';
+
+        $string = '&displayGroupIds%5B%5D=';
+
         foreach ($display as $d) {
-            $newString = $newString . $string . $d;
+            $arrayOfDisplayPostField = $arrayOfDisplayPostField . $string . $d;
         }
 
-        //
 
         $isPriority = $request->isPriority;
 
+        if ($isPriority) {
+            $isPriorityPostField = '&isPriority=' . $isPriority;
+        }
+
+
         $displayOrder = $request->displayOrder;
+
+        if ($displayOrder) {
+            $displayOrderPostField = '&displayOrder=' . $displayOrder;
+        }
+
 
         $syncTimezone = $request->syncTimezone;
 
-        $eventId = $request->id;
+        if ($syncTimezone) {
+            $snycTimezonePostField = '&syncTimezone=' . $syncTimezone;
+        }
+
+
+        $recurrenceType = $request->repeat;
+
+        if ($recurrenceType) {
+            $recurrenceTypePostField = '&recurrenceType=' . $recurrenceType;
+        }
+
+
+        $recurrenceDetail = $request->repeatEvery;
+
+        if ($recurrenceDetail) {
+            $recurrenceDetailPostField = '&recurrenceDetail=' . $recurrenceDetail;
+        }
+
+
+        $recurrenceRepeatsOn = $request->repeatDay;
+
+        if ($recurrenceRepeatsOn) {
+            $recurrenceRepeatsOnPostField = '&recurrenceRepeatsOn=' . $recurrenceRepeatsOn;
+        }
+
+
+        $recurrenceRangeDate = $request->dateFromUntil;
+
+        $recurrenceRangeTime = $request->timeFromUntil;
+
+        if ($recurrenceRangeDate && $recurrenceRangeTime) {
+            $recurrenceRangePostField = '&recurrenceRange=' . $recurrenceRangeDate . '%20' . $recurrenceRangeTime;
+        }
+
+
+        $dayPartId = $request->dayparting;
+
+        if ($dayPartId) {
+            $dayPartIdPostField = '&dayPartId=' . $dayPartId;
+        }
+
+
+        /////////////////////////////////////
+
 
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-            CURLOPT_URL => 'http://192.168.44.141/xibo-cms/web/api/schedule/' . $eventId,
+            CURLOPT_URL => 'http://192.168.44.127/xibo-cms/web/api/schedule',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS =>
+            $dateFromPostField . $dateToPostField . $arrayOfDisplayPostField . $eventTypePostField . $campaignIdPostField . $isPriorityPostField . $displayOrderPostField . $snycTimezonePostField . $recurrenceTypePostField . $recurrenceDetailPostField . $recurrenceRangePostField . $recurrenceRepeatsOnPostField . $dayPartIdPostField,
+            CURLOPT_HTTPHEADER => array(
+                'Authorization: Bearer ' . $_SESSION["token"],
+                'Content-Type: application/x-www-form-urlencoded'
+            ),
+        ));
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+
+        $contents = $response;
+        $content = json_decode($contents, true);
+
+        return $content;
+    }
+
+    public function editSchedule(Request $request)
+    {
+        $dateFromPostField = null;
+
+        $dateToPostField = null;
+
+        $arrayOfDisplayPostField = null;
+
+        $eventTypePostField = null;
+
+        $campaignIdPostField = null;
+
+        $isPriorityPostField = null;
+
+        $displayOrderPostField = null;
+
+        $snycTimezonePostField = null;
+
+        $recurrenceTypePostField = null;
+
+        $recurrenceDetailPostField = null;
+
+        $recurrenceRangePostField = null;
+
+        $recurrenceRepeatsOnPostField = null;
+
+        $dayPartIdPostField = null;
+
+
+        //////////////////////////////////
+
+
+        $dateFrom = $request->dateFrom;
+
+        $timeFrom = $request->timeFrom;
+
+        if ($dateFrom && $timeFrom) {
+            $dateFromPostField = 'fromDt=' . $dateFrom . '%20' . $timeFrom;
+        }
+
+
+        $dateTo = $request->dateTo;
+
+        $timeTo = $request->timeTo;
+
+        if ($dateTo && $timeTo) {
+            $dateToPostField = '&toDt=' . $dateTo . '%20' . $timeTo;
+        }
+
+
+        $eventType = $request->eventType;
+
+        if ($eventType) {
+            $eventTypePostField = '&eventTypeId=' . $eventType;
+        }
+
+
+        $layout = $request->layout;
+
+        if ($layout) {
+            $campaignIdPostField = '&campaignId=' . $layout;
+        }
+
+
+        $display = $request->display;
+
+        $arrayOfDisplayPostField = '';
+
+        $string = '&displayGroupIds%5B%5D=';
+
+        foreach ($display as $d) {
+            $arrayOfDisplayPostField = $arrayOfDisplayPostField . $string . $d;
+        }
+
+
+        $isPriority = $request->isPriority;
+
+        if ($isPriority) {
+            $isPriorityPostField = '&isPriority=' . $isPriority;
+        }
+
+
+        $displayOrder = $request->displayOrder;
+
+        if ($displayOrder) {
+            $displayOrderPostField = '&displayOrder=' . $displayOrder;
+        }
+
+
+        $syncTimezone = $request->syncTimezone;
+
+        if ($syncTimezone) {
+            $snycTimezonePostField = '&syncTimezone=' . $syncTimezone;
+        }
+
+
+        $recurrenceType = $request->repeat;
+
+        if ($recurrenceType) {
+            $recurrenceTypePostField = '&recurrenceType=' . $recurrenceType;
+        }
+
+
+        $recurrenceDetail = $request->repeatEvery;
+
+        if ($recurrenceDetail) {
+            $recurrenceDetailPostField = '&recurrenceDetail=' . $recurrenceDetail;
+        }
+
+
+        $recurrenceRepeatsOn = $request->repeatDay;
+
+        if ($recurrenceRepeatsOn) {
+            $recurrenceRepeatsOnPostField = '&recurrenceRepeatsOn=' . $recurrenceRepeatsOn;
+        }
+
+
+        $recurrenceRangeDate = $request->dateFromUntil;
+
+        $recurrenceRangeTime = $request->timeFromUntil;
+
+        if ($recurrenceRangeDate && $recurrenceRangeTime) {
+            $recurrenceRangePostField = '&recurrenceRange=' . $recurrenceRangeDate . '%20' . $recurrenceRangeTime;
+        }
+
+
+        $dayPartId = $request->dayparting;
+
+        if ($dayPartId) {
+            $dayPartIdPostField = '&dayPartId=' . $dayPartId;
+        }
+
+        $eventId = $request->id;
+
+
+        /////////////////////////////////////
+
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'http://192.168.44.127/xibo-cms/web/api/schedule/' . $eventId,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
@@ -195,16 +388,7 @@ class ScheduleController extends AppBaseController
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => 'PUT',
             CURLOPT_POSTFIELDS =>
-            'fromDt=' . $dateFrom .
-                '%20' . $timeFrom .
-                '&toDt=' . $dateTo .
-                '%20' . $timeTo .
-                $newString .
-                '&eventTypeId=' . $eventType .
-                '&campaignId=' . $layout .
-                '&isPriority=' . $isPriority .
-                '&displayOrder=' . $displayOrder .
-                '&syncTimezone=' . $syncTimezone,
+            $dateFromPostField . $dateToPostField . $arrayOfDisplayPostField . $eventTypePostField . $campaignIdPostField . $isPriorityPostField . $displayOrderPostField . $snycTimezonePostField . $recurrenceTypePostField . $recurrenceDetailPostField . $recurrenceRangePostField . $recurrenceRepeatsOnPostField . $dayPartIdPostField,
             CURLOPT_HTTPHEADER => array(
                 'Authorization: Bearer ' . $_SESSION["token"],
                 'Content-Type: application/x-www-form-urlencoded'
@@ -228,7 +412,7 @@ class ScheduleController extends AppBaseController
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-            CURLOPT_URL => 'http://192.168.44.141/xibo-cms/web/api/schedule/' . $eventId,
+            CURLOPT_URL => 'http://192.168.44.127/xibo-cms/web/api/schedule/' . $eventId,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,

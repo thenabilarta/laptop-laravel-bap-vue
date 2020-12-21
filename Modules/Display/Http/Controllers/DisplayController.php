@@ -17,7 +17,7 @@ class DisplayController extends AppBaseController
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-            CURLOPT_URL => 'http://192.168.44.141/xibo-cms/web/api/authorize/access_token',
+            CURLOPT_URL => 'http://192.168.44.127/xibo-cms/web/api/authorize/access_token',
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
@@ -47,7 +47,7 @@ class DisplayController extends AppBaseController
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-            CURLOPT_URL => 'http://192.168.44.141/xibo-cms/web/api/display',
+            CURLOPT_URL => 'http://192.168.44.127/xibo-cms/web/api/display',
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
@@ -75,7 +75,7 @@ class DisplayController extends AppBaseController
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-            CURLOPT_URL => 'http://192.168.44.141/xibo-cms/web/api/layout',
+            CURLOPT_URL => 'http://192.168.44.127/xibo-cms/web/api/layout',
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
@@ -107,7 +107,7 @@ class DisplayController extends AppBaseController
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-            CURLOPT_URL => 'http://192.168.44.141/xibo-cms/web/api/display/defaultlayout/' . $displayId,
+            CURLOPT_URL => 'http://192.168.44.127/xibo-cms/web/api/display/defaultlayout/' . $displayId,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
@@ -150,7 +150,7 @@ class DisplayController extends AppBaseController
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-            CURLOPT_URL => 'http://192.168.44.141/xibo-cms/web/api/display/' . $displayId,
+            CURLOPT_URL => 'http://192.168.44.127/xibo-cms/web/api/display/' . $displayId,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
@@ -182,7 +182,7 @@ class DisplayController extends AppBaseController
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-            CURLOPT_URL => 'http://192.168.44.141/xibo-cms/web/api/displayprofile?embed=config&displayProfileId=2',
+            CURLOPT_URL => 'http://192.168.44.127/xibo-cms/web/api/displayprofile?embed=config&displayProfileId=2',
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,

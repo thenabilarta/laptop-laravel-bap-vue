@@ -535,18 +535,23 @@ export default {
               ) {
                 s.displayGroups.map((disp) => {
                   if (this.current.includes(disp.displayGroupId)) {
-                    displayProperty.push({
-                      exist: true,
-                      title: s.title,
-                      id: s.id,
-                      isPriority: s.isPriority,
-                      displayOrder: s.displayOrder,
-                      syncTimezone: s.syncTimezone,
-                      displayGroups: s.displayGroups,
-                      recurrenceType: s.recurrenceType,
-                      recurrenceRepeatsOn: s.recurrenceRepeatsOn,
-                      campaign: s.campaign,
-                    });
+                    if (
+                      _.find(displayProperty, ["campaign", s.campaign]) ===
+                      undefined
+                    ) {
+                      displayProperty.push({
+                        exist: true,
+                        title: s.title,
+                        id: s.id,
+                        isPriority: s.isPriority,
+                        displayOrder: s.displayOrder,
+                        syncTimezone: s.syncTimezone,
+                        displayGroups: s.displayGroups,
+                        recurrenceType: s.recurrenceType,
+                        recurrenceRepeatsOn: s.recurrenceRepeatsOn,
+                        campaign: s.campaign,
+                      });
+                    }
                   } else if (this.current.includes(0)) {
                     if (
                       _.find(displayProperty, ["campaign", s.campaign]) ===

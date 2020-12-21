@@ -32587,18 +32587,20 @@ __WEBPACK_IMPORTED_MODULE_2_dayjs___default.a.extend(__WEBPACK_IMPORTED_MODULE_5
             if (dateInUnix.isBetween(__WEBPACK_IMPORTED_MODULE_2_dayjs___default()(s.displayStart), __WEBPACK_IMPORTED_MODULE_2_dayjs___default()(s.displayEnd)) || __WEBPACK_IMPORTED_MODULE_2_dayjs___default()(s.displayStart).date() === dateInUnix.date() || __WEBPACK_IMPORTED_MODULE_2_dayjs___default()(s.displayEnd).date() === dateInUnix.date()) {
               s.displayGroups.map(function (disp) {
                 if (_this4.current.includes(disp.displayGroupId)) {
-                  displayProperty.push({
-                    exist: true,
-                    title: s.title,
-                    id: s.id,
-                    isPriority: s.isPriority,
-                    displayOrder: s.displayOrder,
-                    syncTimezone: s.syncTimezone,
-                    displayGroups: s.displayGroups,
-                    recurrenceType: s.recurrenceType,
-                    recurrenceRepeatsOn: s.recurrenceRepeatsOn,
-                    campaign: s.campaign
-                  });
+                  if (__WEBPACK_IMPORTED_MODULE_1_lodash___default.a.find(displayProperty, ["campaign", s.campaign]) === undefined) {
+                    displayProperty.push({
+                      exist: true,
+                      title: s.title,
+                      id: s.id,
+                      isPriority: s.isPriority,
+                      displayOrder: s.displayOrder,
+                      syncTimezone: s.syncTimezone,
+                      displayGroups: s.displayGroups,
+                      recurrenceType: s.recurrenceType,
+                      recurrenceRepeatsOn: s.recurrenceRepeatsOn,
+                      campaign: s.campaign
+                    });
+                  }
                 } else if (_this4.current.includes(0)) {
                   if (__WEBPACK_IMPORTED_MODULE_1_lodash___default.a.find(displayProperty, ["campaign", s.campaign]) === undefined) {
                     displayProperty.push({

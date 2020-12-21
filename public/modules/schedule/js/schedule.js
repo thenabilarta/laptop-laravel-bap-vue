@@ -32587,7 +32587,7 @@ __WEBPACK_IMPORTED_MODULE_2_dayjs___default.a.extend(__WEBPACK_IMPORTED_MODULE_5
             if (dateInUnix.isBetween(__WEBPACK_IMPORTED_MODULE_2_dayjs___default()(s.displayStart), __WEBPACK_IMPORTED_MODULE_2_dayjs___default()(s.displayEnd)) || __WEBPACK_IMPORTED_MODULE_2_dayjs___default()(s.displayStart).date() === dateInUnix.date() || __WEBPACK_IMPORTED_MODULE_2_dayjs___default()(s.displayEnd).date() === dateInUnix.date()) {
               s.displayGroups.map(function (disp) {
                 if (_this4.current.includes(disp.displayGroupId)) {
-                  if (__WEBPACK_IMPORTED_MODULE_1_lodash___default.a.find(displayProperty, ["campaign", s.campaign]) === undefined) {
+                  if (__WEBPACK_IMPORTED_MODULE_1_lodash___default.a.find(displayProperty, ["campaign", s.campaign]) === undefined || __WEBPACK_IMPORTED_MODULE_1_lodash___default.a.find(displayProperty, ["displayGroups", s.displayGroups]) === undefined) {
                     displayProperty.push({
                       exist: true,
                       title: s.title,
@@ -32602,7 +32602,7 @@ __WEBPACK_IMPORTED_MODULE_2_dayjs___default.a.extend(__WEBPACK_IMPORTED_MODULE_5
                     });
                   }
                 } else if (_this4.current.includes(0)) {
-                  if (__WEBPACK_IMPORTED_MODULE_1_lodash___default.a.find(displayProperty, ["campaign", s.campaign]) === undefined) {
+                  if (__WEBPACK_IMPORTED_MODULE_1_lodash___default.a.find(displayProperty, ["campaign", s.campaign]) === undefined || __WEBPACK_IMPORTED_MODULE_1_lodash___default.a.find(displayProperty, ["displayGroups", s.displayGroups]) === undefined) {
                     displayProperty.push({
                       exist: true,
                       title: s.title,
@@ -33766,7 +33766,9 @@ var render = function() {
             "div",
             { staticClass: "edit-display-modal-actions" },
             [
-              _c("sui-button", [_vm._v("Cancel")]),
+              _c("sui-button", { on: { click: _vm.closeAddEventModal } }, [
+                _vm._v("Cancel")
+              ]),
               _vm._v(" "),
               _c(
                 "sui-button",

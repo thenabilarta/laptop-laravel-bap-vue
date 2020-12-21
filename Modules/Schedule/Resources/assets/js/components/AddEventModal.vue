@@ -104,7 +104,7 @@
         </div>
       </div>
       <div class="edit-display-modal-actions">
-        <sui-button>Cancel</sui-button>
+        <sui-button @click="closeAddEventModal">Cancel</sui-button>
         <sui-button color="green" @click="onAddEventClick"
           >Add Event</sui-button
         >

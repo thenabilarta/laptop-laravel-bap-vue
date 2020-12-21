@@ -537,7 +537,11 @@ export default {
                   if (this.current.includes(disp.displayGroupId)) {
                     if (
                       _.find(displayProperty, ["campaign", s.campaign]) ===
-                      undefined
+                        undefined ||
+                      _.find(displayProperty, [
+                        "displayGroups",
+                        s.displayGroups,
+                      ]) === undefined
                     ) {
                       displayProperty.push({
                         exist: true,
@@ -555,7 +559,11 @@ export default {
                   } else if (this.current.includes(0)) {
                     if (
                       _.find(displayProperty, ["campaign", s.campaign]) ===
-                      undefined
+                        undefined ||
+                      _.find(displayProperty, [
+                        "displayGroups",
+                        s.displayGroups,
+                      ]) === undefined
                     ) {
                       displayProperty.push({
                         exist: true,

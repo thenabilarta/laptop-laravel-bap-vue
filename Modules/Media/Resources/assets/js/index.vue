@@ -123,7 +123,11 @@
             ></sui-dropdown-item>
           </sui-dropdown-menu>
         </sui-dropdown>
-        <i class="fas fa-print"></i>
+        <sui-dropdown icon="print" floating multiple>
+          <sui-dropdown-menu>
+            <sui-dropdown-item @click="createPDF">PDF</sui-dropdown-item>
+          </sui-dropdown-menu>
+        </sui-dropdown>
       </div>
     </div>
     <div class="body" @click.self="onClickBody">
@@ -221,20 +225,37 @@
       </sui-table>
     </div>
     <div class="footer" @click.self="onClickFooter">
-      <sui-button color="green" @click="onClickWithSelected"
-        >With Selected</sui-button
+      <sui-dropdown
+        button
+        text="With Selected"
+        :disabled="isActiveTableRow.length > 0 ? false : true"
       >
+        <sui-dropdown-menu>
+          <sui-dropdown-item @click="onClickWithSelected"
+            >Delete</sui-dropdown-item
+          >
+        </sui-dropdown-menu>
+      </sui-dropdown>
       <div class="pagination">
-        <sui-button @click="onClickIconLeftArrow" icon="left arrow" />
+        <sui-button
+          @click="onClickIconLeftArrow"
+          :disabled="true"
+          icon="left arrow"
+        />
         <span
           v-for="p in pageCount"
+          id="pageNumberFooter"
           :key="p"
           :style="
             p === pageNumber + 1 ? 'font-weight:bold; font-size: 15px' : ''
           "
           >{{ p }}</span
         >
-        <sui-button @click="onClickIconRightArrow" icon="right arrow" />
+        <sui-button
+          :disabled="true"
+          @click="onClickIconRightArrow"
+          icon="right arrow"
+        />
       </div>
     </div>
   </div>
@@ -244,9 +265,13 @@
 import axios from "axios";
 import swal from "sweetalert";
 import _ from "lodash";
+import pdfMake from "pdfmake";
+
 import Modal from "./components/Modal";
 import TableRow from "./components/TableRow";
+
 import "../css/index.css";
+
 export default {
   mounted() {
     axios
@@ -290,7 +315,7 @@ export default {
       isActiveProp: false,
       // pagination
       pageNumber: 0,
-      pageSize: 5,
+      pageSize: 25,
       pageOption: [
         {
           text: "5",
@@ -303,6 +328,14 @@ export default {
         {
           text: "25",
           value: 25,
+        },
+        {
+          text: "50",
+          value: 50,
+        },
+        {
+          text: "100",
+          value: 100,
         },
       ],
     };
@@ -524,6 +557,71 @@ export default {
         this.tableList = sortedMediaBySizeDESC;
         this.tableListSizeASC = true;
       }
+    },
+    createPDF() {
+      const docDefinition = {
+        pageOrientation: "landscape",
+        content: [
+          { text: "Tables", style: "header" },
+          "Official documentation is in progress, this document is just a glimpse of what is possible with pdfmake and its layout engine.",
+          { text: "A simple table", style: "subheader" },
+          "The following table has nothing more than a body array",
+          {
+            style: "tableExample",
+            table: {
+              widths: [30, "*", "*", "*", 50, "*", "*"],
+              heights: [0],
+              body: [
+                [
+                  "ID",
+                  { text: "Media Name", style: "tableHeader" },
+                  "Type",
+                  "Thumbnail",
+                  "Duration",
+                  "Size (kb)",
+                  "Filename",
+                ],
+              ],
+            },
+          },
+        ],
+        styles: {
+          header: {
+            fontSize: 18,
+            bold: true,
+            margin: [0, 0, 0, 10],
+          },
+          subheader: {
+            fontSize: 16,
+            bold: true,
+            margin: [0, 10, 0, 5],
+          },
+          tableExample: {
+            margin: [0, 5, 0, 15],
+            alignment: "center",
+          },
+          tableHeader: {
+            bold: true,
+            fontSize: 13,
+            color: "black",
+            alignment: "center",
+          },
+        },
+      };
+      console.log(docDefinition.content[4].table.body);
+      for (let i = 0; i < this.tableList.length; i++) {
+        docDefinition.content[4].table.body.push([
+          { text: this.tableList[i].media_id },
+          { text: Object.values(this.tableList[i].name) },
+          { text: Object.values(this.tableList[i].type) },
+          { text: Object.values(this.tableList[i].name) },
+          { text: Object.values(this.tableList[i].duration) },
+          { text: Object.values(this.tableList[i].size) },
+          { text: Object.values(this.tableList[i].file_name) },
+        ]);
+        docDefinition.content[4].table.heights.push(30);
+      }
+      pdfMake.createPdf(docDefinition).open();
     },
   },
 };

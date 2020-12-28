@@ -4,7 +4,7 @@
   </div>
   <div v-else>
     <Modal v-if="modal" v-on:closeModal="onCloseModal"></Modal>
-    <div class="header">
+    <div class="header" @click.self="onClickHeader">
       <div class="header-navigation">
         <sui-button primary @click="toggleModal">Add Media</sui-button>
       </div>
@@ -27,7 +27,8 @@
             <sui-dropdown-item>False</sui-dropdown-item>
           </sui-dropdown-menu>
         </sui-dropdown>
-        <sui-input placeholder="Tags" />
+        <sui-dropdown floating v-model="pageSize" :options="pageOption">
+        </sui-dropdown>
       </div>
       <div class="header-icon">
         <sui-dropdown icon="eye" floating multiple>
@@ -125,7 +126,7 @@
         <i class="fas fa-print"></i>
       </div>
     </div>
-    <div class="body">
+    <div class="body" @click.self="onClickBody">
       <sui-table selectable celled>
         <sui-table-header>
           <sui-table-row>
@@ -199,7 +200,7 @@
           </sui-table-row>
         </sui-table-header>
         <TableRow
-          v-for="list in filteredTable ? filteredTable : tableList"
+          v-for="list in inputFilterName ? filteredTable : paginationTableList"
           v-bind:key="list.id"
           v-bind:list="list"
           v-bind:idTableColumn="idTableColumn"
@@ -213,24 +214,39 @@
           v-bind:fileNameTableColumn="fileNameTableColumn"
           v-bind:createdTableColumn="createdTableColumn"
           v-bind:updatedTableColumn="updatedTableColumn"
-          v-on:refreshTable="onUpdate"
+          v-bind:isActiveTableRow="isActiveTableRow"
+          v-bind:isActiveProp="isActiveProp"
+          v-on:onUpdate="onUpdate"
         ></TableRow>
       </sui-table>
     </div>
-    <div class="footer">
-      <sui-button color="green">With Selected</sui-button>
+    <div class="footer" @click.self="onClickFooter">
+      <sui-button color="green" @click="onClickWithSelected"
+        >With Selected</sui-button
+      >
+      <div class="pagination">
+        <sui-button @click="onClickIconLeftArrow" icon="left arrow" />
+        <span
+          v-for="p in pageCount"
+          :key="p"
+          :style="
+            p === pageNumber + 1 ? 'font-weight:bold; font-size: 15px' : ''
+          "
+          >{{ p }}</span
+        >
+        <sui-button @click="onClickIconRightArrow" icon="right arrow" />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import swal from "sweetalert";
 import _ from "lodash";
-
 import Modal from "./components/Modal";
 import TableRow from "./components/TableRow";
 import "../css/index.css";
-
 export default {
   mounted() {
     axios
@@ -256,13 +272,10 @@ export default {
       fileNameTableColumn: true,
       createdTableColumn: false,
       updatedTableColumn: false,
-
       // Data from database
       tableList: null,
-
       // Show Modal
       modal: false,
-
       // Sorting table
       sortTableListId: true,
       sortTableListName: false,
@@ -270,9 +283,28 @@ export default {
       tableListIdASC: false,
       tableListNameASC: true,
       tableListSizeASC: true,
-
       // filter
       inputFilterName: "",
+      // table Row
+      isActiveTableRow: [],
+      isActiveProp: false,
+      // pagination
+      pageNumber: 0,
+      pageSize: 5,
+      pageOption: [
+        {
+          text: "5",
+          value: 5,
+        },
+        {
+          text: "10",
+          value: 10,
+        },
+        {
+          text: "25",
+          value: 25,
+        },
+      ],
     };
   },
   computed: {
@@ -281,8 +313,34 @@ export default {
         return t.name.match(this.inputFilterName);
       });
     },
+    paginationTableList: function() {
+      const start = this.pageNumber * this.pageSize,
+        end = start + this.pageSize;
+      let newTableList = this.tableList.slice(start, end);
+      return newTableList;
+    },
+    pageCount() {
+      let l = this.tableList.length;
+      let pageCount = Math.ceil(l / this.pageSize);
+      let pageNumber = [];
+      for (let i = 1; pageCount - i >= 0; i++) {
+        pageNumber.push(i);
+      }
+      return pageNumber;
+    },
   },
   methods: {
+    onClickIconLeftArrow() {
+      this.pageNumber--;
+      console.log(this.pageNumber);
+    },
+    onClickIconRightArrow() {
+      this.pageNumber++;
+      console.log(this.pageNumber);
+    },
+    tableListPagination() {
+      this.tableList = this.tableList.slice(10, 13);
+    },
     showIdTableColumn() {
       this.idTableColumn = !this.idTableColumn;
     },
@@ -315,6 +373,51 @@ export default {
     },
     showUpdatedTableColumn() {
       this.updatedTableColumn = !this.updatedTableColumn;
+    },
+    onClickFooter() {
+      console.log("Footer");
+      this.isActiveProp = !this.isActiveProp;
+      this.isActiveTableRow = [];
+    },
+    onClickHeader() {
+      console.log("Header");
+      this.isActiveProp = !this.isActiveProp;
+      this.isActiveTableRow = [];
+    },
+    onClickBody() {
+      console.log("Body");
+      this.isActiveProp = !this.isActiveProp;
+      this.isActiveTableRow = [];
+    },
+    onClickWithSelected() {
+      console.log(this.isActiveTableRow);
+      swal(
+        "Do you want to delete media with ID " +
+          [...this.isActiveTableRow].join(", ") +
+          " ?",
+        {
+          buttons: {
+            Cancel: true,
+            Delete: {
+              value: "delete",
+            },
+          },
+        }
+      ).then(async (value) => {
+        switch (value) {
+          case "delete":
+            console.log("DELETED GAN");
+            await this.isActiveTableRow.map((a) => {
+              axios
+                .get("http://127.0.0.1:8000/media/delete/" + a)
+                .then((res) => console.log(res));
+            });
+            await this.onUpdate();
+            break;
+          default:
+            console.log("Cancelled");
+        }
+      });
     },
     toggleModal() {
       this.modal = !this.modal;

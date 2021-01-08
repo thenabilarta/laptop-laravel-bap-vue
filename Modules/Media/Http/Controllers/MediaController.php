@@ -47,7 +47,7 @@ class MediaController extends AppBaseController
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-            CURLOPT_URL => 'http://192.168.44.127/xibo-cms/web/api/library?length=100',
+            CURLOPT_URL => 'http://192.168.44.127/xibo-cms/web/api/library?length=10000',
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,

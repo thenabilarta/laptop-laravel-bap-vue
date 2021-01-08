@@ -1,6 +1,6 @@
 <template>
   <div class="edit-table-modal" @click.self="closeModal">
-    <div class="edit-table-modal-content" @click.self="modalContent">
+    <div class="edit-table-modal-content" @click="modalContent">
       <div class="edit-table-modal-header">
         <h1>Edit Media</h1>
       </div>
@@ -75,9 +75,11 @@
               form.duration <= 0 ||
               form.listName.split('').length > 50
           "
-          >Replace</sui-button
+          >Save</sui-button
         >
-        <sui-button size="small" color="yellow">Cancel</sui-button>
+        <sui-button @click="closeModal" size="small" color="yellow"
+          >Cancel</sui-button
+        >
         <sui-button size="small" color="teal">Help</sui-button>
       </div>
     </div>

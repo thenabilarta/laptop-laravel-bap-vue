@@ -4,6 +4,7 @@
       v-if="list"
       @click="onClickSingleTableRow(list.mediaId)"
       :active="isActive"
+      @contextmenu.prevent="klikKanan"
     >
       <sui-table-cell v-if="idTableColumn">{{ list.mediaId }}</sui-table-cell>
       <sui-table-cell v-if="nameTableColumn">{{ list.name }}</sui-table-cell>
@@ -98,6 +99,11 @@ export default {
     };
   },
   methods: {
+    klikKanan() {
+      if (this.isActive === true) {
+        this.$emit("rightClick");
+      }
+    },
     toDelete() {
       console.log(this.list.mediaId);
       swal("Do you want to delete this media?", {

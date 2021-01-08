@@ -25,8 +25,12 @@
             <p v-else>Failed, change the image name</p>
           </div>
           <div class="actions">
-            <sui-icon @click="uploadSingle(f)" name="cloud upload" />
-            <sui-icon name="times" />
+            <sui-icon
+              v-if="f.uploadResult !== 'success'"
+              @click="uploadSingle(f)"
+              name="cloud upload"
+            />
+            <sui-icon name="times" @click="removeSingle(index)" />
           </div>
         </div>
       </div>
@@ -43,8 +47,18 @@
           ref="file"
           multiple
         />
-        <sui-button primary @click="uploadMultiple">Upload All</sui-button>
-        <sui-button color="yellow">Cancel All</sui-button>
+        <sui-button
+          :disabled="file.length === 0"
+          primary
+          @click="uploadMultiple"
+          >Upload All</sui-button
+        >
+        <sui-button
+          :disabled="file.length === 0"
+          color="yellow"
+          @click="removeAll"
+          >Cancel All</sui-button
+        >
       </div>
     </div>
   </div>
@@ -112,6 +126,12 @@ export default {
         });
       }
       console.log(this.file);
+    },
+    removeSingle(f) {
+      this.file.splice(f, 1);
+    },
+    removeAll() {
+      this.file = [];
     },
     uploadSingle(f) {
       // this.uploadError = false;

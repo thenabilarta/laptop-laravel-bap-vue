@@ -22,7 +22,7 @@ body {
 }
 
 .header .header-filter {
-  width: 60%;
+  width: 65%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -56,6 +56,10 @@ body {
 .header .header-icon i {
   font-size: 2rem;
   margin: 0 1rem;
+}
+
+.header .header-icon .table-icon {
+  padding: 0 !important;
 }
 
 .body {
@@ -134,5 +138,17 @@ th {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+
+.inputTags {
+  margin: 0 1rem;
+}
+
+.div-context-menu {
+  display: none;
+  position: absolute;
+  width: 160px;
+  height: 57px;
+  background-color: red;
 }
 /*# sourceMappingURL=index.css.map */

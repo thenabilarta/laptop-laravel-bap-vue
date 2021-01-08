@@ -10,6 +10,7 @@
       </div>
       <div class="header-filter">
         <sui-input
+          autocomplete="off"
           placeholder="Name"
           @keyup="onInputFilterName"
           v-model="inputFilterName"
@@ -23,6 +24,7 @@
           v-model="inputTagName"
           :options="tagFilterOption"
           id="inputTags"
+          class="inputTags"
         />
         <sui-dropdown
           text="Type"
@@ -39,7 +41,7 @@
         <sui-dropdown floating v-model="pageSize" :options="pageOption" />
       </div>
       <div class="header-icon">
-        <sui-dropdown icon="eye" floating multiple>
+        <sui-dropdown icon="eye" floating multiple class="table-icon">
           <sui-dropdown-menu>
             <sui-dropdown-item @click="showIdTableColumn"
               >ID
@@ -139,7 +141,7 @@
             ></sui-dropdown-item>
           </sui-dropdown-menu>
         </sui-dropdown>
-        <sui-dropdown icon="print" floating multiple>
+        <sui-dropdown icon="print" floating multiple class="table-icon">
           <sui-dropdown-menu>
             <sui-dropdown-item @click="createPDF">PDF</sui-dropdown-item>
             <sui-dropdown-item @click="createCSV(csvData)"
@@ -257,6 +259,7 @@
           v-bind:isActiveProp="isActiveProp"
           v-on:onUpdate="onUpdate"
           v-on:refreshTable="onUpdate"
+          v-on:rightClick="rightClick"
         ></TableRow>
       </sui-table>
     </div>
@@ -291,7 +294,11 @@
         <sui-button
           @click="onClickIconRightArrow"
           icon="right arrow"
-          :disabled="pageNumber + 1 === pageCount ? true : false"
+          :disabled="
+            pageNumber + 1 === pageCount || this.tableListComputed.length === 0
+              ? true
+              : false
+          "
         />
       </div>
     </div>
@@ -311,6 +318,7 @@ export default {
     axios
       .get("http://127.0.0.1:8000/media/data")
       .then((res) => (this.tableList = res.data))
+      .then(() => console.log(this.tableList))
       .then(() => (this.tableDataLoading = false))
       .then(() => this.orderByTableListId());
   },
@@ -389,14 +397,6 @@ export default {
       pageCount: [],
       pageOption: [
         {
-          text: "5",
-          value: 5,
-        },
-        {
-          text: "10",
-          value: 10,
-        },
-        {
           text: "25",
           value: 25,
         },
@@ -412,6 +412,14 @@ export default {
     };
   },
   watch: {
+    tableListComputed: function() {
+      if (this.tableListComputed.length === 0) {
+        this.pageNumber = 0;
+      }
+    },
+    retiredMediaModel: function() {
+      this.pageNumber = 0;
+    },
     pageSize: function() {
       this.pageNumber = 0;
     },
@@ -549,6 +557,9 @@ export default {
     },
   },
   methods: {
+    rightClick() {
+      console.log(this.isActiveTableRow);
+    },
     onClickPageNumber(p) {
       this.pageNumber = p - 1;
     },

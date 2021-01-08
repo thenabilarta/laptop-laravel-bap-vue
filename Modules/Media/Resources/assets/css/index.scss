@@ -33,7 +33,7 @@ body {
   justify-content: space-between;
 
   .header-filter {
-    width: 60%;
+    width: 65%;
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -55,6 +55,10 @@ body {
     i {
       font-size: 2rem;
       margin: 0 1rem;
+    }
+
+    .table-icon {
+      padding: 0 !important;
     }
   }
 }
@@ -111,4 +115,16 @@ th {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.inputTags {
+  margin: 0 1rem;
+}
+
+.div-context-menu {
+  display: none;
+  position: absolute;
+  width: 160px;
+  height: 57px;
+  background-color: red;
 }

@@ -108674,6 +108674,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -108688,6 +108695,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
     __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get("http://127.0.0.1:8000/media/data").then(function (res) {
       return _this.tableList = res.data;
+    }).then(function () {
+      return console.log(_this.tableList);
     }).then(function () {
       return _this.tableDataLoading = false;
     }).then(function () {
@@ -108762,12 +108771,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       pageSize: 25,
       pageCount: [],
       pageOption: [{
-        text: "5",
-        value: 5
-      }, {
-        text: "10",
-        value: 10
-      }, {
         text: "25",
         value: 25
       }, {
@@ -108781,6 +108784,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
 
   watch: (_watch = {
+    tableListComputed: function tableListComputed() {
+      if (this.tableListComputed.length === 0) {
+        this.pageNumber = 0;
+      }
+    },
+    retiredMediaModel: function retiredMediaModel() {
+      this.pageNumber = 0;
+    },
     pageSize: function pageSize() {
       this.pageNumber = 0;
     },
@@ -108927,6 +108938,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   },
   methods: {
+    rightClick: function rightClick() {
+      console.log(this.isActiveTableRow);
+    },
     onClickPageNumber: function onClickPageNumber(p) {
       this.pageNumber = p - 1;
     },
@@ -110206,6 +110220,20 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -110266,6 +110294,12 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
         });
       }
       console.log(this.file);
+    },
+    removeSingle: function removeSingle(f) {
+      this.file.splice(f, 1);
+    },
+    removeAll: function removeAll() {
+      this.file = [];
     },
     uploadSingle: function uploadSingle(f) {
       // this.uploadError = false;
@@ -110440,16 +110474,25 @@ var render = function() {
                 "div",
                 { staticClass: "actions" },
                 [
+                  f.uploadResult !== "success"
+                    ? _c("sui-icon", {
+                        attrs: { name: "cloud upload" },
+                        on: {
+                          click: function($event) {
+                            return _vm.uploadSingle(f)
+                          }
+                        }
+                      })
+                    : _vm._e(),
+                  _vm._v(" "),
                   _c("sui-icon", {
-                    attrs: { name: "cloud upload" },
+                    attrs: { name: "times" },
                     on: {
                       click: function($event) {
-                        return _vm.uploadSingle(f)
+                        return _vm.removeSingle(index)
                       }
                     }
-                  }),
-                  _vm._v(" "),
-                  _c("sui-icon", { attrs: { name: "times" } })
+                  })
                 ],
                 1
               )
@@ -110492,13 +110535,21 @@ var render = function() {
             _vm._v(" "),
             _c(
               "sui-button",
-              { attrs: { primary: "" }, on: { click: _vm.uploadMultiple } },
+              {
+                attrs: { disabled: _vm.file.length === 0, primary: "" },
+                on: { click: _vm.uploadMultiple }
+              },
               [_vm._v("Upload All")]
             ),
             _vm._v(" "),
-            _c("sui-button", { attrs: { color: "yellow" } }, [
-              _vm._v("Cancel All")
-            ])
+            _c(
+              "sui-button",
+              {
+                attrs: { disabled: _vm.file.length === 0, color: "yellow" },
+                on: { click: _vm.removeAll }
+              },
+              [_vm._v("Cancel All")]
+            )
           ],
           1
         )
@@ -110653,6 +110704,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
+//
 
 
 
@@ -110695,6 +110747,11 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
   },
 
   methods: {
+    klikKanan: function klikKanan() {
+      if (this.isActive === true) {
+        this.$emit("rightClick");
+      }
+    },
     toDelete: function toDelete() {
       var _this = this;
 
@@ -110960,6 +111017,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 
@@ -111099,14 +111158,7 @@ var render = function() {
         "div",
         {
           staticClass: "edit-table-modal-content",
-          on: {
-            click: function($event) {
-              if ($event.target !== $event.currentTarget) {
-                return null
-              }
-              return _vm.modalContent($event)
-            }
-          }
+          on: { click: _vm.modalContent }
         },
         [
           _vm._m(0),
@@ -111260,12 +111312,17 @@ var render = function() {
                   },
                   on: { click: _vm.formSubmit }
                 },
-                [_vm._v("Replace")]
+                [_vm._v("Save")]
               ),
               _vm._v(" "),
-              _c("sui-button", { attrs: { size: "small", color: "yellow" } }, [
-                _vm._v("Cancel")
-              ]),
+              _c(
+                "sui-button",
+                {
+                  attrs: { size: "small", color: "yellow" },
+                  on: { click: _vm.closeModal }
+                },
+                [_vm._v("Cancel")]
+              ),
               _vm._v(" "),
               _c("sui-button", { attrs: { size: "small", color: "teal" } }, [
                 _vm._v("Help")
@@ -111361,6 +111418,10 @@ var render = function() {
               on: {
                 click: function($event) {
                   return _vm.onClickSingleTableRow(_vm.list.mediaId)
+                },
+                contextmenu: function($event) {
+                  $event.preventDefault()
+                  return _vm.klikKanan($event)
                 }
               }
             },
@@ -111532,7 +111593,7 @@ exports = module.exports = __webpack_require__(3)(false);
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&display=swap);", ""]);
 
 // module
-exports.push([module.i, "* {\n  padding: 0;\n  margin: 0;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n}\n\nhtml,\nbody {\n  font-size: 14px;\n  font-family: \"Lato\", sans-serif;\n}\n\n.header {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n\n.header .header-filter {\n  width: 60%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -ms-flex-pack: distribute;\n      justify-content: space-around;\n}\n\n.header .header-filter .ui.input > input {\n  max-width: 120px;\n}\n\n.header .header-filter i {\n  margin: 0 1rem;\n}\n\n.header .header-icon {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n}\n\n.header .header-icon i {\n  font-size: 2rem;\n  margin: 0 1rem;\n}\n\n.body {\n  padding: 20px !important;\n}\n\n.td-table-image {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\n.table-image {\n  height: 30px;\n  margin: 0;\n  padding: 0;\n}\n\n.footer {\n  min-height: 50px;\n  padding: 0 20px 20px 20px;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\n.footer #pageNumberFooter {\n  font-size: 1rem;\n  padding: 0 1rem;\n  cursor: pointer;\n}\n\ni,\nth {\n  cursor: pointer !important;\n}\n\n.loading {\n  height: 70vh;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\n#inputTags i {\n  display: none !important;\n}\n\n.loading {\n  width: 100%;\n  height: 100px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}", ""]);
+exports.push([module.i, "* {\n  padding: 0;\n  margin: 0;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n}\n\nhtml,\nbody {\n  font-size: 14px;\n  font-family: \"Lato\", sans-serif;\n}\n\n.header {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n\n.header .header-filter {\n  width: 65%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -ms-flex-pack: distribute;\n      justify-content: space-around;\n}\n\n.header .header-filter .ui.input > input {\n  max-width: 120px;\n}\n\n.header .header-filter i {\n  margin: 0 1rem;\n}\n\n.header .header-icon {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n}\n\n.header .header-icon i {\n  font-size: 2rem;\n  margin: 0 1rem;\n}\n\n.header .header-icon .table-icon {\n  padding: 0 !important;\n}\n\n.body {\n  padding: 20px !important;\n}\n\n.td-table-image {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\n.table-image {\n  height: 30px;\n  margin: 0;\n  padding: 0;\n}\n\n.footer {\n  min-height: 50px;\n  padding: 0 20px 20px 20px;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\n.footer #pageNumberFooter {\n  font-size: 1rem;\n  padding: 0 1rem;\n  cursor: pointer;\n}\n\ni,\nth {\n  cursor: pointer !important;\n}\n\n.loading {\n  height: 70vh;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\n#inputTags i {\n  display: none !important;\n}\n\n.loading {\n  width: 100%;\n  height: 100px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\n.inputTags {\n  margin: 0 1rem;\n}\n\n.div-context-menu {\n  display: none;\n  position: absolute;\n  width: 160px;\n  height: 57px;\n  background-color: red;\n}", ""]);
 
 // exports
 
@@ -111595,7 +111656,7 @@ var render = function() {
                 { staticClass: "header-filter" },
                 [
                   _c("sui-input", {
-                    attrs: { placeholder: "Name" },
+                    attrs: { autocomplete: "off", placeholder: "Name" },
                     on: { keyup: _vm.onInputFilterName },
                     model: {
                       value: _vm.inputFilterName,
@@ -111607,6 +111668,7 @@ var render = function() {
                   }),
                   _vm._v(" "),
                   _c("sui-dropdown", {
+                    staticClass: "inputTags",
                     attrs: {
                       multiple: "",
                       placeholder: "Tags",
@@ -111675,7 +111737,10 @@ var render = function() {
                 [
                   _c(
                     "sui-dropdown",
-                    { attrs: { icon: "eye", floating: "", multiple: "" } },
+                    {
+                      staticClass: "table-icon",
+                      attrs: { icon: "eye", floating: "", multiple: "" }
+                    },
                     [
                       _c(
                         "sui-dropdown-menu",
@@ -111856,7 +111921,10 @@ var render = function() {
                   _vm._v(" "),
                   _c(
                     "sui-dropdown",
-                    { attrs: { icon: "print", floating: "", multiple: "" } },
+                    {
+                      staticClass: "table-icon",
+                      attrs: { icon: "print", floating: "", multiple: "" }
+                    },
                     [
                       _c(
                         "sui-dropdown-menu",
@@ -112097,7 +112165,8 @@ var render = function() {
                           },
                           on: {
                             onUpdate: _vm.onUpdate,
-                            refreshTable: _vm.onUpdate
+                            refreshTable: _vm.onUpdate,
+                            rightClick: _vm.rightClick
                           }
                         })
                       })
@@ -112183,7 +112252,10 @@ var render = function() {
                     attrs: {
                       icon: "right arrow",
                       disabled:
-                        _vm.pageNumber + 1 === _vm.pageCount ? true : false
+                        _vm.pageNumber + 1 === _vm.pageCount ||
+                        this.tableListComputed.length === 0
+                          ? true
+                          : false
                     },
                     on: { click: _vm.onClickIconRightArrow }
                   })

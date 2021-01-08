@@ -16,9 +16,7 @@
               v-model="f.fileInputName"
               @keydown="inputChangeName(f)"
             />
-            <p v-if="f.status === 'ready'">
-              Ready to Upload
-            </p>
+            <p v-if="f.status === 'ready'">Ready to Upload</p>
             <sui-progress
               v-else-if="f.status === 'uploading'"
               :percent="f.uploadPercentage"
@@ -55,7 +53,6 @@
 <script>
 import axios from "axios";
 import "../../css/modal.css";
-
 export default {
   data() {
     return {
@@ -150,7 +147,6 @@ export default {
           }
         });
     },
-
     async uploadMultiple() {
       await this.file.forEach((f) => {
         this.uploadSingle(f);
@@ -164,7 +160,6 @@ export default {
 i.icon {
   height: auto !important;
 }
-
 .ui.progress:last-child {
   margin-bottom: 0 !important;
 }

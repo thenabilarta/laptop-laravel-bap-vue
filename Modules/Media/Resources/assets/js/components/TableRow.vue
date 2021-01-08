@@ -2,33 +2,42 @@
   <sui-table-body>
     <sui-table-row
       v-if="list"
-      @click="onClickSingleTableRow(list.media_id)"
+      @click="onClickSingleTableRow(list.mediaId)"
       :active="isActive"
     >
-      <sui-table-cell v-if="idTableColumn">{{ list.media_id }}</sui-table-cell>
+      <sui-table-cell v-if="idTableColumn">{{ list.mediaId }}</sui-table-cell>
       <sui-table-cell v-if="nameTableColumn">{{ list.name }}</sui-table-cell>
-      <sui-table-cell v-if="typeTableColumn">{{ list.type }}</sui-table-cell>
+      <sui-table-cell v-if="typeTableColumn">{{
+        list.mediaType
+      }}</sui-table-cell>
       <sui-table-cell class="td-table-image" v-if="thumbnailTableColumn">
         <img
+          v-if="list.mediaType === 'image'"
           class="table-image"
-          :src="`/storage/uploads/${list.file_name}`"
+          :src="`http://localhost/xibo-data/${list.storedAs}`"
           alt=""
         />
+        <p v-else>N/A</p>
+      </sui-table-cell>
+      <sui-table-cell v-if="tagsTableColumn"
+        >{{ list.tags ? list.tags.split(",").join(", ") : "" }}
       </sui-table-cell>
       <sui-table-cell v-if="durationTableColumn">{{
         list.duration
       }}</sui-table-cell>
-      <sui-table-cell v-if="sizeTableColumn">{{ list.size }}</sui-table-cell>
+      <sui-table-cell v-if="sizeTableColumn">{{
+        (list.fileSize / 1000).toFixed(1) + " kb"
+      }}</sui-table-cell>
       <sui-table-cell v-if="ownerTableColumn">Admin</sui-table-cell>
       <sui-table-cell v-if="permissionTableColumn">Null</sui-table-cell>
       <sui-table-cell v-if="fileNameTableColumn">{{
-        list.file_name
+        list.fileName
       }}</sui-table-cell>
       <sui-table-cell v-if="createdTableColumn">{{
-        list.created_at
+        list.createdDt
       }}</sui-table-cell>
       <sui-table-cell v-if="updatedTableColumn">{{
-        list.updated_at
+        list.modifiedDt
       }}</sui-table-cell>
       <sui-table-cell>
         <sui-dropdown floating>
@@ -59,9 +68,6 @@ export default {
     EditTableRow: EditTableRow,
   },
   watch: {
-    list: function() {
-      console.log("Changed");
-    },
     isActiveProp: function() {
       this.isActive = false;
     },
@@ -75,6 +81,7 @@ export default {
     typeTableColumn: Boolean,
     thumbnailTableColumn: Boolean,
     durationTableColumn: Boolean,
+    tagsTableColumn: Boolean,
     sizeTableColumn: Boolean,
     ownerTableColumn: Boolean,
     permissionTableColumn: Boolean,
@@ -92,7 +99,7 @@ export default {
   },
   methods: {
     toDelete() {
-      console.log(this.list.media_id);
+      console.log(this.list.mediaId);
       swal("Do you want to delete this media?", {
         buttons: {
           Cancel: true,
@@ -104,7 +111,7 @@ export default {
         switch (value) {
           case "delete":
             await axios
-              .get("http://127.0.0.1:8000/media/delete/" + this.list.media_id)
+              .get("http://127.0.0.1:8000/media/delete/" + this.list.mediaId)
               .then((res) => console.log(res))
               .then(() => this.refreshTable());
             break;
@@ -122,7 +129,8 @@ export default {
       this.isEditing = true;
     },
     onCloseModal() {
-      this.isEditing = false;
+      this.$emit("refreshTable");
+      this.refreshTable();
     },
     refreshTable() {
       this.$emit("refreshTable");

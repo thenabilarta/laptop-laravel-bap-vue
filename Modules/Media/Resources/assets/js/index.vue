@@ -14,21 +14,29 @@
           @keyup="onInputFilterName"
           v-model="inputFilterName"
         />
-        <sui-dropdown text="Type" floating>
-          <sui-dropdown-menu>
-            <sui-dropdown-item>Image</sui-dropdown-item>
-            <sui-dropdown-item>PDF</sui-dropdown-item>
-            <sui-dropdown-item>Video</sui-dropdown-item>
-          </sui-dropdown-menu>
-        </sui-dropdown>
-        <sui-dropdown text="Retired" floating>
-          <sui-dropdown-menu>
-            <sui-dropdown-item>True</sui-dropdown-item>
-            <sui-dropdown-item>False</sui-dropdown-item>
-          </sui-dropdown-menu>
-        </sui-dropdown>
-        <sui-dropdown floating v-model="pageSize" :options="pageOption">
-        </sui-dropdown>
+        <sui-dropdown
+          multiple
+          placeholder="Tags"
+          search
+          selection
+          allow-additions
+          v-model="inputTagName"
+          :options="tagFilterOption"
+          id="inputTags"
+        />
+        <sui-dropdown
+          text="Type"
+          floating
+          v-model="mediaType"
+          :options="mediaTypeOption"
+        />
+        <sui-dropdown
+          text="Retired"
+          floating
+          v-model="retiredMediaModel"
+          :options="retiredFilterOption"
+        />
+        <sui-dropdown floating v-model="pageSize" :options="pageOption" />
       </div>
       <div class="header-icon">
         <sui-dropdown icon="eye" floating multiple>
@@ -69,6 +77,14 @@
               >Duration
               <i
                 v-if="durationTableColumn"
+                class="fa fa-check"
+                style="font-size: 14px"
+              ></i
+            ></sui-dropdown-item>
+            <sui-dropdown-item @click="showTagsTableColumn"
+              >Tags
+              <i
+                v-if="tagsTableColumn"
                 class="fa fa-check"
                 style="font-size: 14px"
               ></i
@@ -126,12 +142,18 @@
         <sui-dropdown icon="print" floating multiple>
           <sui-dropdown-menu>
             <sui-dropdown-item @click="createPDF">PDF</sui-dropdown-item>
+            <sui-dropdown-item @click="createCSV(csvData)"
+              >CSV</sui-dropdown-item
+            >
           </sui-dropdown-menu>
         </sui-dropdown>
       </div>
     </div>
     <div class="body" @click.self="onClickBody">
-      <sui-table selectable celled>
+      <div class="loading" v-if="tableDataLoading">
+        <sui-loader active centered inline />
+      </div>
+      <sui-table v-else selectable celled>
         <sui-table-header>
           <sui-table-row>
             <sui-table-header-cell
@@ -172,9 +194,21 @@
             <sui-table-header-cell v-if="thumbnailTableColumn"
               >Thumbnail</sui-table-header-cell
             >
-            <sui-table-header-cell v-if="durationTableColumn"
-              >Duration</sui-table-header-cell
+            <sui-table-header-cell v-if="tagsTableColumn"
+              >Tags</sui-table-header-cell
             >
+            <sui-table-header-cell
+              @click="orderByTableListDuration"
+              v-if="durationTableColumn"
+              >Duration
+              <sui-icon
+                v-if="sortTableListDuration"
+                :name="
+                  this.tableListDurationASC
+                    ? 'sort amount down'
+                    : 'sort amount up'
+                "
+            /></sui-table-header-cell>
             <sui-table-header-cell
               @click="orderByTableListSize"
               v-if="sizeTableColumn"
@@ -204,7 +238,7 @@
           </sui-table-row>
         </sui-table-header>
         <TableRow
-          v-for="list in inputFilterName ? filteredTable : paginationTableList"
+          v-for="list in tableListComputed"
           v-bind:key="list.id"
           v-bind:list="list"
           v-bind:idTableColumn="idTableColumn"
@@ -212,6 +246,7 @@
           v-bind:typeTableColumn="typeTableColumn"
           v-bind:thumbnailTableColumn="thumbnailTableColumn"
           v-bind:durationTableColumn="durationTableColumn"
+          v-bind:tagsTableColumn="tagsTableColumn"
           v-bind:sizeTableColumn="sizeTableColumn"
           v-bind:ownerTableColumn="ownerTableColumn"
           v-bind:permissionTableColumn="permissionTableColumn"
@@ -221,6 +256,7 @@
           v-bind:isActiveTableRow="isActiveTableRow"
           v-bind:isActiveProp="isActiveProp"
           v-on:onUpdate="onUpdate"
+          v-on:refreshTable="onUpdate"
         ></TableRow>
       </sui-table>
     </div>
@@ -239,8 +275,8 @@
       <div class="pagination">
         <sui-button
           @click="onClickIconLeftArrow"
-          :disabled="true"
           icon="left arrow"
+          :disabled="pageNumber === 0 ? true : false"
         />
         <span
           v-for="p in pageCount"
@@ -249,12 +285,13 @@
           :style="
             p === pageNumber + 1 ? 'font-weight:bold; font-size: 15px' : ''
           "
+          @click="onClickPageNumber(p)"
           >{{ p }}</span
         >
         <sui-button
-          :disabled="true"
           @click="onClickIconRightArrow"
           icon="right arrow"
+          :disabled="pageNumber + 1 === pageCount ? true : false"
         />
       </div>
     </div>
@@ -266,17 +303,15 @@ import axios from "axios";
 import swal from "sweetalert";
 import _ from "lodash";
 import pdfMake from "pdfmake";
-
 import Modal from "./components/Modal";
 import TableRow from "./components/TableRow";
-
 import "../css/index.css";
-
 export default {
   mounted() {
     axios
       .get("http://127.0.0.1:8000/media/data")
       .then((res) => (this.tableList = res.data))
+      .then(() => (this.tableDataLoading = false))
       .then(() => this.orderByTableListId());
   },
   components: {
@@ -285,12 +320,14 @@ export default {
   },
   data() {
     return {
+      tableDataLoading: true,
       // Listing what to show
       idTableColumn: true,
       nameTableColumn: true,
       typeTableColumn: false,
       thumbnailTableColumn: true,
       durationTableColumn: true,
+      tagsTableColumn: false,
       sizeTableColumn: true,
       ownerTableColumn: true,
       permissionTableColumn: true,
@@ -298,24 +335,58 @@ export default {
       createdTableColumn: false,
       updatedTableColumn: false,
       // Data from database
-      tableList: null,
+      tableList: {},
       // Show Modal
       modal: false,
       // Sorting table
       sortTableListId: true,
       sortTableListName: false,
       sortTableListSize: false,
+      sortTableListDuration: false,
       tableListIdASC: false,
       tableListNameASC: true,
       tableListSizeASC: true,
+      tableListDurationASC: false,
       // filter
       inputFilterName: "",
+      inputFilterNameActive: true,
+      inputTagName: [],
+      mediaType: "all",
+      mediaTypeActive: true,
+      mediaTypeOption: [
+        {
+          text: "All",
+          value: "all",
+        },
+        {
+          text: "Image",
+          value: "image",
+        },
+        {
+          text: "Video",
+          value: "video",
+        },
+      ],
+      tagFilterOption: [],
+      mediaTagActive: true,
+      retiredMediaModel: 0,
+      retiredFilterOption: [
+        {
+          text: "Not Retired",
+          value: 0,
+        },
+        {
+          text: "Retired",
+          value: 1,
+        },
+      ],
       // table Row
       isActiveTableRow: [],
       isActiveProp: false,
       // pagination
       pageNumber: 0,
       pageSize: 25,
+      pageCount: [],
       pageOption: [
         {
           text: "5",
@@ -340,29 +411,147 @@ export default {
       ],
     };
   },
+  watch: {
+    pageSize: function() {
+      this.pageNumber = 0;
+    },
+    inputTagName: function() {
+      console.log(this.inputTagName);
+    },
+    pageNumber: function() {
+      console.log(this.pageNumber + "Page number");
+    },
+    inputFilterName: function() {
+      if (this.inputFilterName === "") {
+        this.inputFilterNameActive = true;
+      }
+    },
+    inputTagName: function() {
+      console.log(this.inputTagName);
+      if (this.inputTagName.length === 0) {
+        this.mediaTagActive = true;
+      }
+    },
+    mediaType: function() {
+      this.mediaTypeActive = true;
+    },
+  },
   computed: {
-    filteredTable: function() {
+    tableListComputed() {
+      let originalTableList = this.tableList;
+      let mediaTypeArray;
+      let arrayOfTags = [];
+      if (originalTableList.length > 0) {
+        originalTableList.map((o) => {
+          if (o.tags) {
+            let arrayTags = o.tags.split(",");
+            arrayTags.map((arr) => {
+              if (_.indexOf(arrayOfTags, arr) < 0) {
+                arrayOfTags.push({
+                  text: arr,
+                  value: arr,
+                });
+              }
+            });
+          }
+        });
+        this.tagFilterOption = _.uniqWith(arrayOfTags, _.isEqual);
+      }
+      if (originalTableList.length > 0) {
+        let retiredMediaArray;
+        if (this.retiredMediaModel === 0) {
+          originalTableList.map((org) => {
+            retiredMediaArray = _.filter(originalTableList, ["retired", "0"]);
+            originalTableList = retiredMediaArray;
+          });
+        } else if (this.retiredMediaModel === 1) {
+          originalTableList.map((org) => {
+            retiredMediaArray = _.filter(originalTableList, ["retired", "1"]);
+            originalTableList = retiredMediaArray;
+          });
+        }
+      }
+      if (this.inputTagName.length > 0) {
+        if (this.mediaTagActive) {
+          this.pageNumber = 0;
+        }
+        this.mediaTagActive = false;
+        let newOriginalArray = [];
+        originalTableList.map((or) => {
+          let tableTagArray = or.tags ? or.tags.split(",") : [];
+          if (this.inputTagName.every((val) => tableTagArray.includes(val))) {
+            newOriginalArray.push(or);
+          }
+        });
+        originalTableList = _.uniqWith(newOriginalArray, _.isEqual);
+      }
+      switch (this.mediaType) {
+        case "image":
+          if (this.mediaTypeActive) {
+            this.pageNumber = 0;
+          }
+          this.mediaTypeActive = false;
+          mediaTypeArray = _.filter(originalTableList, ["mediaType", "image"]);
+          originalTableList = mediaTypeArray;
+          break;
+        case "video":
+          if (this.mediaTypeActive) {
+            this.pageNumber = 0;
+          }
+          this.mediaTypeActive = false;
+          mediaTypeArray = _.filter(originalTableList, ["mediaType", "video"]);
+          originalTableList = mediaTypeArray;
+          break;
+        default:
+          originalTableList;
+      }
+      if (this.inputFilterName) {
+        if (this.inputFilterNameActive) {
+          this.pageNumber = 0;
+        }
+        this.inputFilterNameActive = false;
+        originalTableList = originalTableList.filter((t) => {
+          return t.name.match(this.inputFilterName);
+        });
+      }
+      const start = this.pageNumber * this.pageSize;
+      const end = start + this.pageSize;
+      let tableLength = this.tableList.length > 0 && originalTableList.length;
+      let count = Math.ceil(tableLength / this.pageSize);
+      this.pageCount = count;
+      if (this.tableList.length > 0) {
+        originalTableList = originalTableList.slice(start, end);
+      }
+      return originalTableList;
+    },
+    filteredTableByName: function() {
       return this.tableList.filter((t) => {
         return t.name.match(this.inputFilterName);
       });
     },
-    paginationTableList: function() {
-      const start = this.pageNumber * this.pageSize,
-        end = start + this.pageSize;
-      let newTableList = this.tableList.slice(start, end);
-      return newTableList;
+    filteredTableByTag: function() {
+      return this.tableList.filter((t) => {
+        return t.tags.includes(this.inputTagName);
+      });
     },
-    pageCount() {
-      let l = this.tableList.length;
-      let pageCount = Math.ceil(l / this.pageSize);
-      let pageNumber = [];
-      for (let i = 1; pageCount - i >= 0; i++) {
-        pageNumber.push(i);
-      }
-      return pageNumber;
+    csvData() {
+      return this.tableList.map((item) => ({
+        Media_ID: item.mediaId,
+        Name: item.name,
+        Duration: item.duration,
+        Type: item.mediaType,
+        Size: (item.fileSize / 1000).toFixed(1) + " kb",
+        File_name: item.fileName,
+        Retired: item.retired === "0" ? "false" : "true",
+        Created_at: item.createdDt,
+        Updated_at: item.modifiedDt,
+      }));
     },
   },
   methods: {
+    onClickPageNumber(p) {
+      this.pageNumber = p - 1;
+    },
     onClickIconLeftArrow() {
       this.pageNumber--;
       console.log(this.pageNumber);
@@ -370,9 +559,6 @@ export default {
     onClickIconRightArrow() {
       this.pageNumber++;
       console.log(this.pageNumber);
-    },
-    tableListPagination() {
-      this.tableList = this.tableList.slice(10, 13);
     },
     showIdTableColumn() {
       this.idTableColumn = !this.idTableColumn;
@@ -388,6 +574,9 @@ export default {
     },
     showDurationTableColumn() {
       this.durationTableColumn = !this.durationTableColumn;
+    },
+    showTagsTableColumn() {
+      this.tagsTableColumn = !this.tagsTableColumn;
     },
     showSizeTableColumn() {
       this.sizeTableColumn = !this.sizeTableColumn;
@@ -469,7 +658,12 @@ export default {
       this.modal = false;
       axios
         .get("http://127.0.0.1:8000/media/data")
-        .then((res) => (this.tableList = res.data));
+        .then((res) => (this.tableList = res.data))
+        .then(() => {
+          this.tableListIdASC = false;
+          this.orderByTableListId();
+        });
+      this.isActiveTableRow = [];
     },
     onInputFilterName() {
       console.log(this.inputFilterName);
@@ -478,17 +672,14 @@ export default {
       this.sortTableListName = false;
       this.sortTableListType = false;
       this.sortTableListSize = false;
+      this.sortTableListDuration = false;
       this.sortTableListId = true;
-      let parsedId = _.forEach(this.tableList, (val) => {
-        let number = parseInt(val.media_id);
-        val.media_id = number;
-      });
       if (this.tableListIdASC) {
-        let sortedMediaByIdASC = _.orderBy(parsedId, "media_id", "asc");
+        let sortedMediaByIdASC = _.orderBy(this.tableList, "mediaId", "asc");
         this.tableList = sortedMediaByIdASC;
         this.tableListIdASC = false;
       } else {
-        let sortedMediaByIdDESC = _.orderBy(parsedId, "media_id", "desc");
+        let sortedMediaByIdDESC = _.orderBy(this.tableList, "mediaId", "desc");
         this.tableList = sortedMediaByIdDESC;
         this.tableListIdASC = true;
       }
@@ -497,6 +688,7 @@ export default {
       this.sortTableListId = false;
       this.sortTableListType = false;
       this.sortTableListSize = false;
+      this.sortTableListDuration = false;
       this.sortTableListName = true;
       if (this.tableListNameASC) {
         let sortedTableListByNameASC = _.orderBy(
@@ -520,11 +712,12 @@ export default {
       this.sortTableListSize = false;
       this.sortTableListId = false;
       this.sortTableListName = false;
+      this.sortTableListDuration = false;
       this.sortTableListType = true;
       if (this.tableListTypeASC) {
         let sortedTableListByTypeASC = _.orderBy(
           this.tableList,
-          ["type"],
+          ["mediaType"],
           "asc"
         );
         this.tableList = sortedTableListByTypeASC;
@@ -532,7 +725,7 @@ export default {
       } else {
         let sortedTableListByTypeDESC = _.orderBy(
           this.tableList,
-          ["type"],
+          ["mediaType"],
           "desc"
         );
         this.tableList = sortedTableListByTypeDESC;
@@ -543,19 +736,44 @@ export default {
       this.sortTableListId = false;
       this.sortTableListName = false;
       this.sortTableListType = false;
+      this.sortTableListDuration = false;
       this.sortTableListSize = true;
       let parsedSize = _.forEach(this.tableList, (val) => {
-        let number = parseInt(val.size);
-        val.size = number;
+        let number = parseInt(val.fileSize);
+        return (val.fileSize = number);
       });
       if (this.tableListSizeASC) {
-        let sortedMediaBySizeASC = _.orderBy(parsedSize, "size", "asc");
+        let sortedMediaBySizeASC = _.orderBy(parsedSize, "fileSize", "asc");
         this.tableList = sortedMediaBySizeASC;
         this.tableListSizeASC = false;
       } else {
-        let sortedMediaBySizeDESC = _.orderBy(parsedSize, "size", "desc");
+        let sortedMediaBySizeDESC = _.orderBy(parsedSize, "fileSize", "desc");
         this.tableList = sortedMediaBySizeDESC;
         this.tableListSizeASC = true;
+      }
+    },
+    orderByTableListDuration() {
+      this.sortTableListId = false;
+      this.sortTableListName = false;
+      this.sortTableListType = false;
+      this.sortTableListSize = false;
+      this.sortTableListDuration = true;
+      if (this.tableListDurationASC) {
+        let sortedMediaByDurationASC = _.orderBy(
+          this.tableList,
+          "duration",
+          "asc"
+        );
+        this.tableList = sortedMediaByDurationASC;
+        this.tableListDurationASC = false;
+      } else {
+        let sortedMediaByDurationDESC = _.orderBy(
+          this.tableList,
+          "duration",
+          "desc"
+        );
+        this.tableList = sortedMediaByDurationDESC;
+        this.tableListDurationASC = true;
       }
     },
     createPDF() {
@@ -608,27 +826,69 @@ export default {
           },
         },
       };
-      console.log(docDefinition.content[4].table.body);
       for (let i = 0; i < this.tableList.length; i++) {
-        docDefinition.content[4].table.body.push([
-          { text: this.tableList[i].media_id },
-          { text: Object.values(this.tableList[i].name) },
-          { text: Object.values(this.tableList[i].type) },
-          { text: Object.values(this.tableList[i].name) },
-          { text: Object.values(this.tableList[i].duration) },
-          { text: Object.values(this.tableList[i].size) },
-          { text: Object.values(this.tableList[i].file_name) },
-        ]);
-        docDefinition.content[4].table.heights.push(30);
+        function toDataURL(url, callback) {
+          var xhr = new XMLHttpRequest();
+          xhr.onload = function() {
+            var reader = new FileReader();
+            reader.onloadend = () => {
+              callback(reader.result);
+            };
+            reader.readAsDataURL(xhr.response);
+          };
+          xhr.open("GET", url);
+          xhr.responseType = "blob";
+          xhr.send();
+        }
+        toDataURL(
+          "http://localhost/xibo-data/" + this.tableList[i].storedAs,
+          (dataUrl) => {
+            if (this.tableList[i].mediaType === "image") {
+              docDefinition.content[4].table.body.push([
+                { text: this.tableList[i].mediaId },
+                { text: Object.values(this.tableList[i].name) },
+                { text: Object.values(this.tableList[i].mediaType) },
+                { image: dataUrl, fit: [25, 25] },
+                { text: this.tableList[i].duration },
+                {
+                  text: (this.tableList[i].fileSize / 1000).toFixed(1) + " kb",
+                },
+                { text: Object.values(this.tableList[i].fileName) },
+              ]);
+            } else {
+              docDefinition.content[4].table.body.push([
+                { text: this.tableList[i].mediaId },
+                { text: Object.values(this.tableList[i].name) },
+                { text: Object.values(this.tableList[i].mediaType) },
+                { text: "" },
+                { text: this.tableList[i].duration },
+                {
+                  text: (this.tableList[i].fileSize / 1000).toFixed(1) + " kb",
+                },
+                { text: Object.values(this.tableList[i].fileName) },
+              ]);
+            }
+            if (i === this.tableList.length - 1) {
+              pdfMake.createPdf(docDefinition).open();
+            }
+          }
+        );
       }
-      pdfMake.createPdf(docDefinition).open();
+    },
+    createCSV(arrData) {
+      let csvContent = "data:text/csv;charset=utf-8,";
+      csvContent += [
+        Object.keys(arrData[0]).join(";"),
+        ...arrData.map((item) => Object.values(item).join(";")),
+      ]
+        .join("\n")
+        .replace(/(^\[)|(\]$)/gm, "");
+      const data = encodeURI(csvContent);
+      const link = document.createElement("a");
+      link.setAttribute("href", data);
+      link.setAttribute("download", Math.floor(Math.random() * 1000) + ".csv");
+      link.click();
     },
   },
 };
 </script>
-
-<style scoped>
-.ui.multiple.dropdown {
-  padding: 0 !important;
-}
-</style>

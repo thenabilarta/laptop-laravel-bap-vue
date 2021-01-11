@@ -162,6 +162,53 @@ class MediaController extends AppBaseController
         return response()->json(["status" => "ok"]);
     }
 
+    public function replace(Request $request)
+    {
+        $fileName = request('listName');
+        $mediaId = request('mediaId');
+        $duration = request('duration');
+        $tags = request('tags');
+        $retired = request('retired');
+
+        $file = $request->file('file');
+
+        $file_name = $file->getClientOriginalName();
+        $file_ext = $file->getClientOriginalExtension();
+        $file_path = $file->getRealPath();
+
+        $curl_file =  new CURLFile($file_path, $file_ext, $file_name);
+        $post_data = array(
+            'files' => $curl_file,
+            'name' => $fileName,
+            'oldMediaId' => $mediaId,
+        );
+
+        $target_url = "http://192.168.44.127/xibo-cms/web/api/library";
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $target_url);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            'Content_Type: application/json',
+            'Authorization: Bearer ' . $_SESSION["token"],
+        ));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
+
+        $response = curl_exec($ch);
+        curl_close($ch);
+
+        $contents = $response;
+        $content = json_decode($contents, true);
+
+        if (isset($content["files"][0]["error"])) {
+            return response()->json(["status" => "failed"]);
+        }
+
+        return response()->json(["status" => "ok"]);
+    }
+
     public function delete($id)
     {
         $curl = curl_init();

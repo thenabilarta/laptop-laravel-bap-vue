@@ -111019,6 +111019,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -111032,7 +111054,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         duration: this.list.duration,
         tags: this.list.tags === null ? null : this.list.tags.split(","),
         retired: this.list.retired === "0" ? false : true
-      }
+      },
+      fileBlob: {}
     };
   },
 
@@ -111049,6 +111072,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
 
   methods: {
+    onFileChange: function onFileChange(e) {
+      this.fileBlob = {
+        fileSrc: URL.createObjectURL(e.target.files[0]),
+        fileAttr: e.target.files[0]
+      };
+      this.form.retired = false;
+    },
+    replaceImage: function replaceImage() {
+      console.log("Image clicked");
+    },
     toggleRetired: function toggleRetired() {
       console.log(this.form.retired);
     },
@@ -111075,11 +111108,30 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       } else {
         this.form.retired === "1";
       }
-      __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post("http://127.0.0.1:8000/media/edit", this.form).then(function (res) {
-        return console.log(res.data);
-      }).then(function () {
-        return _this.closeModal();
-      });
+
+      if (this.fileBlob.fileAttr) {
+        var formData = new FormData();
+        var config = {
+          headers: { "content-type": "multipart/form-data" }
+        };
+        formData.append("file", this.fileBlob.fileAttr);
+        formData.append("listName", this.form.listName);
+        formData.append("mediaId", this.form.media_id);
+        formData.append("duration", this.form.duration);
+        formData.append("tags", this.form.tags);
+        formData.append("retired", this.form.retired);
+        __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post("http://127.0.0.1:8000/media/replace", formData, config).then(function (res) {
+          return console.log(res.data);
+        }).then(function () {
+          return _this.closeModal();
+        });
+      } else {
+        __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post("http://127.0.0.1:8000/media/edit", this.form).then(function (res) {
+          return console.log(res.data);
+        }).then(function () {
+          return _this.closeModal();
+        });
+      }
     },
     tableEditBind: function tableEditBind() {
       this.$emit("updateEdit");
@@ -111127,7 +111179,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, ".edit-table-modal {\n  top: 0;\n  bottom: 0;\n  right: 0;\n  left: 0;\n  position: fixed;\n  background-color: rgba(0, 0, 0, 0.5);\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  z-index: 1100 !important;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\n.edit-table-modal .edit-table-modal-content {\n  height: 50%;\n  width: 50%;\n  max-width: 500px;\n  border-radius: 10px;\n  overflow: hidden;\n  background-color: #f5f5f5;\n}\n\n.edit-table-modal .edit-table-modal-content .edit-table-modal-header {\n  height: 15%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  padding: 0 3rem;\n  border-bottom: 1px solid rgba(0, 0, 0, 0.1);\n}\n\n.edit-table-modal .edit-table-modal-content .edit-table-modal-header h1 {\n  font-size: 20px;\n  font-weight: 400;\n  padding: 0 1rem;\n}\n\n.edit-table-modal .edit-table-modal-content .edit-table-modal-body {\n  height: 65%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  padding: 0 3rem;\n}\n\n.edit-table-modal .edit-table-modal-content .edit-table-modal-body .edit-table-modal-body-1 {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  padding: 2rem 0;\n  width: 100%;\n}\n\n.edit-table-modal .edit-table-modal-content .edit-table-modal-body .edit-table-modal-body-1 .edit-table-modal-body-input-name {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: start;\n      -ms-flex-align: start;\n          align-items: flex-start;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  width: 70%;\n}\n\n.edit-table-modal .edit-table-modal-content .edit-table-modal-body .edit-table-modal-body-1 .edit-table-modal-body-input-number {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: start;\n      -ms-flex-align: start;\n          align-items: flex-start;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  width: 25%;\n}\n\n.edit-table-modal .edit-table-modal-content .edit-table-modal-body .edit-table-modal-body-1 .edit-table-modal-body-input-number > * {\n  margin-left: 0 !important;\n}\n\n.edit-table-modal .edit-table-modal-content .edit-table-modal-body .edit-table-modal-body-1 .edit-table-input-name {\n  width: 100% !important;\n}\n\n.edit-table-modal .edit-table-modal-content .edit-table-modal-body .edit-table-modal-body-1 .edit-table-input-number {\n  width: 100% !important;\n  margin-left: 2rem;\n}\n\n.edit-table-modal .edit-table-modal-content .edit-table-modal-body .edit-table-modal-body-1 p {\n  font-size: 12px;\n  color: red;\n}\n\n.edit-table-modal .edit-table-modal-content .edit-table-modal-body .edit-table-modal-body-2 {\n  -webkit-box-flex: 1;\n      -ms-flex: 1;\n          flex: 1;\n}\n\n.edit-table-modal .edit-table-modal-content .edit-table-modal-body .edit-table-modal-body-3 {\n  -webkit-box-flex: 2;\n      -ms-flex: 2;\n          flex: 2;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n}\n\n.edit-table-modal .edit-table-modal-content .edit-table-modal-body .edit-table-modal-body-3 .edit-table-modal-body-3-1 {\n  -webkit-box-flex: 1;\n      -ms-flex: 1;\n          flex: 1;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\n.edit-table-modal .edit-table-modal-content .edit-table-modal-body .edit-table-modal-body-3 .edit-table-modal-body-3-1 input {\n  margin: auto 1rem;\n  width: 15px;\n  height: 15px;\n}\n\n.edit-table-modal .edit-table-modal-content .edit-table-modal-body .edit-table-modal-body-3 .edit-table-modal-body-3-2 {\n  -webkit-box-flex: 1;\n      -ms-flex: 1;\n          flex: 1;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\n.edit-table-modal .edit-table-modal-content .edit-table-modal-body .edit-table-modal-body-3 .edit-table-modal-body-3-2 input {\n  margin: auto 1rem;\n  width: 15px;\n  height: 15px;\n}\n\n.edit-table-modal .edit-table-modal-content .edit-table-modal-actions {\n  height: 20%;\n  padding: 0 8rem;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-pack: distribute;\n      justify-content: space-around;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\ninput {\n  position: static !important;\n  opacity: 1 !important;\n}\n\n[type=\"checkbox\"]:not(.filled-in) + label:after {\n  transform: none !important;\n  -webkit-transform: none !important;\n}\n\n#inputTags i {\n  display: none !important;\n}", ""]);
+exports.push([module.i, ".edit-table-modal {\n  top: 0;\n  bottom: 0;\n  right: 0;\n  left: 0;\n  position: fixed;\n  background-color: rgba(0, 0, 0, 0.5);\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  z-index: 1100 !important;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\n.edit-table-modal .edit-table-modal-content {\n  height: 60%;\n  width: 50%;\n  max-width: 500px;\n  border-radius: 10px;\n  overflow: hidden;\n  background-color: #f5f5f5;\n}\n\n.edit-table-modal .edit-table-modal-content .edit-table-modal-header {\n  height: 15%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  padding: 0 3rem;\n  border-bottom: 1px solid rgba(0, 0, 0, 0.1);\n}\n\n.edit-table-modal .edit-table-modal-content .edit-table-modal-header h1 {\n  font-size: 20px;\n  font-weight: 400;\n  padding: 0 1rem;\n}\n\n.edit-table-modal .edit-table-modal-content .edit-table-modal-body {\n  height: 65%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  padding: 0 3rem;\n}\n\n.edit-table-modal .edit-table-modal-content .edit-table-modal-body .edit-table-modal-body-top {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n\n.edit-table-modal .edit-table-modal-content .edit-table-modal-body .edit-table-modal-body-top .input-replace-image {\n  display: none;\n  opacity: 0;\n}\n\n.edit-table-modal .edit-table-modal-content .edit-table-modal-body .edit-table-modal-body-top .edit-table-modal-input-image {\n  width: 25%;\n  padding: 0.2rem;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  border-radius: 10px;\n  overflow: hidden;\n}\n\n.edit-table-modal .edit-table-modal-content .edit-table-modal-body .edit-table-modal-body-top .edit-table-modal-input-image:hover {\n  opacity: 0.75;\n  cursor: pointer;\n}\n\n.edit-table-modal .edit-table-modal-content .edit-table-modal-body .edit-table-modal-body-top .edit-table-modal-input-image img {\n  width: 100%;\n}\n\n.edit-table-modal .edit-table-modal-content .edit-table-modal-body .edit-table-modal-body-top .edit-table-modal-body-right {\n  width: 70%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  padding-right: 1rem;\n}\n\n.edit-table-modal .edit-table-modal-content .edit-table-modal-body .edit-table-modal-body-top .edit-table-modal-body-right .edit-table-modal-body-1 {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  padding: 1rem 0;\n  width: 100%;\n}\n\n.edit-table-modal .edit-table-modal-content .edit-table-modal-body .edit-table-modal-body-top .edit-table-modal-body-right .edit-table-modal-body-1 .edit-table-modal-body-input-name {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: start;\n      -ms-flex-align: start;\n          align-items: flex-start;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  width: 60%;\n}\n\n.edit-table-modal .edit-table-modal-content .edit-table-modal-body .edit-table-modal-body-top .edit-table-modal-body-right .edit-table-modal-body-1 .edit-table-modal-body-input-number {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: start;\n      -ms-flex-align: start;\n          align-items: flex-start;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  width: 25%;\n}\n\n.edit-table-modal .edit-table-modal-content .edit-table-modal-body .edit-table-modal-body-top .edit-table-modal-body-right .edit-table-modal-body-1 .edit-table-modal-body-input-number > * {\n  margin-left: 0 !important;\n}\n\n.edit-table-modal .edit-table-modal-content .edit-table-modal-body .edit-table-modal-body-top .edit-table-modal-body-right .edit-table-modal-body-1 .edit-table-input-name {\n  width: 100% !important;\n}\n\n.edit-table-modal .edit-table-modal-content .edit-table-modal-body .edit-table-modal-body-top .edit-table-modal-body-right .edit-table-modal-body-1 .edit-table-input-number {\n  width: 100% !important;\n  margin-left: 2rem;\n}\n\n.edit-table-modal .edit-table-modal-content .edit-table-modal-body .edit-table-modal-body-top .edit-table-modal-body-right .edit-table-modal-body-1 p {\n  font-size: 12px;\n  color: red;\n}\n\n.edit-table-modal .edit-table-modal-content .edit-table-modal-body .edit-table-modal-body-top .edit-table-modal-body-right .edit-table-modal-body-2 {\n  -webkit-box-flex: 1;\n      -ms-flex: 1;\n          flex: 1;\n  padding: 1rem 0;\n}\n\n.edit-table-modal .edit-table-modal-content .edit-table-modal-body .edit-table-modal-body-3 {\n  -webkit-box-flex: 2;\n      -ms-flex: 2;\n          flex: 2;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n}\n\n.edit-table-modal .edit-table-modal-content .edit-table-modal-body .edit-table-modal-body-3 .edit-table-modal-body-3-1 {\n  -webkit-box-flex: 1;\n      -ms-flex: 1;\n          flex: 1;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\n.edit-table-modal .edit-table-modal-content .edit-table-modal-body .edit-table-modal-body-3 .edit-table-modal-body-3-1 input {\n  margin: auto 1rem;\n  width: 15px;\n  height: 15px;\n}\n\n.edit-table-modal .edit-table-modal-content .edit-table-modal-body .edit-table-modal-body-3 .edit-table-modal-body-3-2 {\n  -webkit-box-flex: 1;\n      -ms-flex: 1;\n          flex: 1;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\n.edit-table-modal .edit-table-modal-content .edit-table-modal-body .edit-table-modal-body-3 .edit-table-modal-body-3-2 input {\n  margin: auto 1rem;\n  width: 15px;\n  height: 15px;\n}\n\n.edit-table-modal .edit-table-modal-content .edit-table-modal-actions {\n  height: 20%;\n  padding: 0 8rem;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-pack: distribute;\n      justify-content: space-around;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\ninput {\n  position: static !important;\n  opacity: 1 !important;\n}\n\n[type=\"checkbox\"]:not(.filled-in) + label:after {\n  transform: none !important;\n  -webkit-transform: none !important;\n}\n\n#inputTags i {\n  display: none !important;\n}\n\na.active.item {\n  background-color: #f5f5f5 !important;\n}", ""]);
 
 // exports
 
@@ -111164,98 +111216,130 @@ var render = function() {
           _vm._m(0),
           _vm._v(" "),
           _c("div", { staticClass: "edit-table-modal-body" }, [
-            _c("div", { staticClass: "edit-table-modal-body-1" }, [
+            _c("div", { staticClass: "edit-table-modal-body-top" }, [
               _c(
-                "div",
-                { staticClass: "edit-table-modal-body-input-name" },
+                "label",
+                {
+                  staticClass: "edit-table-modal-input-image",
+                  attrs: { for: "replace-image" }
+                },
                 [
-                  _c("sui-input", {
-                    staticClass: "edit-table-input-name",
+                  _c("img", {
                     attrs: {
-                      placeholder: "name",
-                      error:
-                        _vm.form.listName === "" ||
-                        _vm.form.listName.split("").length > 50
-                    },
-                    on: { keydown: _vm.onChangeInput },
-                    model: {
-                      value: _vm.form.listName,
-                      callback: function($$v) {
-                        _vm.$set(_vm.form, "listName", $$v)
-                      },
-                      expression: "form.listName"
+                      src: _vm.fileBlob.fileSrc
+                        ? _vm.fileBlob.fileSrc
+                        : "http://localhost/xibo-data/" + _vm.list.storedAs,
+                      alt: ""
                     }
-                  }),
-                  _vm._v(" "),
-                  _vm.form.listName === ""
-                    ? _c("p", [_vm._v("Nama harus diisi")])
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm.form.listName.split("").length > 50
-                    ? _c("p", [
-                        _vm._v(
-                          "\n            Maksimum nama 50 karakter\n          "
-                        )
-                      ])
-                    : _vm._e()
-                ],
-                1
+                  })
+                ]
               ),
               _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "edit-table-modal-body-input-number" },
-                [
-                  _c("sui-input", {
-                    staticClass: "edit-table-input-number",
-                    attrs: {
-                      type: "number",
-                      placeholder: "duration",
-                      error: _vm.form.duration <= 0
-                    },
-                    model: {
-                      value: _vm.form.duration,
-                      callback: function($$v) {
-                        _vm.$set(_vm.form, "duration", $$v)
-                      },
-                      expression: "form.duration"
-                    }
-                  }),
+              _c("input", {
+                staticClass: "input-replace-image",
+                attrs: {
+                  type: "file",
+                  name: "replace-image",
+                  id: "replace-image"
+                },
+                on: { change: _vm.onFileChange }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "edit-table-modal-body-right" }, [
+                _c("div", { staticClass: "edit-table-modal-body-1" }, [
+                  _c(
+                    "div",
+                    { staticClass: "edit-table-modal-body-input-name" },
+                    [
+                      _c("sui-input", {
+                        staticClass: "edit-table-input-name",
+                        attrs: {
+                          placeholder: "name",
+                          error:
+                            _vm.form.listName === "" ||
+                            _vm.form.listName.split("").length > 50
+                        },
+                        on: { keydown: _vm.onChangeInput },
+                        model: {
+                          value: _vm.form.listName,
+                          callback: function($$v) {
+                            _vm.$set(_vm.form, "listName", $$v)
+                          },
+                          expression: "form.listName"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm.form.listName === ""
+                        ? _c("p", [_vm._v("Nama harus diisi")])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.form.listName.split("").length > 50
+                        ? _c("p", [
+                            _vm._v(
+                              "\n                Maksimum nama 50 karakter\n              "
+                            )
+                          ])
+                        : _vm._e()
+                    ],
+                    1
+                  ),
                   _vm._v(" "),
-                  _vm.form.duration <= 0
-                    ? _c("p", [_vm._v("Durasi harus diisi")])
-                    : _vm._e()
-                ],
-                1
-              )
+                  _c(
+                    "div",
+                    { staticClass: "edit-table-modal-body-input-number" },
+                    [
+                      _c("sui-input", {
+                        staticClass: "edit-table-input-number",
+                        attrs: {
+                          type: "number",
+                          placeholder: "duration",
+                          error: _vm.form.duration <= 0
+                        },
+                        model: {
+                          value: _vm.form.duration,
+                          callback: function($$v) {
+                            _vm.$set(_vm.form, "duration", $$v)
+                          },
+                          expression: "form.duration"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm.form.duration <= 0
+                        ? _c("p", [_vm._v("Durasi harus diisi")])
+                        : _vm._e()
+                    ],
+                    1
+                  )
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "edit-table-modal-body-2" },
+                  [
+                    _c("sui-dropdown", {
+                      attrs: {
+                        multiple: "",
+                        placeholder: "Tags",
+                        fluid: "",
+                        search: "",
+                        selection: "",
+                        "allow-additions": "",
+                        id: "inputTags"
+                      },
+                      on: { keyup: _vm.onChangeInputTags },
+                      model: {
+                        value: _vm.form.tags,
+                        callback: function($$v) {
+                          _vm.$set(_vm.form, "tags", $$v)
+                        },
+                        expression: "form.tags"
+                      }
+                    })
+                  ],
+                  1
+                )
+              ])
             ]),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "edit-table-modal-body-2" },
-              [
-                _c("sui-dropdown", {
-                  attrs: {
-                    multiple: "",
-                    placeholder: "Tags",
-                    fluid: "",
-                    search: "",
-                    selection: "",
-                    "allow-additions": "",
-                    id: "inputTags"
-                  },
-                  on: { keyup: _vm.onChangeInputTags },
-                  model: {
-                    value: _vm.form.tags,
-                    callback: function($$v) {
-                      _vm.$set(_vm.form, "tags", $$v)
-                    },
-                    expression: "form.tags"
-                  }
-                })
-              ],
-              1
-            ),
             _vm._v(" "),
             _c("div", { staticClass: "edit-table-modal-body-3" }, [
               _c(
@@ -111263,7 +111347,11 @@ var render = function() {
                 { staticClass: "edit-table-modal-body-3-1" },
                 [
                   _c("sui-checkbox", {
-                    attrs: { label: "Retired", toggle: "" },
+                    attrs: {
+                      label: "Retired",
+                      toggle: "",
+                      disabled: _vm.fileBlob.fileSrc ? true : false
+                    },
                     on: { change: _vm.toggleRetired },
                     model: {
                       value: _vm.form.retired,

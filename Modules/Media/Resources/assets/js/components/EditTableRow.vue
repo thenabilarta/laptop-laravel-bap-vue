@@ -5,45 +5,66 @@
         <h1>Edit Media</h1>
       </div>
       <div class="edit-table-modal-body">
-        <div class="edit-table-modal-body-1">
-          <div class="edit-table-modal-body-input-name">
-            <sui-input
-              placeholder="name"
-              v-model="form.listName"
-              @keydown="onChangeInput"
-              class="edit-table-input-name"
-              :error="
-                form.listName === '' || form.listName.split('').length > 50
+        <div class="edit-table-modal-body-top">
+          <label class="edit-table-modal-input-image" for="replace-image">
+            <img
+              :src="
+                fileBlob.fileSrc
+                  ? fileBlob.fileSrc
+                  : `http://localhost/xibo-data/${list.storedAs}`
               "
+              alt=""
             />
-            <p v-if="form.listName === ''">Nama harus diisi</p>
-            <p v-if="form.listName.split('').length > 50">
-              Maksimum nama 50 karakter
-            </p>
-          </div>
-          <div class="edit-table-modal-body-input-number">
-            <sui-input
-              type="number"
-              class="edit-table-input-number"
-              v-model="form.duration"
-              placeholder="duration"
-              :error="form.duration <= 0"
-            />
-            <p v-if="form.duration <= 0">Durasi harus diisi</p>
-          </div>
-        </div>
-        <div class="edit-table-modal-body-2">
-          <sui-dropdown
-            multiple
-            placeholder="Tags"
-            fluid
-            search
-            selection
-            allow-additions
-            v-model="form.tags"
-            id="inputTags"
-            @keyup="onChangeInputTags"
+          </label>
+          <input
+            type="file"
+            name="replace-image"
+            id="replace-image"
+            class="input-replace-image"
+            v-on:change="onFileChange"
           />
+          <div class="edit-table-modal-body-right">
+            <div class="edit-table-modal-body-1">
+              <div class="edit-table-modal-body-input-name">
+                <sui-input
+                  placeholder="name"
+                  v-model="form.listName"
+                  @keydown="onChangeInput"
+                  class="edit-table-input-name"
+                  :error="
+                    form.listName === '' || form.listName.split('').length > 50
+                  "
+                />
+                <p v-if="form.listName === ''">Nama harus diisi</p>
+                <p v-if="form.listName.split('').length > 50">
+                  Maksimum nama 50 karakter
+                </p>
+              </div>
+              <div class="edit-table-modal-body-input-number">
+                <sui-input
+                  type="number"
+                  class="edit-table-input-number"
+                  v-model="form.duration"
+                  placeholder="duration"
+                  :error="form.duration <= 0"
+                />
+                <p v-if="form.duration <= 0">Durasi harus diisi</p>
+              </div>
+            </div>
+            <div class="edit-table-modal-body-2">
+              <sui-dropdown
+                multiple
+                placeholder="Tags"
+                fluid
+                search
+                selection
+                allow-additions
+                v-model="form.tags"
+                id="inputTags"
+                @keyup="onChangeInputTags"
+              />
+            </div>
+          </div>
         </div>
         <div class="edit-table-modal-body-3">
           <div class="edit-table-modal-body-3-1">
@@ -52,6 +73,7 @@
               toggle
               @change="toggleRetired"
               v-model="form.retired"
+              :disabled="fileBlob.fileSrc ? true : false"
             />
             <!-- <p>Retired</p> -->
           </div>
@@ -100,6 +122,7 @@ export default {
         tags: this.list.tags === null ? null : this.list.tags.split(","),
         retired: this.list.retired === "0" ? false : true,
       },
+      fileBlob: {},
     };
   },
   props: {
@@ -114,6 +137,16 @@ export default {
     console.log(this.list);
   },
   methods: {
+    onFileChange(e) {
+      this.fileBlob = {
+        fileSrc: URL.createObjectURL(e.target.files[0]),
+        fileAttr: e.target.files[0],
+      };
+      this.form.retired = false;
+    },
+    replaceImage() {
+      console.log("Image clicked");
+    },
     toggleRetired() {
       console.log(this.form.retired);
     },
@@ -138,10 +171,28 @@ export default {
       } else {
         this.form.retired === "1";
       }
-      axios
-        .post("http://127.0.0.1:8000/media/edit", this.form)
-        .then((res) => console.log(res.data))
-        .then(() => this.closeModal());
+
+      if (this.fileBlob.fileAttr) {
+        let formData = new FormData();
+        const config = {
+          headers: { "content-type": "multipart/form-data" },
+        };
+        formData.append("file", this.fileBlob.fileAttr);
+        formData.append("listName", this.form.listName);
+        formData.append("mediaId", this.form.media_id);
+        formData.append("duration", this.form.duration);
+        formData.append("tags", this.form.tags);
+        formData.append("retired", this.form.retired);
+        axios
+          .post("http://127.0.0.1:8000/media/replace", formData, config)
+          .then((res) => console.log(res.data))
+          .then(() => this.closeModal());
+      } else {
+        axios
+          .post("http://127.0.0.1:8000/media/edit", this.form)
+          .then((res) => console.log(res.data))
+          .then(() => this.closeModal());
+      }
     },
     tableEditBind() {
       this.$emit("updateEdit");
